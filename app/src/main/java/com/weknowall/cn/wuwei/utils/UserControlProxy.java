@@ -1,8 +1,6 @@
 package com.weknowall.cn.wuwei.utils;
 
-import com.weknowall.app_data.entity.general.UserEntity;
 import com.weknowall.app_data.utils.UserControl;
-import com.weknowall.app_presenter.entity.general.User;
 
 /**
  * User: laomao
@@ -31,14 +29,14 @@ public class UserControlProxy {
      * 获取登录信息
      * @return
      */
-    public static User getLoginInfo(){
-        User user=new User();
-        UserEntity userEntity = UserControl.getInstance().getLoginInfo();
-        if (userEntity!=null){
-            user.setAck(userEntity.getAck());
-            user.setUserName(userEntity.getUserName());
-            user.setPassword(userEntity.getPassword());
-        }
-        return user;
-    }
+//    public static User getLoginInfo(){
+//        User user=new User();
+//        UserEntity userEntity = UserControl.getInstance().getLoginInfo();
+//        if (userEntity!=null){
+//            user.setAck(userEntity.getAck());
+//            user.setUserName(userEntity.getUserName());
+//            user.setPassword(userEntity.getPassword());
+//        }
+//        return user;
+//    }
 }

@@ -46,6 +46,7 @@
         <activity android:name=".ui.activity.SwipeDeleteRecyclerViewActivtiy"
             android:label="侧滑删除"
             />
+        <activity android:name=".ui.activity.BezierCurveActivity"/>
     </application>
 
 </manifest>

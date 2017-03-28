@@ -1,5 +1,7 @@
 package com.weknowall.app_presenter.entity.general;
 
+import android.widget.ImageView;
+
 /**
  * User: laomao
  * Date: 2017-03-01
@@ -14,6 +16,9 @@ public class GitUser {
     private String userHtmlUrl;
     private String followersUrl;
     private String followingUrl;
+
+    private boolean checked;
+    private ImageView animationView;
 
     public GitUser() {
     }
@@ -82,5 +87,37 @@ public class GitUser {
 
     public void setFollowingUrl(String followingUrl) {
         this.followingUrl = followingUrl;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GitUser gitUser = (GitUser) o;
+
+        return id == gitUser.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    public ImageView getAnimationView() {
+        return animationView;
+    }
+
+    public void setAnimationView(ImageView animationView) {
+        this.animationView = animationView;
     }
 }

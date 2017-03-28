@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:hint="点击选择你喜欢的Git大神"
+        android:textSize="@dimen/size_22"
+        />
+
+    <LinearLayout
+        android:id="@+id/add_your_fav_git_user"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_67"
+        android:layout_marginTop="@dimen/size_10"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/git_users_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <com.weknowall.cn.wuwei.widget.image.CircleImageView
+        android:id="@+id/combine_recipe_selected_food_material_image"
+        android:layout_width="@dimen/size_48"
+        android:layout_height="@dimen/size_48"/>
+
+</LinearLayout>
