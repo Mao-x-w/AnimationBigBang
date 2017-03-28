@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.weknowall.app_presenter.entity.general.GitUser;
@@ -47,7 +48,7 @@ public class BezierCurveActivity extends BaseActivity implements IGitUsersView {
     @BindView(R.id.git_users_recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.root)
-    LinearLayout mRoot;
+    RelativeLayout mRoot;
 
     @Inject
     GitUsersPresenter mPresenter;
@@ -121,7 +122,7 @@ public class BezierCurveActivity extends BaseActivity implements IGitUsersView {
         mAddGitUser.setVisibility(View.VISIBLE);
         View view = View.inflate(getContext(), R.layout.selected_git_users, null);
         CircleImageView imageView = (CircleImageView) view.findViewById(R.id.combine_recipe_selected_food_material_image);
-        imageView.setImageUrl(user.getUserUrl());
+        imageView.setImageUrl(user.getAvatar());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
         layoutParams.rightMargin = (int) getContext().getResources().getDimension(R.dimen.size_13);
         mAddGitUser.addView(view, layoutParams);

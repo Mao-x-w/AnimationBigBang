@@ -9,8 +9,8 @@
 
     <com.weknowall.cn.wuwei.widget.image.CircleImageView
         android:id="@+id/selectable_git_users_avator"
-        android:layout_width="@dimen/size_80"
-        android:layout_height="@dimen/size_80"
+        android:layout_width="@dimen/size_60"
+        android:layout_height="@dimen/size_60"
         android:layout_centerVertical="true"
         />
 
