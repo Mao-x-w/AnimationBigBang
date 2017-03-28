@@ -2,7 +2,8 @@
 有兴趣的可以去研究：https://github.com/Mao-x-w/SimpleMvp
 
 ### 侧滑删除
-./image/swipe_delete.gif
+![image](./image/swipe_delete.gif)
+
 
 
 
