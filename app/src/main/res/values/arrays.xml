@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="personal_center_tab">
+        <item>安琪拉</item>
+        <item>李白</item>
+        <item>项羽</item>
+        <item>鲁班</item>
+        <item>孙悟空</item>
+    </array>
+</resources>

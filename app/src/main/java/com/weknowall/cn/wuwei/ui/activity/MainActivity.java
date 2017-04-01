@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete,R.id.main_bezier_curve})
+    @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete,R.id.main_bezier_curve,R.id.main_coordinator_layout})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -42,6 +42,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.main_bezier_curve:
                 startActivity(BezierCurveActivity.class);
+                break;
+            case R.id.main_coordinator_layout:
+                startActivity(CoordinatorLayoutActivity.class);
                 break;
         }
     }

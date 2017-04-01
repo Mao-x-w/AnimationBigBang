@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/LaoMao.Window"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        style="@style/LaoMao.Widget.Toolbar.AppbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="?actionBarSize">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_layout"
+            style="@style/LaoMao.Widget.Toolbar.CollapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:id="@+id/personal_center_original_user_title_root"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_80"
+                android:layout_marginTop="@dimen/size_260"
+                app:layout_scrollFlags="scroll|enterAlways"
+                >
+
+                <TextView
+                    android:id="@+id/personal_center_original_user_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="王者荣耀"
+                    android:textAppearance="@style/LaoMao.TextAppearance.Large"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_5"
+                    android:layout_below="@+id/personal_center_original_user_title"
+                    android:layout_marginTop="@dimen/size_30"
+                    android:background="@color/color_pressed_grey"
+                    />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_60"
+                android:background="@color/color_white"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                />
+
+            <FrameLayout
+                android:id="@+id/personal_center_original_user_avatar_root"
+                android:layout_width="@dimen/size_140"
+                android:layout_height="@dimen/size_140"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/size_100"
+                >
+
+                <com.weknowall.cn.wuwei.widget.image.AvatarImageView
+                    android:id="@+id/personal_center_original_user_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/size_5"
+                    />
+            </FrameLayout>
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+        <View
+            style="@style/LaoMao.Widget.Line.Grey"
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/personal_center_tab_layout"
+            style="@style/MeiShi.Widget.TabLayout.PersonalCenter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_67"
+            />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/personal_center_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

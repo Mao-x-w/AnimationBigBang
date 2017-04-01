@@ -47,6 +47,7 @@
             android:label="侧滑删除"
             />
         <activity android:name=".ui.activity.BezierCurveActivity"/>
+        <activity android:name=".ui.activity.CoordinatorLayoutActivity"/>
     </application>
 
 </manifest>
