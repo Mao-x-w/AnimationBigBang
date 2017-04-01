@@ -4,7 +4,8 @@
 ### 侧滑删除
 ![image](./image/swipe_delete.gif)
 
-
+### 贝塞尔二阶曲线
+![image](./image/bezier_curve.gif)
 
 
 

@@ -17,8 +17,10 @@ public class GitUser {
     private String followersUrl;
     private String followingUrl;
 
+    // UI用字段
     private boolean checked;
     private ImageView animationView;
+    private int clickPosition;
 
     public GitUser() {
     }
@@ -119,5 +121,13 @@ public class GitUser {
 
     public void setAnimationView(ImageView animationView) {
         this.animationView = animationView;
+    }
+
+    public int getClickPosition() {
+        return clickPosition;
+    }
+
+    public void setClickPosition(int clickPosition) {
+        this.clickPosition = clickPosition;
     }
 }

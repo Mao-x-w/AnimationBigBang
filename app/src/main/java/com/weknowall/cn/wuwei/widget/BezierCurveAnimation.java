@@ -5,6 +5,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ public class BezierCurveAnimation {
         mAnimationView = new ImageView(context);
         mAnimationView.setImageDrawable(mStartView.getDrawable());
         ViewGroup.LayoutParams layoutParams=new ViewGroup.LayoutParams((int) context.getResources().getDimension(R.dimen.size_60),(int) context.getResources().getDimension(R.dimen.size_60));
+        mAnimationView.setVisibility(View.INVISIBLE);
         mParentView.addView(mAnimationView, layoutParams);
 
         mEndView.post(new Runnable() {
@@ -61,15 +63,15 @@ public class BezierCurveAnimation {
     private void calculatePosition() {
         // 得到父布局的起始点坐标（用于辅助计算动画开始/结束时的点的坐标）
         int[] parentLocation = new int[2];
-        mParentView.getLocationInWindow(parentLocation);
+        mParentView.getLocationOnScreen(parentLocation);
 
         // 得到开始View的坐标（用于计算动画开始的坐标）
         int startLoc[] = new int[2];
-        mStartView.getLocationInWindow(startLoc);
+        mStartView.getLocationOnScreen(startLoc);
 
         // 得到结束View的坐标(用于计算动画结束后的坐标)
         int endLoc[] = new int[2];
-        mEndView.getLocationInWindow(endLoc);
+        mEndView.getLocationOnScreen(endLoc);
 
         // 开始掉落的起始点：起始点-父布局起始点+起始View宽度的一半
         mStartX = startLoc[0] - parentLocation[0] + mStartView.getWidth() / 2;
@@ -90,6 +92,8 @@ public class BezierCurveAnimation {
         Path path = new Path();
         // 移动到起始点（贝塞尔曲线的起点）
         path.moveTo(mStartX, mStartY);
+        mAnimationView.setVisibility(View.VISIBLE);
+
         // 使用二阶贝塞尔曲线：注意第一个起始坐标越大，贝塞尔曲线的横向距离就会越大，一般按照下面的式子取即可
         path.quadTo((mStartX + mToX) / 2, mStartY, mToX, mToY);
         // mPathMeasure用来计算贝塞尔曲线的曲线长度和贝塞尔曲线中间插值的坐标，如果是true，path会形成一个闭环

@@ -107,6 +107,8 @@ public class BezierCurveActivity extends BaseActivity implements IGitUsersView {
                 super.onAnimationEnd(view);
                 checkLists.remove(user);
                 mAddGitUser.removeViewAt(index);
+                mAdapter.getList().get(user.getClickPosition()).setChecked(false);
+                mAdapter.notifyItemChanged(user.getClickPosition());
             }
         }).start();
     }
@@ -119,13 +121,19 @@ public class BezierCurveActivity extends BaseActivity implements IGitUsersView {
     private void executeAdd(GitUser user) {
         checkLists.add(user);
 
-        mAddGitUser.setVisibility(View.VISIBLE);
+        // 创建结束位置的View,并添加的布局中
         View view = View.inflate(getContext(), R.layout.selected_git_users, null);
         CircleImageView imageView = (CircleImageView) view.findViewById(R.id.combine_recipe_selected_food_material_image);
         imageView.setImageUrl(user.getAvatar());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(-2, -2);
         layoutParams.rightMargin = (int) getContext().getResources().getDimension(R.dimen.size_13);
+        view.setVisibility(View.INVISIBLE);
         mAddGitUser.addView(view, layoutParams);
+
+        view.setOnClickListener(v -> {
+            // 点击执行删除
+            executeRemove(user);
+        });
 
         // 执行增加食材动画
         BezierCurveAnimation animation = new BezierCurveAnimation(user.getAnimationView(), imageView, mRoot);
@@ -139,17 +147,25 @@ public class BezierCurveActivity extends BaseActivity implements IGitUsersView {
             @Override
             public void onAnimationEnd() {
                 view.setVisibility(View.VISIBLE);
+                mAdapter.notifyItemChanged(user.getClickPosition());
             }
         });
 
     }
 
+    /**
+     * 请求网络返回数据
+     * @param users
+     */
     @Override
     public void onGetGitUsers(List<GitUser> users) {
         mAdapter.clear();
         mAdapter.insertRange(users, false);
     }
 
+    /**
+     * RecyclerView对应的Adapter，虽然写到了内部类，但是充分解耦的，可以随便移动出去。
+     */
     class BezierCurveAdapter extends AdapterPlus<GitUser> {
 
 
@@ -176,9 +192,11 @@ public class BezierCurveActivity extends BaseActivity implements IGitUsersView {
                 ButterKnife.bind(this, itemView);
                 itemView.setOnClickListener(v -> {
                     boolean checked = getItemObject().isChecked();
+
+                    // 设置条目对应的状态
                     getItemObject().setChecked(!checked);
+                    getItemObject().setClickPosition(getPosition());
                     getItemObject().setAnimationView(mAvator);
-                    notifyDataSetChanged();
 
                     // 将点击事件传递出去
                     if (mListener != null) {
