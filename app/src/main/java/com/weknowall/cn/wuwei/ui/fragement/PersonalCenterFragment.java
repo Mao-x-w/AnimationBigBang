@@ -8,20 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.weknowall.app_presenter.entity.general.GitUser;
-import com.weknowall.app_presenter.presenter.general.GitUsersPresenter;
-import com.weknowall.app_presenter.view.IGitUsersView;
+import com.hwangjr.rxbus.RxBus;
 import com.weknowall.cn.wuwei.R;
-import com.weknowall.cn.wuwei.dagger.components.DaggerGeneralFragmentComponent;
 import com.weknowall.cn.wuwei.ui.BaseFragment;
-import com.weknowall.cn.wuwei.ui.adapter.GitUsersAdapter;
+import com.weknowall.cn.wuwei.ui.activity.CoordinatorLayoutActivity;
 import com.weknowall.cn.wuwei.ui.adapter.SwipeDeleteAdapter;
-import com.weknowall.cn.wuwei.widget.recyclerview.adapter.AdapterPlus;
+import com.weknowall.cn.wuwei.widget.recyclerview.RecyclerViewHelper;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +53,22 @@ public class PersonalCenterFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mAdapter=new SwipeDeleteAdapter());
+        // 当滚动到第一个项目时，自动滚动到顶部
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int lastPosition = -1;
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int visiblePosition = RecyclerViewHelper.findFirstCompleteVisibleItemPosition(mRecyclerView);
+                    if (visiblePosition == 0 && lastPosition != visiblePosition) {
+                        RxBus.get().post(CoordinatorLayoutActivity.RX_BUS_SCROLL_TOP,"1");
+                    }
+                    lastPosition = visiblePosition;
+                }
+            }
+        });
+
         initData();
     }
 

@@ -12,19 +12,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.hwangjr.rxbus.RxBus;
+import com.hwangjr.rxbus.annotation.Subscribe;
+import com.hwangjr.rxbus.annotation.Tag;
+import com.hwangjr.rxbus.thread.EventThread;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.ui.fragement.PersonalCenterFragment;
-import com.weknowall.cn.wuwei.utils.Logs;
 import com.weknowall.cn.wuwei.widget.image.AvatarImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static android.R.attr.fraction;
 
 /**
  * User: laomao
@@ -51,13 +51,27 @@ public class CoordinatorLayoutActivity extends BaseActivity {
     @BindView(R.id.personal_center_original_user_title_root)
     RelativeLayout mTitleRoot;
 
+    public static final String RX_BUS_SCROLL_TOP = "st";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coordinator_layout);
         ButterKnife.bind(this);
+        RxBus.get().register(this);
 
         initView();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.get().unregister(this);
+    }
+
+    @Subscribe(tags = {@Tag(RX_BUS_SCROLL_TOP)}, thread = EventThread.MAIN_THREAD)
+    public void onScrolledTop(String s) {
+        mAppBarLayout.setExpanded(true);
     }
 
     private void initView() {
