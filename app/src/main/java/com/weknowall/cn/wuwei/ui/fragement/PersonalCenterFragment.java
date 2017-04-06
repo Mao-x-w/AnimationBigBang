@@ -15,7 +15,10 @@ import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.dagger.components.DaggerGeneralFragmentComponent;
 import com.weknowall.cn.wuwei.ui.BaseFragment;
 import com.weknowall.cn.wuwei.ui.adapter.GitUsersAdapter;
+import com.weknowall.cn.wuwei.ui.adapter.SwipeDeleteAdapter;
+import com.weknowall.cn.wuwei.widget.recyclerview.adapter.AdapterPlus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -29,15 +32,12 @@ import butterknife.ButterKnife;
  * Time: 16-27
  */
 
-public class PersonalCenterFragment extends BaseFragment implements IGitUsersView {
+public class PersonalCenterFragment extends BaseFragment {
 
     @BindView(R.id.personal_center_recycler_view)
     RecyclerView mRecyclerView;
 
-    @Inject
-    GitUsersPresenter mPresenter;
-
-    private GitUsersAdapter mAdapter;
+    private SwipeDeleteAdapter mAdapter;
 
     public static PersonalCenterFragment newInstance() {
         Bundle args = new Bundle();
@@ -58,17 +58,16 @@ public class PersonalCenterFragment extends BaseFragment implements IGitUsersVie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(mAdapter=new GitUsersAdapter(getContext()));
-
-        DaggerGeneralFragmentComponent.builder().applicationComponent(getApplicationComponent()).fragmentModule(getFragmentModule()).build().inject(this);
-        mPresenter.setView(this);
-        mPresenter.initialize();
+        mRecyclerView.setAdapter(mAdapter=new SwipeDeleteAdapter());
+        initData();
     }
 
-    @Override
-    public void onGetGitUsers(List<GitUser> users) {
-        // 通过返回数据更新adapter
-        mAdapter.clear();
-        mAdapter.insertRange(users, false);
+    private void initData() {
+        ArrayList mList = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            mList.add("测试" + i);
+        }
+        mAdapter.setDatas(mList);
     }
+
 }

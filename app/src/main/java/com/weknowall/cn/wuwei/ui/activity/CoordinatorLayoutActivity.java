@@ -1,5 +1,6 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -10,16 +11,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.ui.fragement.PersonalCenterFragment;
+import com.weknowall.cn.wuwei.utils.Logs;
 import com.weknowall.cn.wuwei.widget.image.AvatarImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.R.attr.fraction;
 
 /**
  * User: laomao
@@ -30,6 +35,8 @@ import butterknife.ButterKnife;
 public class CoordinatorLayoutActivity extends BaseActivity {
 
     @BindView(R.id.personal_center_original_user_avatar)
+    AvatarImageView mOriginalUserAvatar;
+    @BindView(R.id.personal_center_user_avatar)
     AvatarImageView mUserAvatar;
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -43,8 +50,6 @@ public class CoordinatorLayoutActivity extends BaseActivity {
     ViewPager mViewPager;
     @BindView(R.id.personal_center_original_user_title_root)
     RelativeLayout mTitleRoot;
-    @BindView(R.id.personal_center_original_user_avatar_root)
-    FrameLayout mAvatorRoot;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +66,9 @@ public class CoordinatorLayoutActivity extends BaseActivity {
     }
 
     private void initAnimation() {
+        mOriginalUserAvatar.setImageResource(R.drawable.ali_avator);
+        mUserAvatar.setImageResource(R.drawable.ali_avator);
+
         int[] originalLocation=new int[2]; //头像的原来位置
         int[] location=new int[2]; //头像的现在位置
 
@@ -68,13 +76,15 @@ public class CoordinatorLayoutActivity extends BaseActivity {
         final int[] width = new int[1]; // 头像缩放后的宽度
 
         // 获取原来头像的位置及宽度
-        mAvatorRoot.post(() -> {
-            mAvatorRoot.getLocationOnScreen(originalLocation);
-            originalWidth[0] =mAvatorRoot.getWidth();
+        mOriginalUserAvatar.post(() -> {
+            mOriginalUserAvatar.getLocationOnScreen(originalLocation);
+            originalWidth[0] =mOriginalUserAvatar.getWidth();
         });
 
-        // 获取执行动画之后头像的位置及宽度，因为到达的这个位置是固定的，所以写死
-        width[0]= (int) getContext().getResources().getDimension(R.dimen.size_60);
+        mUserAvatar.post(() -> {
+            mUserAvatar.getLocationOnScreen(location);
+            width[0] =mUserAvatar.getWidth();
+        });
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
 
@@ -82,30 +92,31 @@ public class CoordinatorLayoutActivity extends BaseActivity {
 
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                lastOffset=originalLocation[1];
+                lastOffset=originalLocation[1]-location[1];
 
-                if (verticalOffset==0)
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mOriginalUserAvatar.getLayoutParams();
+
+                if (verticalOffset>=0){
+                    layoutParams.width= getContext().getResources().getDimensionPixelOffset(R.dimen.size_130);
+                    layoutParams.height=getContext().getResources().getDimensionPixelOffset(R.dimen.size_130);
+                    mOriginalUserAvatar.setLayoutParams(layoutParams);
                     return;
+                }
 
-                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) mAvatorRoot.getLayoutParams();
+                float fraction= (float) ((verticalOffset*1.0)/lastOffset*1.0);
                 if (lastOffset>-verticalOffset){
                     // 开始执行动画
+                    mToolbar.setBackgroundColor(Color.argb((int) (255*(-fraction)), 0, 153, 255));
+                    mUserAvatar.setVisibility(View.GONE);
 
-                    float fraction= (float) ((verticalOffset*1.0)/lastOffset*1.0);
                     float imageWidthOffset=(fraction)*(originalWidth[0]-width[0]);
                     layoutParams.width= (int) (originalWidth[0]+imageWidthOffset);
                     layoutParams.height= (int) (originalWidth[0]+imageWidthOffset);
-                    layoutParams.topMargin= (int) (getContext().getResources().getDimensionPixelOffset(R.dimen.size_100)-imageWidthOffset);
-                    mAvatorRoot.setLayoutParams(layoutParams);
-
-                    FrameLayout.LayoutParams titleLayoutParams = (FrameLayout.LayoutParams) mTitleRoot.getLayoutParams();
-                    titleLayoutParams.topMargin= (int) (getContext().getResources().getDimensionPixelOffset(R.dimen.size_250)+imageWidthOffset);
-                    mTitleRoot.setLayoutParams(titleLayoutParams);
+                    mOriginalUserAvatar.setLayoutParams(layoutParams);
 
                 }else {
-                    // 通过设置头像距离顶部的距离来实现头像固定到顶部
-//                    layoutParams.topMargin=layoutParams.topMargin-(verticalOffset+lastOffset);
-//                    mUserAvatar.setLayoutParams(layoutParams);
+                    mUserAvatar.setVisibility(View.VISIBLE);
+                    mToolbar.setBackgroundColor(Color.argb(255, 0, 153, 255));
                 }
             }
         });
