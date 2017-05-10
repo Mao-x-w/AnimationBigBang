@@ -300,4 +300,39 @@
         <item name="android:textSize">@dimen/dimen_text_xxlarge</item>
     </style>
 
+    <style name="smartTabLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/size_60</item>
+        <!-- 指示器对应的Tab总是在屏幕中间 -->
+        <item name="stl_indicatorAlwaysInCenter">false</item>
+        <!-- 指示器没有padding -->
+        <item name="stl_indicatorWithoutPadding">false</item>
+        <!-- 将指示器画到下面那条线的上方 -->
+        <item name="stl_indicatorInFront">false</item>
+        <!-- 指示器动画 -->
+        <item name="stl_indicatorInterpolation">smart</item>
+        <!-- 指示器位置 -->
+        <item name="stl_indicatorGravity">bottom</item>
+        <!-- 指示器颜色 -->
+        <item name="stl_indicatorColor">#ff4c39</item>
+        <!-- 指示器高度 -->
+        <item name="stl_indicatorThickness">@dimen/size_3</item>
+        <!-- 指示器宽度 -->
+        <item name="stl_indicatorWidth">@dimen/size_36</item>
+        <!-- 每个tab中字体颜色 -->
+        <item name="stl_defaultTabTextColor">#999999</item>
+        <!-- 每个tab中字体大小 -->
+        <item name="stl_defaultTabTextSize">@dimen/size_18</item>
+        <!-- true为每个tab权重一样 -->
+        <item name="stl_distributeEvenly">true</item>
+        <!-- tab中的标题距离左边距离 -->
+        <item name="stl_titleOffset">auto_center</item>
+        <!-- tab中的标题在水平方向的padding -->
+        <item name="stl_defaultTabTextHorizontalPadding">@dimen/size_1</item>
+        <!-- tab中的标题在水平方向的padding -->
+        <item name="stl_underlineColor">#eeeeee</item>
+        <!-- tab中的标题在水平方向的padding -->
+        <item name="stl_underlineThickness">@dimen/size_1</item>
+    </style>
+
 </resources>

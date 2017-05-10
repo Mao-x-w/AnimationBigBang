@@ -21,7 +21,7 @@ ext {
     glideVersion = '3.6.1'
     glideTransformVersion = '1.0.8'
     glideOkHttpVersion = '1.4.0@aar'
-    swipeDeleteRecyclerVersion= '1.0.3'
+    swipeDeleteRecyclerVersion = '1.0.3'
 
     androidSupportDependencies = [
             support_v7  : "com.android.support:appcompat-v7:${androidSupportLibraryVersion}",
@@ -56,7 +56,11 @@ ext {
             glide_okhttp             : "com.github.bumptech.glide:okhttp3-integration:${glideOkHttpVersion}",
             swipeDeleteRecycler      : "com.yanzhenjie:recyclerview-swipe:${swipeDeleteRecyclerVersion}",
 
-            stickyHeadersRecyclerView: "com.timehop.stickyheadersrecyclerview:library:0.4.3@aar"
+            stickyHeadersRecyclerView: "com.timehop.stickyheadersrecyclerview:library:0.4.3@aar",
+
+            smartTablayout           : "com.ogaclejapan.smarttablayout:library:1.6.1@aar",
+            smartTablayoutUtilV4     : "com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar",
+            smartTablayoutUtilV13    : 'com.ogaclejapan.smarttablayout:utils-v13:1.6.1@aar'
     ]
 
 }

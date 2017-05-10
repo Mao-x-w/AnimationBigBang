@@ -70,6 +70,7 @@
     <string name="main_swipe_delete">侧滑删除</string>
     <string name="main_bezier_curve">贝塞尔二阶曲线</string>
     <string name="main_coordinator_layout">CoordinatorLayout</string>
+    <string name="smart_tab_layout">SmartTabLayout</string>
     <string name="remove_success">移除成功</string>
 
 
