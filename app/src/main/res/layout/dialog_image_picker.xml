@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/image_picker_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60"
+        android:gravity="center"
+        android:text="@string/image_picker_gallery"
+        android:textColor="@color/color_grey_333333"
+        android:textSize="@dimen/text_21_0"/>
+
+
+    <TextView
+        android:id="@+id/image_picker_camera"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60"
+        android:gravity="center"
+        android:text="@string/image_picker_camera"
+        android:textColor="@color/color_grey_333333"
+        android:textSize="@dimen/text_21_0"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_10"
+        android:background="@color/colorWindowBackground"/>
+
+    <Button
+        android:id="@+id/image_picker_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60"
+        android:text="@string/text_cancel"
+        android:textColor="@color/color_grey_333333"
+        android:textSize="@dimen/text_21_0"/>
+</LinearLayout>

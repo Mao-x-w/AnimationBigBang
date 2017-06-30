@@ -59,6 +59,7 @@ repositories{
 dependencies {
     compile project(':app_presenter')
     compile project(':app_domain')
+    compile project(':lib_imageselector')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
     def librariesDependencies=rootProject.ext.librariesDependencies

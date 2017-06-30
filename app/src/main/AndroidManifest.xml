@@ -53,6 +53,8 @@
             />
         <activity android:name=".ui.activity.WebViewActivity"/>
         <activity android:name=".ui.activity.SmartTablayoutActivity"/>
+        <activity android:name=".ui.activity.CropImageActivity"/>
+        <activity android:name=".utils.image.ImagePickerActivity"/>
     </application>
 
 </manifest>

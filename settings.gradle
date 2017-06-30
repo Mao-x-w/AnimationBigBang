@@ -2,4 +2,4 @@ include ':app',
         ':app_presenter',
         ':app_data',
         ':app_domain',
-        ':app_common'
+        ':app_common', ':lib_imageselector'

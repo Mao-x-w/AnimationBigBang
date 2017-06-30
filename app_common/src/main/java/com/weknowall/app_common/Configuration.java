@@ -102,6 +102,14 @@ public class Configuration {
 		return getFilePath() + "/download";
 	}
 
+	/**
+	 * 临时测试用
+	 * @return
+	 */
+	public String getTempPath(){
+		return getFilePath()+"/tempTest";
+	}
+
 	public Context getContext() {
 		return context;
 	}
