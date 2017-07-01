@@ -39,7 +39,7 @@ public class CropImageActivity extends BaseActivity {
                 .setImageCount(1)
                 .isCameraCrop(true)
                 .isSingleCrop(true)
-                .cropWHScale((float) (4.0/3.0))
+                .cropWHScale((float) (16.0/9.0))
                 .setImagePickerListener(new ImagePicker.ImagePickCallback() {
                     @Override
                     public void onPicked(List<String> images) {

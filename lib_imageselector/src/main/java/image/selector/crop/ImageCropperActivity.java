@@ -157,7 +157,8 @@ public class ImageCropperActivity extends Activity {
 	 * 保存当前剪切的图片
 	 */
 	boolean savedCropperImage() {
-		Bitmap croppedImage = getCroppedImage();
+//		Bitmap croppedImage = getCroppedImage();
+		Bitmap croppedImage = getCroppedImageFromOriginal();
 		OutputStream outputStream;
 		try {
 			outputStream = new FileOutputStream(imageSavePath);
@@ -203,19 +204,71 @@ public class ImageCropperActivity extends Activity {
 		return Bitmap.createBitmap(mCurrentDisplayedBitmap, (int) actualCropX, (int) actualCropY, (int) actualCropWidth, (int) actualCropHeight);
 	}
 
+	/**
+	 * Gets the cropped image based on the current crop window.
+	 *
+	 * @return a new Bitmap representing the cropped image
+	 */
+	public Bitmap getCroppedImageFromOriginal() {
+
+		// Implementation reference: http://stackoverflow.com/a/26930938/1068656
+
+		final Drawable drawable = photoView.getDrawable();
+		if (drawable == null || !(drawable instanceof BitmapDrawable)) {
+			return null;
+		}
+
+		// Get image matrix values and place them in an array.
+		final float[] matrixValues = new float[9];
+		photoView.getImageMatrix().getValues(matrixValues);
+
+		// Extract the scale and translation values. Note, we currently do not handle any other transformations (e.g. skew).
+		final float scaleX = matrixValues[Matrix.MSCALE_X];
+		final float scaleY = matrixValues[Matrix.MSCALE_Y];
+		final float transX = matrixValues[Matrix.MTRANS_X];
+		final float transY = matrixValues[Matrix.MTRANS_Y];
+
+		// Ensure that the left and top edges are not outside of the ImageView bounds.
+//		final float bitmapLeft = (transX < 0) ? Math.abs(transX) : 0;
+//		final float bitmapTop = (transY < 0) ? Math.abs(transY) : 0;
+		final float bitmapLeft =  transX;
+		final float bitmapTop = transY;
+
+		// Get the original bitmap object.
+		final Bitmap originalBitmap = ((BitmapDrawable) drawable).getBitmap();
+
+		// Calculate the top-left corner of the crop window relative to the ~original~ bitmap size.
+		final float cropX = (Edge.LEFT.getCoordinate()-bitmapLeft) / scaleX;
+		final float cropY = (Edge.TOP.getCoordinate()-bitmapTop) / scaleY;
+
+		// Calculate the crop window size relative to the ~original~ bitmap size.
+		// Make sure the right and bottom edges are not outside the ImageView bounds (this is just to address rounding discrepancies).
+		final float cropWidth = Math.min(Edge.getWidth() / scaleX, originalBitmap.getWidth() - cropX);
+		final float cropHeight = Math.min(Edge.getHeight() / scaleY, originalBitmap.getHeight() - cropY);
+
+		// Crop the subset from the original Bitmap.
+		return Bitmap.createBitmap(originalBitmap,
+				(int) cropX,
+				(int) cropY,
+				(int) cropWidth,
+				(int) cropHeight);
+	}
+
 	Bitmap getBitmap(String imagePath) {
 		Bitmap returnedBitmap;
 		BitmapFactory.Options o = new BitmapFactory.Options();
-		o.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(imagePath, o);
-		int scale = 1;
-		if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
-			scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
-		}
+//		o.inJustDecodeBounds = true;
+		Bitmap bitmap = BitmapFactory.decodeFile(imagePath, o);
 
-		BitmapFactory.Options o2 = new BitmapFactory.Options();
-		o2.inSampleSize = scale;
-		Bitmap bitmap = BitmapFactory.decodeFile(imagePath, o2);
+		// 不进行缩放，删除代码
+//		int scale = 1;
+//		if (o.outHeight > IMAGE_MAX_SIZE || o.outWidth > IMAGE_MAX_SIZE) {
+//			scale = (int) Math.pow(2, (int) Math.round(Math.log(IMAGE_MAX_SIZE / (double) Math.max(o.outHeight, o.outWidth)) / Math.log(0.5)));
+//		}
+//
+//		BitmapFactory.Options o2 = new BitmapFactory.Options();
+//		o2.inSampleSize = scale;
+//		Bitmap bitmap = BitmapFactory.decodeFile(imagePath, o2);
 
 		//First check
 		ExifInterface ei;

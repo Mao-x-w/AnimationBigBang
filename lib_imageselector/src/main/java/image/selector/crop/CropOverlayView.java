@@ -19,6 +19,7 @@ package image.selector.crop;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -41,188 +42,226 @@ import com.example.lib_imageselector.R;
  */
 public class CropOverlayView extends View implements CropPhotoViewAttacher.IGetImageBounds {
 
-	private static final String TAG = "CropOverlayView";
-	public static final int OVERLAY_SHAPE_SQUARE = 0x1;
-	public static final int OVERLAY_SHAPE_CIRCLE = 0x2;
+    private static final String TAG = "CropOverlayView";
+    public static final int OVERLAY_SHAPE_SQUARE = 0x1;
+    public static final int OVERLAY_SHAPE_CIRCLE = 0x2;
 
-	private static final float CORNER_RADIUS = 6;
-	private static final boolean DEFAULT_GUIDELINES = false;
-	private static final int DEFAULT_BOARDER_COLOR = 0xFFFFFFFF;
-	private static final int DEFAULT_SIDE = 400;
-	// we are croping square image so width and height will always be equal
-	// The Paint used to darken the surrounding areas outside the crop area.
+    private static final float CORNER_RADIUS = 6;
+    private static final boolean DEFAULT_GUIDELINES = false;
+    private static final int DEFAULT_BOARDER_COLOR = 0xFFFFFFFF;
+    private static final int DEFAULT_SIDE = 400;
+    // we are croping square image so width and height will always be equal
+    // The Paint used to darken the surrounding areas outside the crop area.
 
-	// The Paint used to draw the white rectangle around the crop area.
-	private Paint mBorderPaint;
+    // The Paint used to draw the white rectangle around the crop area.
+    private Paint mBorderPaint;
 
-	// The Paint used to draw the guidelines within the crop area.
-	private Paint mGuidelinePaint;
+    // The Paint used to draw the guidelines within the crop area.
+    private Paint mGuidelinePaint;
 
-	// The bounding box around the Bitmap that we are cropping.
+    private Paint mGuideRectPaint;
 
-
-	private boolean mGuidelines;
-
-	private int mBorderPaintColor;
-	private int mWidth, mHeight;
-	private int mShape;
-	private float mCropWHScale;
-	private Context mContext;
-	private Path clipPath;
-	private RectF rectF;
-	private boolean isLayouted = false;
+    // The bounding box around the Bitmap that we are cropping.
 
 
-	public CropOverlayView(Context context) {
-		super(context);
-		this.mContext = context;
-		init();
-	}
+    private boolean mGuidelines;
 
-	public CropOverlayView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		this.mContext = context;
-		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropOverlayView, 0, 0);
-		try {
-			mWidth = ta.getDimensionPixelSize(R.styleable.CropOverlayView_joy_overlay_width, DEFAULT_SIDE);
-			mHeight = ta.getDimensionPixelSize(R.styleable.CropOverlayView_joy_overlay_height, DEFAULT_SIDE);
-			mShape = ta.getInt(R.styleable.CropOverlayView_joy_overlay_shape, OVERLAY_SHAPE_SQUARE);
-			/** 如果长以及宽不等,则只能显示四边形 */
-			mShape = mWidth == mHeight ? mShape : OVERLAY_SHAPE_SQUARE;
-			mGuidelines = ta.getBoolean(R.styleable.CropOverlayView_joy_overlay_guideLines, DEFAULT_GUIDELINES);
-			mBorderPaintColor = ta.getColor(R.styleable.CropOverlayView_joy_overlay_border, DEFAULT_BOARDER_COLOR);
-		} finally {
-			ta.recycle();
-		}
-		init();
-	}
+    private int mBorderPaintColor;
+    private int mWidth, mHeight;
+    private int mShape;
+    private float mCropWHScale;
+    private Context mContext;
+    private Path clipPath;
+    private RectF rectF;
+    private boolean isLayouted = false;
 
-	void init() {
-		post(new Runnable() {
-			@Override
-			public void run() {
-				setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-			}
-		});
-		mBorderPaint = PaintUtil.newBorderPaint(getContext());
-		mBorderPaint.setColor(mBorderPaintColor);
-		mGuidelinePaint = PaintUtil.newGuidelinePaint();
-		clipPath = new Path();
-	}
 
-	/**
-	 * 设置截图覆盖物形状
-	 * @param shape 形状TypeID
-	 */
-	public void setOverlayShape(int shape){
-		this.mShape = shape;
-	}
+    public CropOverlayView(Context context) {
+        super(context);
+        this.mContext = context;
+        init();
+    }
 
-	public void setCropWHScale(float scale){
-		mCropWHScale = scale;
-		mHeight= (int) (1.0*mWidth/scale);
-		invalidate();
-	}
+    public CropOverlayView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.mContext = context;
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.CropOverlayView, 0, 0);
+        try {
+            mWidth = ta.getDimensionPixelSize(R.styleable.CropOverlayView_joy_overlay_width, DEFAULT_SIDE);
+            mHeight = ta.getDimensionPixelSize(R.styleable.CropOverlayView_joy_overlay_height, DEFAULT_SIDE);
+            mShape = ta.getInt(R.styleable.CropOverlayView_joy_overlay_shape, OVERLAY_SHAPE_SQUARE);
+            /** 如果长以及宽不等,则只能显示四边形 */
+            mShape = mWidth == mHeight ? mShape : OVERLAY_SHAPE_SQUARE;
+            mGuidelines = ta.getBoolean(R.styleable.CropOverlayView_joy_overlay_guideLines, DEFAULT_GUIDELINES);
+            mBorderPaintColor = ta.getColor(R.styleable.CropOverlayView_joy_overlay_border, DEFAULT_BOARDER_COLOR);
+        } finally {
+            ta.recycle();
+        }
+        init();
+    }
 
-	public int getOverlayWidth(){
-		return mWidth;
-	}
+    void init() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            }
+        });
+        mBorderPaint = PaintUtil.newBorderPaint(getContext());
+        mBorderPaint.setColor(mBorderPaintColor);
+        mGuidelinePaint = PaintUtil.newGuidelinePaint();
+        mGuideRectPaint=getGuideRectPaint();
+        clipPath = new Path();
+    }
 
-	public int getOverlayHeight(){
-		return mHeight;
-	}
+    public Paint getGuideRectPaint() {
+        float lineThicknessPx = TypedValue.applyDimension(1, 1.0F, getContext().getResources().getDisplayMetrics());
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.parseColor("#AAFFFFFF"));
+        borderPaint.setStrokeWidth(lineThicknessPx);
+        borderPaint.setStyle(Paint.Style.STROKE);
+        return borderPaint;
+    }
 
-	@Override
-	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-		super.onLayout(changed, left, top, right, bottom);
-		Log.e(TAG, "onLayout");
-		if (bottom != top && !isLayouted) {
-			Log.e(TAG, "onLayout calculate");
-			isLayouted = true;
-			final int width = right - left;
-			final int height = bottom - top;
-			int edgeL = (width - mWidth) / 2 ;
-			int edgeT = (height - mHeight) / 2;
-			int edgeR = edgeL + mWidth;
-			int edgeB = edgeT + mHeight;
-			Edge.TOP.setCoordinate(edgeT);
-			Edge.BOTTOM.setCoordinate(edgeB);
-			Edge.LEFT.setCoordinate(edgeL);
-			Edge.RIGHT.setCoordinate(edgeR);
-			post(rectCalculateRunnable);
-		}
-	}
+    /**
+     * 设置截图覆盖物形状
+     *
+     * @param shape 形状TypeID
+     */
+    public void setOverlayShape(int shape) {
+        this.mShape = shape;
+    }
 
-	/**
-	 * 计算区域
-	 */
-	Runnable rectCalculateRunnable = new Runnable() {
-		@Override
-		public void run() {
-			rectF = new RectF(Edge.LEFT.getCoordinate(), Edge.TOP.getCoordinate(), Edge.RIGHT.getCoordinate(), Edge.BOTTOM.getCoordinate());
-			invalidate();
-		}
-	};
+    public void setCropWHScale(float scale) {
+        mCropWHScale = scale;
+        mHeight = (int) (1.0 * mWidth / scale);
+        invalidate();
+    }
 
-	@Override
-	protected void onDraw(Canvas canvas) {
-		super.onDraw(canvas);
-		Log.e(TAG, "onDraw");
-		if (rectF == null)
-			return;
-		Log.e(TAG, "onDrawOverlay");
-		switch (mShape) {
-			case OVERLAY_SHAPE_CIRCLE:
-				float cx = (Edge.LEFT.getCoordinate() + Edge.RIGHT.getCoordinate()) / 2;
-				float cy = (Edge.TOP.getCoordinate() + Edge.BOTTOM.getCoordinate()) / 2;
-				float radius2 = (Edge.RIGHT.getCoordinate() - Edge.LEFT.getCoordinate()) / 2;
-				clipPath.addCircle(cx, cy, radius2, Path.Direction.CW);
-				canvas.clipPath(clipPath, Region.Op.DIFFERENCE);
-				canvas.drawARGB(204, 41, 48, 63);
-				canvas.restore();
-				canvas.drawCircle(cx, cy, radius2, mBorderPaint);
-				break;
-			case OVERLAY_SHAPE_SQUARE:
-				final float radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CORNER_RADIUS, mContext.getResources().getDisplayMetrics());
-				clipPath.addRoundRect(rectF, radius, radius, Path.Direction.CW);
-				canvas.clipPath(clipPath, Region.Op.DIFFERENCE);
-				canvas.drawARGB(204, 41, 48, 63);
-				canvas.restore();
-				canvas.drawRoundRect(rectF, radius, radius, mBorderPaint);
-				break;
-		}
-		if (mGuidelines) {
-			drawRuleOfThirdsGuidelines(canvas);
-		}
-	}
+    public int getOverlayWidth() {
+        return mWidth;
+    }
 
-	@Override
-	public Rect getImageBounds() {
-		return new Rect((int) Edge.LEFT.getCoordinate(), (int) Edge.TOP.getCoordinate(), (int) Edge.RIGHT.getCoordinate(), (int) Edge.BOTTOM.getCoordinate());
-	}
+    public int getOverlayHeight() {
+        return mHeight;
+    }
 
-	private void drawRuleOfThirdsGuidelines(Canvas canvas) {
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        Log.e(TAG, "onLayout");
+        if (bottom != top && !isLayouted) {
+            Log.e(TAG, "onLayout calculate");
+            isLayouted = true;
+            final int width = right - left;
+            final int height = bottom - top;
+            int edgeL = (width - mWidth) / 2;
+            int edgeT = (height - mHeight) / 2;
+            int edgeR = edgeL + mWidth;
+            int edgeB = edgeT + mHeight;
+            Edge.TOP.setCoordinate(edgeT);
+            Edge.BOTTOM.setCoordinate(edgeB);
+            Edge.LEFT.setCoordinate(edgeL);
+            Edge.RIGHT.setCoordinate(edgeR);
+            post(rectCalculateRunnable);
+        }
+    }
 
-		final float left = Edge.LEFT.getCoordinate();
-		final float top = Edge.TOP.getCoordinate();
-		final float right = Edge.RIGHT.getCoordinate();
-		final float bottom = Edge.BOTTOM.getCoordinate();
+    /**
+     * 计算区域
+     */
+    Runnable rectCalculateRunnable = new Runnable() {
+        @Override
+        public void run() {
+            rectF = new RectF(Edge.LEFT.getCoordinate(), Edge.TOP.getCoordinate(), Edge.RIGHT.getCoordinate(), Edge.BOTTOM.getCoordinate());
+            invalidate();
+        }
+    };
 
-		// Draw vertical guidelines.
-		final float oneThirdCropWidth = Edge.getWidth() / 3;
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        Log.e(TAG, "onDraw");
+        if (rectF == null)
+            return;
+        Log.e(TAG, "onDrawOverlay");
+        switch (mShape) {
+            case OVERLAY_SHAPE_CIRCLE:
+                float cx = (Edge.LEFT.getCoordinate() + Edge.RIGHT.getCoordinate()) / 2;
+                float cy = (Edge.TOP.getCoordinate() + Edge.BOTTOM.getCoordinate()) / 2;
+                float radius2 = (Edge.RIGHT.getCoordinate() - Edge.LEFT.getCoordinate()) / 2;
+                clipPath.addCircle(cx, cy, radius2, Path.Direction.CW);
+                canvas.clipPath(clipPath, Region.Op.DIFFERENCE);
+                canvas.drawARGB(204, 41, 48, 63);
+                canvas.restore();
+                canvas.drawCircle(cx, cy, radius2, mBorderPaint);
+                break;
+            case OVERLAY_SHAPE_SQUARE:
+                drawBorderRect(canvas);
+                drawGuideRect(canvas);
+                break;
+        }
+        if (mGuidelines) {
+            drawRuleOfThirdsGuidelines(canvas);
+        }
+    }
 
-		final float x1 = left + oneThirdCropWidth;
-		canvas.drawLine(x1, top, x1, bottom, mGuidelinePaint);
-		final float x2 = right - oneThirdCropWidth;
-		canvas.drawLine(x2, top, x2, bottom, mGuidelinePaint);
+    private void drawBorderRect(Canvas canvas) {
+        final float radius = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, CORNER_RADIUS, mContext.getResources().getDisplayMetrics());
+        clipPath.addRoundRect(rectF, radius, radius, Path.Direction.CW);
+        canvas.clipPath(clipPath, Region.Op.DIFFERENCE);
+        canvas.drawARGB(204, 41, 48, 63);
+        canvas.restore();
+        canvas.drawRoundRect(rectF, radius, radius, mBorderPaint);
+    }
 
-		// Draw horizontal guidelines.
-		final float oneThirdCropHeight = Edge.getHeight() / 3;
+    @Override
+    public Rect getImageBounds() {
+        return new Rect((int) Edge.LEFT.getCoordinate(), (int) Edge.TOP.getCoordinate(), (int) Edge.RIGHT.getCoordinate(), (int) Edge.BOTTOM.getCoordinate());
+    }
 
-		final float y1 = top + oneThirdCropHeight;
-		canvas.drawLine(left, y1, right, y1, mGuidelinePaint);
-		final float y2 = bottom - oneThirdCropHeight;
-		canvas.drawLine(left, y2, right, y2, mGuidelinePaint);
-	}
+    private void drawRuleOfThirdsGuidelines(Canvas canvas) {
+
+        final float left = Edge.LEFT.getCoordinate();
+        final float top = Edge.TOP.getCoordinate();
+        final float right = Edge.RIGHT.getCoordinate();
+        final float bottom = Edge.BOTTOM.getCoordinate();
+
+        // Draw vertical guidelines.
+        final float oneThirdCropWidth = Edge.getWidth() / 3;
+
+        final float x1 = left + oneThirdCropWidth;
+        canvas.drawLine(x1, top, x1, bottom, mGuidelinePaint);
+        final float x2 = right - oneThirdCropWidth;
+        canvas.drawLine(x2, top, x2, bottom, mGuidelinePaint);
+
+        // Draw horizontal guidelines.
+        final float oneThirdCropHeight = Edge.getHeight() / 3;
+
+        final float y1 = top + oneThirdCropHeight;
+        canvas.drawLine(left, y1, right, y1, mGuidelinePaint);
+        final float y2 = bottom - oneThirdCropHeight;
+        canvas.drawLine(left, y2, right, y2, mGuidelinePaint);
+    }
+
+    // 画1：1和16：9的引导线
+    private void drawGuideRect(Canvas canvas) {
+
+        final float left = Edge.LEFT.getCoordinate();
+        final float top = Edge.TOP.getCoordinate();
+        final float right = Edge.RIGHT.getCoordinate();
+        final float bottom = Edge.BOTTOM.getCoordinate();
+
+        // 获取到边框的宽高
+        final float edgeWidth = Edge.getWidth();
+        final float edgeHeight = Edge.getHeight();
+
+        // 在16：9基础上进行画框，所以肯定宽大于高
+        // 画1：1框
+        canvas.drawRect(left + ((edgeWidth - edgeHeight) / 2), top, right - ((edgeWidth - edgeHeight) / 2), bottom, mGuideRectPaint);
+        // 画4：3框，说明当前的框为16:9
+        canvas.drawRect(left + ((edgeWidth - edgeHeight / 3 * 4) / 2), top, right - ((edgeWidth - edgeHeight / 3 * 4) / 2), bottom, mGuideRectPaint);
+
+    }
 
 }
