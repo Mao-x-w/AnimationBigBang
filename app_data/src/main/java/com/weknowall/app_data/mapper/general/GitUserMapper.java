@@ -1,26 +1,26 @@
-package com.weknowall.app_presenter.mapper.general;
+package com.weknowall.app_data.mapper.general;
 
 import com.weknowall.app_common.utils.MapperImpl;
-import com.weknowall.app_domain.entity.general.GitUserModel;
-import com.weknowall.app_presenter.entity.general.GitUser;
+import com.weknowall.app_data.entity.general.GitUserEntity;
+import com.weknowall.app_domain.entity.general.GitUser;
 
 import javax.inject.Inject;
 
 /**
  * User: laomao
  * Date: 2017-03-01
- * Time: 18-04
+ * Time: 18-02
  */
 
-public class GitUserMapper extends MapperImpl<GitUser,GitUserModel> {
+public class GitUserMapper extends MapperImpl<GitUserEntity,GitUser> {
 
     @Inject
     public GitUserMapper() {
     }
 
     @Override
-    public GitUser transform(GitUserModel g) {
-        GitUser ge=new GitUser();
+    public GitUserEntity transform(GitUser g) {
+        GitUserEntity ge=new GitUserEntity();
         ge.setAvatar(g.getAvatar());
         ge.setFollowersUrl(g.getFollowersUrl());
         ge.setFollowingUrl(g.getFollowingUrl());
@@ -32,8 +32,8 @@ public class GitUserMapper extends MapperImpl<GitUser,GitUserModel> {
     }
 
     @Override
-    public GitUserModel transformTo(GitUser g) {
-        GitUserModel ge=new GitUserModel();
+    public GitUser transformTo(GitUserEntity g) {
+        GitUser ge=new GitUser();
         ge.setAvatar(g.getAvatar());
         ge.setFollowersUrl(g.getFollowersUrl());
         ge.setFollowingUrl(g.getFollowingUrl());

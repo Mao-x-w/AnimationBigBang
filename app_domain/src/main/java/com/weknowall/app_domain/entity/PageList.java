@@ -4,23 +4,17 @@ import java.util.List;
 
 /**
  * User: laomao
- * Date: 2016-09-18
- * Time: 19-56
+ * Date: 2016-09-19
+ * Time: 16-48
  */
 
-public class PageListModel<T> {
+public class PageList<T> {
 
 	private int currentPage;
 	private int totalPage;
 	private List<T> items;
 
-	public PageListModel() {
-	}
-
-	public PageListModel(int currentPage, int totalPage, List<T> items) {
-		this.currentPage = currentPage;
-		this.totalPage = totalPage;
-		this.items = items;
+	public PageList() {
 	}
 
 	public int getCurrentPage() {

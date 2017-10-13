@@ -1,4 +1,4 @@
-package com.weknowall.app_presenter.entity.general;
+package com.weknowall.app_domain.entity.general;
 
 import android.widget.ImageView;
 
