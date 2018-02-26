@@ -2,6 +2,7 @@ package com.weknowall.cn.wuwei.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import com.weknowall.app_presenter.view.ILoadingView;
 import com.weknowall.cn.wuwei.CustomApplication;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.dagger.components.ApplicationComponent;
+import com.weknowall.cn.wuwei.utils.StatusBarUtils;
 import com.weknowall.cn.wuwei.utils.UiHelper;
 
 /**
@@ -44,6 +46,28 @@ public class BaseActivity extends AppCompatActivity implements ILoadingView{
             setSupportActionBar(mToolbar);
             mToolbar.setNavigationOnClickListener(v -> finish());
         }
+
+        StatusBarUtils.setColor(this, Color.parseColor("#ffffff"),0);
+        StatusBarUtils.StatusBarLightMode(this);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+        overridePendingTransition(R.anim.anim_slide_in_right, R.anim.anim_no_slide);
+    }
+
+
+    protected void overrideClosePendingTransition() {
+        overridePendingTransition(R.anim.anim_no_slide, R.anim.anim_slide_out_right);
+    }
+
+
+
+    @Override
+    public void finish() {
+        super.finish();
+        overrideClosePendingTransition();
     }
 
 

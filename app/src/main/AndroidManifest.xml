@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.weknowall.cn.wuwei">
 
     <uses-permission android:name="android.permission.CALL_PHONE"/>
@@ -29,10 +30,16 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/LaoMao.Theme">
+        android:theme="@style/LaoMao.Theme"
+        >
 
 
-        <activity android:name="com.weknowall.cn.wuwei.ui.SplashActivity">
+        <activity
+            android:name="com.weknowall.cn.wuwei.ui.SplashActivity"
+            android:theme="@style/LaoMao.Theme.Base.FullScreen"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -40,16 +47,35 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.MainActivity"/>
-        <activity android:name=".ui.activity.GitUsersActivity"
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/LaoMao.Theme.Main"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:windowSoftInputMode="adjustNothing"
+            />
+        <activity
+            android:name=".ui.activity.GitUsersActivity"
             android:label="github用户"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
-        <activity android:name=".ui.activity.SwipeDeleteRecyclerViewActivtiy"
+        <activity
+            android:name=".ui.activity.SwipeDeleteRecyclerViewActivtiy"
             android:label="侧滑删除"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
-        <activity android:name=".ui.activity.BezierCurveActivity"/>
-        <activity android:name=".ui.activity.CoordinatorLayoutActivity"
+        <activity android:name=".ui.activity.BezierCurveActivity"
+                  android:launchMode="singleTask"
+                  android:screenOrientation="portrait"
+            />
+        <activity
+            android:name=".ui.activity.CoordinatorLayoutActivity"
             android:label=""
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             />
         <activity android:name=".ui.activity.WebViewActivity"/>
         <activity android:name=".ui.activity.SmartTablayoutActivity"/>

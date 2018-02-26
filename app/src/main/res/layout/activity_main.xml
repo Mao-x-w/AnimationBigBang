@@ -4,7 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+    <include
+        layout="@layout/toolbar_default"
+        />
 
     <Button
         android:id="@+id/main_mvp_test"
