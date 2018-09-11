@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete,R.id.main_bezier_curve
-            ,R.id.main_coordinator_layout,R.id.main_crop_image})
+            ,R.id.main_coordinator_layout,R.id.main_crop_image,R.id.main_uri_scheme})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -49,6 +49,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.main_crop_image:
                 startActivity(CropImageActivity.class);
+                break;
+            case R.id.main_uri_scheme:
+                startActivity(UriSchemeActivity.class);
                 break;
         }
     }
