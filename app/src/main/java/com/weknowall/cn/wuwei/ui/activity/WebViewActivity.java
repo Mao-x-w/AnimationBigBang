@@ -23,7 +23,8 @@ public class WebViewActivity extends BaseActivity {
     WebView mWebview;
 
     private MyWebViewHelper helper;
-    private String url = "http://shopapi.meishi.cc/mobile/index.php?act=index&op=recommend";
+    //    private String url = "http://shopapi.meishi.cc/mobile/index.php?act=index&op=recommend";
+    private String url = "https://tapph5.meishi.cc/king_of_food/food_king.php";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class WebViewActivity extends BaseActivity {
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);
 
-        helper = new MyWebViewHelper(getContext(),mWebview);
+        helper = new MyWebViewHelper(getContext(), mWebview);
         helper.initWeb();
         helper.loadurl(url);
     }

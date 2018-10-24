@@ -81,6 +81,8 @@
         <activity android:name=".ui.activity.SmartTablayoutActivity"/>
         <activity android:name=".ui.activity.CropImageActivity"/>
         <activity android:name=".utils.image.ImagePickerActivity"/>
+        <activity android:name=".ui.activity.SonicWebViewActivity"/>
+        <activity android:name=".ui.activity.ThreadDemoActivity"/>
     </application>
 
 </manifest>

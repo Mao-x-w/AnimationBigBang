@@ -33,7 +33,7 @@ import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.weknowall.app_common.encode.MD5;
 import com.weknowall.app_common.utils.DeviceHelper;
-import com.weknowall.app_presenter.entity.general.Image;
+import com.weknowall.app_domain.entity.general.Image;
 
 import java.io.File;
 import java.io.FileOutputStream;
