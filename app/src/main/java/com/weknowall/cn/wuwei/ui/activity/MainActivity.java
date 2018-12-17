@@ -31,8 +31,9 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete,R.id.main_bezier_curve
-            ,R.id.main_coordinator_layout,R.id.main_crop_image,R.id.web_view,R.id.sonic_web_view,R.id.thread_communicate})
+    @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete, R.id.main_bezier_curve
+            , R.id.main_coordinator_layout, R.id.main_crop_image, R.id.web_view, R.id.sonic_web_view
+            , R.id.thread_communicate, R.id.intent_service_demo,R.id.rxjava_demo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -58,6 +59,12 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.thread_communicate:
                 startActivity(ThreadDemoActivity.class);
+                break;
+            case R.id.intent_service_demo:
+                startActivity(IntentServiceDemoActivity.class);
+                break;
+            case R.id.rxjava_demo:
+                startActivity(RxjavaDemoActivity.class);
                 break;
         }
     }

@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
-import com.weknowall.cn.wuwei.utils.image.ImageLoader2;
+import com.weknowall.cn.wuwei.utils.image.ImageLoader3;
 import com.weknowall.cn.wuwei.widget.recyclerview.adapter.AdapterPlus;
 import com.weknowall.cn.wuwei.widget.recyclerview.adapter.ViewHolderPlus;
 
@@ -163,7 +163,8 @@ public class ThreadDemoActivity extends BaseActivity {
             public void onBinding(int position, String s) {
 //                Glide.with(getContext()).load(new File(mMaxDirFile,s)).into(mImageView);
                 mTitle.setText(s);
-                ImageLoader2.getInstance().loadImage(new File(mMaxDirFile,s).getAbsolutePath(),mImageView);
+//                ImageLoader2.getInstance().loadImage(new File(mMaxDirFile,s).getAbsolutePath(),mImageView);
+                ImageLoader3.getInstance().loadImage(new File(mMaxDirFile,s).getAbsolutePath(),mImageView);
             }
         }
 

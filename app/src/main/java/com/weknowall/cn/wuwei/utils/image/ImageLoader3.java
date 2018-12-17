@@ -2,8 +2,9 @@ package com.weknowall.cn.wuwei.utils.image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.Looper;
+import android.os.HandlerThread;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.util.LruCache;
@@ -14,8 +15,8 @@ import java.lang.reflect.Field;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -23,31 +24,30 @@ import java.util.concurrent.TimeUnit;
  * User: laomao
  * Date: 2018-10-22
  * Time: 11-02
+ * 使用HandlerThread实现子线程中的消息机制
  */
 
-public class ImageLoader2 {
-    private static volatile ImageLoader2 mInstance;
+public class ImageLoader3 {
+    private static volatile ImageLoader3 mInstance;
     private ExecutorService mExecutorService;
     private Type mType;
-    private Semaphore mSemaphore;
-    private Semaphore mSemaphorePoolThreadHandler = new Semaphore(0);
     private LinkedList<Runnable> mTasks;
 //    private LinkedHashMap<String,Runnable> mTasks;
     private LruCache<String, Bitmap> mLruCache;
-    private Handler mHandler;
     private Handler mUiHandler;
     private long mKeepAliveTime=3;
     private TimeUnit mTimeUnit=TimeUnit.MINUTES;
+    private Handler mTaskHandler;
 
-    private ImageLoader2(int threadCount, Type type) {
+    private ImageLoader3(int threadCount, Type type) {
         init(threadCount, type);
     }
 
-    public static ImageLoader2 getInstance() {
+    public static ImageLoader3 getInstance() {
         if (mInstance == null) {
-            synchronized (ImageLoader2.class) {
+            synchronized (ImageLoader3.class) {
                 if (mInstance == null) {
-                    mInstance = new ImageLoader2(5, Type.LIFO);
+                    mInstance = new ImageLoader3(5, Type.LIFO);
                 }
             }
         }
@@ -59,28 +59,22 @@ public class ImageLoader2 {
     }
 
     private void init(int threadCount, Type type) {
-        new Thread(new Runnable() {
+        HandlerThread handlerThread=new HandlerThread("thread_image");
+        handlerThread.start();
+        mTaskHandler = new Handler(handlerThread.getLooper()){
             @Override
-            public void run() {
-
-                Looper.prepare();
-
-                mHandler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        mExecutorService.execute(getTask());
-//                        try {
-//                            mSemaphore.acquire();
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-                    }
-                };
-
-                mSemaphorePoolThreadHandler.release();
-                Looper.loop();
+            public void handleMessage(Message msg) {
+                mExecutorService.execute(getTask());
             }
-        }).start();
+        };
+
+        Future<?> submit = mExecutorService.submit(getTask());
+        AsyncTask asyncTask=new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                return null;
+            }
+        }.execute();
 
         int maxMemory = (int) Runtime.getRuntime().maxMemory();
         int cacheSize = maxMemory / 8;
@@ -95,7 +89,6 @@ public class ImageLoader2 {
         int corePoolSize=Runtime.getRuntime().availableProcessors()*2+1;
         mExecutorService=new ThreadPoolExecutor(corePoolSize,corePoolSize,mKeepAliveTime,mTimeUnit
                 ,new LinkedBlockingDeque<>(), Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
-        mSemaphore = new Semaphore(threadCount);
         mTasks = new LinkedList<>();
         mType = type == null ? Type.LIFO : Type.FIFO;
     }
@@ -113,16 +106,8 @@ public class ImageLoader2 {
      * @param runnable
      */
     private synchronized void addTask(String path, Runnable runnable) {
-        if (mHandler == null) {
-            try {
-                mSemaphorePoolThreadHandler.acquire();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
         mTasks.add(runnable);
-        mHandler.sendEmptyMessage(1);
+        mTaskHandler.sendEmptyMessage(1);
     }
 
     private synchronized Runnable getTask() {
