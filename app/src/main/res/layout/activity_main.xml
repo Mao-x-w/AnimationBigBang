@@ -11,115 +11,153 @@
         layout="@layout/toolbar_default"
         />
 
-    <Button
-        android:id="@+id/main_mvp_test"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="@string/main_mvp_test"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/main_swipe_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="@string/main_swipe_delete"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-    <Button
-        android:id="@+id/main_bezier_curve"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="@string/main_bezier_curve"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/main_mvp_test"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="@string/main_mvp_test"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
 
-    <Button
-        android:id="@+id/main_coordinator_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="@string/main_coordinator_layout"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/main_swipe_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="@string/main_swipe_delete"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
 
-    <Button
-        android:id="@+id/main_crop_image"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="@string/crop_image"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        android:visibility="gone"
-        />
+            <Button
+                android:id="@+id/main_bezier_curve"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="@string/main_bezier_curve"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
 
-    <Button
-        android:id="@+id/web_view"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="webView"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/main_coordinator_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="@string/main_coordinator_layout"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
 
-    <Button
-        android:id="@+id/sonic_web_view"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="sonicWebView"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/main_crop_image"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="@string/crop_image"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:visibility="gone"
+                />
 
-    <Button
-        android:id="@+id/thread_communicate"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="线程通信"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/web_view"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="webView"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
 
-    <Button
-        android:id="@+id/intent_service_demo"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="intent Service demo"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/sonic_web_view"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="sonicWebView"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
 
-    <Button
-        android:id="@+id/rxjava_demo"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
-        android:layout_marginLeft="@dimen/size_15"
-        android:layout_marginTop="@dimen/size_15"
-        android:text="custom rxjava"
-        android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+            <Button
+                android:id="@+id/thread_communicate"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="线程通信"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
+
+            <Button
+                android:id="@+id/intent_service_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="intent Service demo"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
+
+            <Button
+                android:id="@+id/rxjava_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="custom rxjava"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
+
+            <Button
+                android:id="@+id/synchronized_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="synchronized demo"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
+
+            <Button
+                android:id="@+id/round_viewGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="roundViewGroup demo"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
 </LinearLayout>

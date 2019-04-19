@@ -85,6 +85,8 @@
         <activity android:name=".ui.activity.ThreadDemoActivity"/>
         <activity android:name=".ui.activity.IntentServiceDemoActivity"/>
         <activity android:name=".ui.activity.RxjavaDemoActivity"/>
+        <activity android:name=".ui.activity.SynchronizedDemoActivity"/>
+        <activity android:name=".ui.activity.RoundViewGroupActivity"/>
 
         <service android:name=".utils.UploadImageService"/>
     </application>

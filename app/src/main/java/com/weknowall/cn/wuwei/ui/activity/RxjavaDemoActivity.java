@@ -1,5 +1,6 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -31,6 +32,18 @@ public class RxjavaDemoActivity extends BaseActivity {
         setContentView(R.layout.activity_rxjava_demo);
 
         initData();
+
+        new AsyncTask<String, Integer, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+            }
+        }.execute("1111");
     }
 
     private void initData() {
