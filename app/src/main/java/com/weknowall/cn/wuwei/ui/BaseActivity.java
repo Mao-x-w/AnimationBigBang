@@ -47,8 +47,12 @@ public class BaseActivity extends AppCompatActivity implements ILoadingView{
             mToolbar.setNavigationOnClickListener(v -> finish());
         }
 
-        StatusBarUtils.setColor(this, Color.parseColor("#ffffff"),0);
-        StatusBarUtils.StatusBarLightMode(this);
+        setStatusBar();
+    }
+
+    protected void setStatusBar() {
+        StatusBarUtils.setColorForSwipeBack(this, Color.parseColor("#ffffff"),0);
+        StatusBarUtils.StatusBarLightMode(this,true);
     }
 
     @Override

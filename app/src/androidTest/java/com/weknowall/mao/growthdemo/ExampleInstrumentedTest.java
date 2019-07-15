@@ -1,4 +1,4 @@
-package com.weknowall.cn.wuwei;
+package com.weknowall.mao.growthdemo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

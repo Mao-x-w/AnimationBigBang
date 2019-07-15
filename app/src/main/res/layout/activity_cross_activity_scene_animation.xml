@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60"
+        >
+
+        <include
+            layout="@layout/toolbar_default"
+            />
+        
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_search_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/size_30"
+            />
+
+    </RelativeLayout>
+
+    <com.weknowall.cn.wuwei.widget.image.WebImageView
+        android:layout_marginTop="@dimen/size_150"
+        android:id="@+id/web_image_view"
+        android:layout_width="@dimen/size_200"
+        android:layout_height="@dimen/size_267"/>
+
+</LinearLayout>
