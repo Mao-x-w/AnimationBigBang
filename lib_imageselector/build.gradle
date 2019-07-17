@@ -17,7 +17,3 @@ dependencies {
     compile supportDependencies.support_v4
 
 }
-
-android {
-    buildToolsVersion '25.0.0'
-}

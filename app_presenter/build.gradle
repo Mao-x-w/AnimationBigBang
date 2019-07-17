@@ -17,7 +17,3 @@ dependencies {
     compile librariesDependencies.rxAndroid
 
 }
-
-android {
-    buildToolsVersion '25.0.0'
-}

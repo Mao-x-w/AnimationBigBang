@@ -1,17 +1,26 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
-apply plugin: 'android-apt'
+//apply plugin: 'android-apt'
 
 apply from: '../build-tools/ds-test.gradle'
 apply from: '../build-tools/ds-lambda.gradle'
 apply from: '../build-tools/ds-dagger.gradle'
+apply from: '../build-tools/ds-butter-knife.gradle'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+    }
+}
 
 android {
     def buildConfig = rootProject.extensions.getByName("ext")
 
     compileSdkVersion buildConfig.getAt("androidCompileSdkVersion")
-    buildToolsVersion buildConfig.getAt("androidBuildToolsVersion")
 
     signingConfigs {
         config {
@@ -47,7 +56,6 @@ android {
     }
 
     publishNonDefault true
-    buildToolsVersion '25.0.0'
 }
 
 repositories{
@@ -71,7 +79,6 @@ dependencies {
     compile androidSupportDependencies.recyclerView
 
     compile librariesDependencies.recyclerViewDivider
-    compile librariesDependencies.butterKnife
     compile librariesDependencies.logger
     compile librariesDependencies.rxJava
     compile librariesDependencies.rxBus
@@ -83,14 +90,12 @@ dependencies {
     compile librariesDependencies.canRefreshRecycler
     compile librariesDependencies.jiecaoVideoPlayer
     compile librariesDependencies.glide
+    annotationProcessor librariesDependencies.glide_compiler
     compile librariesDependencies.glide_transform
     compile librariesDependencies.glide_okhttp
     compile librariesDependencies.swipeDeleteRecycler
     compile librariesDependencies.smartTablayout
     compile librariesDependencies.smartTablayoutUtilV4
-    compile librariesDependencies.smartTablayoutUtilV13
-
-    apt librariesDependencies.butterKnife_compiler
 
     compile name:'SMSSDK-2.1.3',ext:'aar'
     compile 'com.tencent.sonic:sdk:3.0.0'
@@ -101,4 +106,16 @@ dependencies {
     // 自动测试
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
+}
+
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        }
+    }
 }

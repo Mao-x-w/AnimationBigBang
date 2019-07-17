@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -26,10 +27,19 @@
 
     </RelativeLayout>
 
-    <com.weknowall.cn.wuwei.widget.image.WebImageView
-        android:layout_marginTop="@dimen/size_150"
+    <ImageView
         android:id="@+id/web_image_view"
         android:layout_width="@dimen/size_200"
-        android:layout_height="@dimen/size_267"/>
+        android:layout_height="@dimen/size_267"
+        android:scaleType="centerCrop"
+        />
+
+    <ImageView
+        android:id="@+id/round_image_view"
+        android:layout_width="@dimen/size_200"
+        android:layout_height="@dimen/size_267"
+        android:layout_marginTop="@dimen/size_50"
+        android:scaleType="centerCrop"
+        />
 
 </LinearLayout>

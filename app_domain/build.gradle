@@ -10,7 +10,3 @@ dependencies {
     compile librariesDependencies.rxJava
     compile librariesDependencies.javaxInject
 }
-
-android {
-    buildToolsVersion '25.0.0'
-}

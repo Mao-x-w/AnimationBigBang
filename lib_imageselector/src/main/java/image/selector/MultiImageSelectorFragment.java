@@ -374,7 +374,6 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			} else {
 				final Image image = images.get(position);
 				Glide.with(context)
-						.fromUri()
 						.asBitmap()
 						.load(image.getUri())
 						.placeholder(new ColorDrawable(Color.parseColor("#555555")))
@@ -507,14 +506,12 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			mHolder.txtDirect.setText(position == 0 ? directory.getName() : directory.getName() + String.format("(%d)", directory.getImages().size()));
 			if (directory.getImages().size() > 1 && isShowCamera) {
 				Glide.with(context)
-						.fromUri()
 						.asBitmap()
 						.load(directory.getImages().get(1).getUri())
 						.error(R.drawable.image_selector_load_error)
 						.into(mHolder.imgThumb);
 			} else if (directory.getImages().size() > 0 && !isShowCamera) {
 				Glide.with(context)
-						.fromUri()
 						.asBitmap()
 						.load(directory.getImages().get(0).getUri())
 						.error(R.drawable.image_selector_load_error)
