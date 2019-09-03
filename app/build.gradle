@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.jakewharton.butterknife'
 
 //apply plugin: 'android-apt'
 
@@ -51,60 +50,64 @@ android {
         }
     }
 
-    configurations{
+    configurations {
         all*.exclude group: 'com.mob.commons', module: 'share_sdk'
     }
 
     publishNonDefault true
+    sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jni/'] } }
 }
 
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }
 
 dependencies {
-    compile project(':app_presenter')
-    compile project(':app_domain')
-    compile project(':lib_imageselector')
+    implementation project(':app_presenter')
+    implementation project(':app_domain')
+    implementation project(':app_common')
+    implementation project(':app_data')
+    implementation project(':lib_imageselector')
+    implementation project(':jni')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
-    def librariesDependencies=rootProject.ext.librariesDependencies
+    def librariesDependencies = rootProject.ext.librariesDependencies
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile androidSupportDependencies.support_v7
-    compile androidSupportDependencies.design
-    compile androidSupportDependencies.recyclerView
+    implementation androidSupportDependencies.support_v7
+    implementation androidSupportDependencies.design
+    implementation androidSupportDependencies.recyclerView
 
-    compile librariesDependencies.recyclerViewDivider
-    compile librariesDependencies.logger
-    compile librariesDependencies.rxJava
-    compile librariesDependencies.rxBus
-    compile librariesDependencies.rxAndroid
-    compile librariesDependencies.retrofit
-    compile librariesDependencies.retrofit_rxjava
-    compile librariesDependencies.retrofit_fastJson
-    compile librariesDependencies.canRefresh
-    compile librariesDependencies.canRefreshRecycler
-    compile librariesDependencies.jiecaoVideoPlayer
-    compile librariesDependencies.glide
+    implementation librariesDependencies.recyclerViewDivider
+    implementation librariesDependencies.logger
+    implementation librariesDependencies.rxJava
+    implementation librariesDependencies.rxBus
+    implementation librariesDependencies.rxAndroid
+    implementation librariesDependencies.retrofit
+    implementation librariesDependencies.retrofit_rxjava
+    implementation librariesDependencies.retrofit_fastJson
+    implementation librariesDependencies.canRefresh
+    implementation librariesDependencies.canRefreshRecycler
+    implementation librariesDependencies.jiecaoVideoPlayer
+    implementation librariesDependencies.glide
     annotationProcessor librariesDependencies.glide_compiler
-    compile librariesDependencies.glide_transform
-    compile librariesDependencies.glide_okhttp
-    compile librariesDependencies.swipeDeleteRecycler
-    compile librariesDependencies.smartTablayout
-    compile librariesDependencies.smartTablayoutUtilV4
+    implementation librariesDependencies.glide_transform
+    implementation librariesDependencies.glide_okhttp
+    implementation librariesDependencies.swipeDeleteRecycler
+    implementation librariesDependencies.smartTablayout
+    implementation librariesDependencies.smartTablayoutUtilV4
 
-    compile name:'SMSSDK-2.1.3',ext:'aar'
-    compile 'com.tencent.sonic:sdk:3.0.0'
+    implementation name: 'SMSSDK-2.1.3', ext: 'aar'
+    implementation 'com.tencent.sonic:sdk:3.0.0'
 
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'//没有使用特殊Header，可以不加这行
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'//没有使用特殊Header，可以不加这行
 
     // 自动测试
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
 }
 

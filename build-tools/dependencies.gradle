@@ -1,7 +1,7 @@
 ext {
 
     androidSupportLibraryVersion = '27.1.1'
-    butterKnifeVersion = "8.4.0"
+    butterKnifeVersion = "8.8.1"
     recyclerViewDivider = "1.4.0"
     loggers = '1.15'
     rxAndroidVersion = '1.2.1'

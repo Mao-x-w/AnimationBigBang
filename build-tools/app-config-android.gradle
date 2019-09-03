@@ -11,6 +11,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar', exclude: 'android-support-*.jar')
+    implementation fileTree(dir: 'libs', include: '*.jar', exclude: 'android-support-*.jar')
 }
 

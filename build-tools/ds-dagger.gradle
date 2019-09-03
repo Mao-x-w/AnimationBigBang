@@ -3,9 +3,9 @@
 dependencies {
     def librariesDependencies=rootProject.ext.librariesDependencies
     //
-    compile librariesDependencies.dagger
+    implementation librariesDependencies.dagger
     //
     annotationProcessor librariesDependencies.daggerCompiler
     //
-    compile librariesDependencies.javaxAnnotation
+    implementation librariesDependencies.javaxAnnotation
 }

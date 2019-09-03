@@ -6,13 +6,13 @@ apply from: '../build-tools/app-config-android.gradle'
 dependencies {
     def librariesDependencies=rootProject.ext.librariesDependencies
 
-    compile librariesDependencies.fastJson
-    compile librariesDependencies.logger
-    compile librariesDependencies.rxJava
-    compile librariesDependencies.rxBus
-    compile librariesDependencies.rxAndroid
+    implementation librariesDependencies.fastJson
+    implementation librariesDependencies.logger
+    implementation librariesDependencies.rxJava
+    implementation librariesDependencies.rxBus
+    implementation librariesDependencies.rxAndroid
 
     def androidDependencies = rootProject.ext.androidSupportDependencies
 
-    compile androidDependencies.support_v4
+    implementation androidDependencies.support_v4
 }

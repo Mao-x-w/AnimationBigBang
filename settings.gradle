@@ -1,4 +1,4 @@
-include ':app',
+include ':app', ':jni',
         ':app_presenter',
         ':app_data',
         ':app_domain',
