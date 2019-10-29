@@ -3,7 +3,7 @@
 
 dependencies {
     def librariesDependencies=rootProject.ext.librariesDependencies
-    compile librariesDependencies.butterKnife
+    implementation librariesDependencies.butterKnife
     annotationProcessor librariesDependencies.butterKnife_compiler
 //    annotationProcessor trustyDependencies.butterKnifeApt
 }
