@@ -91,6 +91,7 @@
             />
         <activity android:name=".ui.activity.CrossActivityDetailActivity" />
         <activity android:name=".ui.activity.HotFixDemoActivity" />
+        <activity android:name=".ui.activity.UrlJumpActivity"/>
 
         <service android:name=".utils.UploadImageService" />
     </application>

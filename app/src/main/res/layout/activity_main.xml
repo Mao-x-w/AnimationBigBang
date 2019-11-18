@@ -187,6 +187,17 @@
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
                 />
 
+            <Button
+                android:id="@+id/url_jump"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:padding="@dimen/size_5"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:text="URL_JUMP"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                />
+
         </LinearLayout>
 
 
