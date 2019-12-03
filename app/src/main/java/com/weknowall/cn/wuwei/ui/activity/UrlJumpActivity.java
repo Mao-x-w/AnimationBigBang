@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.weknowall.app_domain.entity.general.Temp;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 
@@ -43,7 +44,9 @@ public class UrlJumpActivity extends BaseActivity {
 
     @OnClick(R.id.jump)
     public void onClick() {
+        Temp temp=new Temp();
         Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(mEditText.getText().toString().trim()));
+        intent.putExtra("sdfsdf",temp);
         startActivity(intent);
     }
 }
