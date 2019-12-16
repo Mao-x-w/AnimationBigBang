@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity {
     @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete, R.id.main_bezier_curve
             , R.id.main_coordinator_layout, R.id.main_crop_image, R.id.web_view, R.id.sonic_web_view
             , R.id.thread_communicate, R.id.intent_service_demo, R.id.rxjava_demo, R.id.synchronized_demo
-            , R.id.round_viewGroup, R.id.douyin,R.id.transition_animation,R.id.hot_fix})
+            , R.id.round_viewGroup, R.id.douyin,R.id.transition_animation,R.id.hot_fix,R.id.recycler_view_pager})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -81,6 +81,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.hot_fix:
                 startActivity(HotFixDemoActivity.class);
+                break;
+            case R.id.recycler_view_pager:
+                startActivity(RecyclerViewPagerDemo.class);
                 break;
         }
     }
