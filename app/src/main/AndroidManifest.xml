@@ -91,7 +91,9 @@
             />
         <activity android:name=".ui.activity.CrossActivityDetailActivity" />
         <activity android:name=".ui.activity.HotFixDemoActivity" />
-        <activity android:name=".ui.activity.RecyclerViewPagerDemo" />
+        <activity android:name=".ui.activity.UrlJumpActivity"/>
+        <activity android:name=".ui.activity.AptDemoActivity"/>
+	<activity android:name=".ui.activity.RecyclerViewPagerDemo" />
 
         <service android:name=".utils.UploadImageService" />
     </application>
