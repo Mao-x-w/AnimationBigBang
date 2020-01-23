@@ -15,26 +15,23 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 扫描二维码 相机 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 扫描二维码 相机 -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-feature android:name="android.hardware.camera" />
-    <!-- 使用照相机权限 -->
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <!-- 自动聚焦权限 -->
+    <uses-feature android:name="android.hardware.camera" /> <!-- 使用照相机权限 -->
+    <uses-feature android:name="android.hardware.camera.autofocus" /> <!-- 自动聚焦权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
-        android:name="com.weknowall.cn.wuwei.CustomApplication"
+        android:name=".CustomApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/LaoMao.Theme">
-
+        <activity android:name=".ui.activity.KotlinDemoActivity"></activity>
         <activity
-            android:name="com.weknowall.cn.wuwei.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/LaoMao.Theme.Base.FullScreen">
@@ -44,7 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -82,18 +78,15 @@
         <activity android:name=".ui.activity.SynchronizedDemoActivity" />
         <activity android:name=".ui.activity.RoundViewGroupActivity" />
         <activity android:name=".ui.activity.DouYinActivity" />
-
-        <activity android:name=".ui.activity.CrossActivitySearchActivity"
-            android:theme="@style/LaoMao.Theme.SceneAnimation"
-            />
         <activity
-            android:name=".ui.activity.CrossActivitySceneAnimationActivity"
-            />
+            android:name=".ui.activity.CrossActivitySearchActivity"
+            android:theme="@style/LaoMao.Theme.SceneAnimation" />
+        <activity android:name=".ui.activity.CrossActivitySceneAnimationActivity" />
         <activity android:name=".ui.activity.CrossActivityDetailActivity" />
         <activity android:name=".ui.activity.HotFixDemoActivity" />
-        <activity android:name=".ui.activity.UrlJumpActivity"/>
-        <activity android:name=".ui.activity.AptDemoActivity"/>
-	<activity android:name=".ui.activity.RecyclerViewPagerDemo" />
+        <activity android:name=".ui.activity.UrlJumpActivity" />
+        <activity android:name=".ui.activity.AptDemoActivity" />
+        <activity android:name=".ui.activity.RecyclerViewPagerDemo" />
 
         <service android:name=".utils.UploadImageService" />
     </application>

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/toolbar_default"
-        />
+    <include layout="@layout/toolbar_default" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,207 +15,198 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/main_mvp_test"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="@string/main_mvp_test"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="@string/main_mvp_test" />
 
             <Button
                 android:id="@+id/main_swipe_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="@string/main_swipe_delete"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="@string/main_swipe_delete" />
 
             <Button
                 android:id="@+id/main_bezier_curve"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="@string/main_bezier_curve"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="@string/main_bezier_curve" />
 
             <Button
                 android:id="@+id/main_coordinator_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="@string/main_coordinator_layout"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="@string/main_coordinator_layout" />
 
             <Button
                 android:id="@+id/main_crop_image"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="@string/crop_image"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                android:visibility="gone"
-                />
+                android:padding="@dimen/size_5"
+                android:text="@string/crop_image"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/web_view"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="webView"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="webView" />
 
             <Button
                 android:id="@+id/sonic_web_view"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="sonicWebView"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="sonicWebView" />
 
             <Button
                 android:id="@+id/thread_communicate"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="线程通信"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="线程通信" />
 
             <Button
                 android:id="@+id/intent_service_demo"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="intent Service demo"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="intent Service demo" />
 
             <Button
                 android:id="@+id/rxjava_demo"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="custom rxjava"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="custom rxjava" />
 
             <Button
                 android:id="@+id/synchronized_demo"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="synchronized demo"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="synchronized demo" />
 
             <Button
                 android:id="@+id/round_viewGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="roundViewGroup demo"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="roundViewGroup demo" />
 
             <Button
                 android:id="@+id/douyin"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="抖音demo"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="抖音demo" />
 
             <Button
                 android:id="@+id/transition_animation"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="转场动画"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="转场动画" />
 
             <Button
                 android:id="@+id/hot_fix"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="JNI"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="JNI" />
 
             <Button
                 android:id="@+id/url_jump"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="URL_JUMP"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="URL_JUMP" />
 
             <Button
                 android:id="@+id/apt_demo"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="APT_DEMO"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
-		
-		<Button
+                android:padding="@dimen/size_5"
+                android:text="APT_DEMO" />
+
+            <Button
                 android:id="@+id/recycler_view_pager"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
-                android:padding="@dimen/size_5"
                 android:layout_marginLeft="@dimen/size_15"
                 android:layout_marginTop="@dimen/size_15"
-                android:text="recycler_view_pager"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
-                />
+                android:padding="@dimen/size_5"
+                android:text="recycler_view_pager" />
+
+            <Button
+                android:id="@+id/kotlin_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="kotlin_demo" />
 
         </LinearLayout>
 
