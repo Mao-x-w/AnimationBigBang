@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.widget.recyclerview.adapter.AdapterPlus;
 import com.weknowall.cn.wuwei.widget.recyclerview.adapter.ViewHolderPlus;
-import com.weknowall.cn.wuwei.widget.snapHelper.GravitySnapHelper;
+import com.weknowall.cn.wuwei.widget.snapHelper.SnapPagerScrollListener;
 
 import java.util.ArrayList;
 
@@ -56,7 +55,15 @@ public class RecyclerViewPagerDemo extends BaseActivity {
 //        snapHelper.setScrollMsPerInch(10f);
 //        snapHelper.attachToRecyclerView(mRecyclerView);
 
-        new PagerSnapHelper().attachToRecyclerView(mRecyclerView);
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(mRecyclerView);
+        mRecyclerView.addOnScrollListener(new SnapPagerScrollListener(snapHelper, SnapPagerScrollListener.ON_SETTLED, true, new SnapPagerScrollListener.OnChangeListener() {
+            @Override
+            public void onSnapped(int position) {
+                mAdapter.setCurrentSnapped(position);
+                mAdapter.notifyDataSetChanged();
+            }
+        }));
 
         ArrayList list=new ArrayList();
         list.add("a");
@@ -66,6 +73,8 @@ public class RecyclerViewPagerDemo extends BaseActivity {
     }
 
     class ViewPagerAdapter extends AdapterPlus<String> {
+
+        private int snapPosition;
 
         public ViewPagerAdapter(Context context) {
             super(context);
@@ -81,16 +90,20 @@ public class RecyclerViewPagerDemo extends BaseActivity {
 
             ItemViewHolder holder1 = (ItemViewHolder) holder;
 
-            switch (position%3){
-                case 0:
-                    holder1.mGeneralView.setBackgroundColor(Color.parseColor("#222222"));
-                    break;
-                case 1:
-                    holder1.mGeneralView.setBackgroundColor(Color.parseColor("#ff4c39"));
-                    break;
-                case 2:
-                    holder1.mGeneralView.setBackgroundColor(Color.parseColor("#000000"));
-                    break;
+            if (position==snapPosition){
+                holder1.mGeneralView.setBackgroundColor(Color.BLUE);
+            }else {
+                switch (position%3){
+                    case 0:
+                        holder1.mGeneralView.setBackgroundColor(Color.parseColor("#222222"));
+                        break;
+                    case 1:
+                        holder1.mGeneralView.setBackgroundColor(Color.parseColor("#ff4c39"));
+                        break;
+                    case 2:
+                        holder1.mGeneralView.setBackgroundColor(Color.parseColor("#000000"));
+                        break;
+                }
             }
             holder1.mNum.setText(position+"");
 
@@ -99,6 +112,10 @@ public class RecyclerViewPagerDemo extends BaseActivity {
         @Override
         public int getItemCount() {
             return getList().size()*10;
+        }
+
+        public void setCurrentSnapped(int position) {
+            this.snapPosition = position;
         }
 
         class ItemViewHolder extends ViewHolderPlus<String> {
