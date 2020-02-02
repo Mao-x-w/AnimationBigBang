@@ -57,7 +57,6 @@ public class BindViewProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnv) {
-        System.out.println("start process");
         if (set != null && set.size() != 0) {
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(BindddView.class);//获得被BindView注解标记的element
 

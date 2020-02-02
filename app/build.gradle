@@ -6,6 +6,9 @@ apply from: '../build-tools/ds-test.gradle'
 apply from: '../build-tools/ds-lambda.gradle'
 apply from: '../build-tools/ds-dagger.gradle'
 apply from: '../build-tools/ds-butter-knife.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 buildscript {
     repositories {
@@ -71,6 +74,9 @@ dependencies {
     implementation project(':app_data')
     implementation project(':lib_imageselector')
     implementation project(':jni')
+    implementation project(':apt_annotation')
+    implementation project(':apt_api')
+    kapt project(':apt_compiler')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
     def librariesDependencies = rootProject.ext.librariesDependencies
@@ -93,7 +99,8 @@ dependencies {
     implementation librariesDependencies.canRefreshRecycler
     implementation librariesDependencies.jiecaoVideoPlayer
     implementation librariesDependencies.glide
-    annotationProcessor librariesDependencies.glide_compiler
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    kapt librariesDependencies.glide_compiler
     implementation librariesDependencies.glide_transform
     implementation librariesDependencies.glide_okhttp
     implementation librariesDependencies.swipeDeleteRecycler
@@ -109,6 +116,7 @@ dependencies {
     // 自动测试
     androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 
