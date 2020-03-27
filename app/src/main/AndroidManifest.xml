@@ -88,6 +88,22 @@
         <activity android:name=".ui.activity.AptDemoActivity" />
         <activity android:name=".ui.activity.RecyclerViewPagerDemo" />
 
+        <activity
+            android:name=".ui.activity.launchMode.ActivityA"
+            android:launchMode="standard"
+            />
+
+        <activity
+            android:name=".ui.activity.launchMode.ActivityB"
+            android:launchMode="singleTop"
+            />
+
+        <activity
+            android:name=".ui.activity.launchMode.ActivityC"
+            android:launchMode="singleInstance"
+            />
+        <activity android:name=".ui.activity.IpcDemoActivity" />
+
         <service android:name=".utils.UploadImageService" />
     </application>
 

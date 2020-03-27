@@ -1,6 +1,8 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,9 +46,11 @@ public class UrlJumpActivity extends BaseActivity {
 
     @OnClick(R.id.jump)
     public void onClick() {
-        Temp temp=new Temp();
-        Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(mEditText.getText().toString().trim()));
-        intent.putExtra("sdfsdf",temp);
-        startActivity(intent);
+        Temp temp = new Temp();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mEditText.getText().toString().trim()));
+//        intent.putExtra("sdfsdf", temp);
+        ComponentName componentName = intent.resolveActivity(getPackageManager());
+        if (componentName != null)
+            startActivity(intent);
     }
 }

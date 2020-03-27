@@ -208,6 +208,26 @@
                 android:padding="@dimen/size_5"
                 android:text="kotlin_demo" />
 
+            <Button
+                android:id="@+id/launch_mode_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="launch_mode_demo" />
+
+            <Button
+                android:id="@+id/ipc_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="ipc_demo" />
+
         </LinearLayout>
 
 

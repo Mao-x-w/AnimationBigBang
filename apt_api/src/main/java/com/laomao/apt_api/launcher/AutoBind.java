@@ -26,7 +26,7 @@ public class AutoBind {
 
     public void inject(Object target) {
         String className = target.getClass().getCanonicalName();
-        String helperName = className + "$$Autobind";
+        String helperName = className + "Helper";
         try {
             IBindHelper helper = (IBindHelper) (Class.forName(helperName).getConstructor().newInstance());
             helper.inject(target);

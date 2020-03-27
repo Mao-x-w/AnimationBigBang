@@ -1,4 +1,4 @@
-include ':app', ':jni', ':apt_annotation', ':apt_compiler', ':apt_api',
+include ':app', ':jni', ':apt_annotation', ':apt_compiler', ':apt_api', ':lib_server',
         ':app_presenter',
         ':app_data',
         ':app_domain',

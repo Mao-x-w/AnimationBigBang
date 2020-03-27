@@ -1,5 +1,6 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -7,6 +8,9 @@ import android.widget.Button;
 
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
+import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityA;
+import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityB;
+import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityC;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +39,7 @@ public class MainActivity extends BaseActivity {
             , R.id.main_coordinator_layout, R.id.main_crop_image, R.id.web_view, R.id.sonic_web_view
             , R.id.thread_communicate, R.id.intent_service_demo, R.id.rxjava_demo, R.id.synchronized_demo
             , R.id.round_viewGroup, R.id.douyin, R.id.transition_animation, R.id.hot_fix, R.id.url_jump
-            , R.id.apt_demo, R.id.recycler_view_pager, R.id.kotlin_demo})
+            , R.id.apt_demo, R.id.recycler_view_pager, R.id.kotlin_demo,R.id.launch_mode_demo,R.id.ipc_demo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -85,14 +89,26 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.url_jump:
                 startActivity(UrlJumpActivity.class);
+                break;
             case R.id.recycler_view_pager:
                 startActivity(RecyclerViewPagerDemo.class);
                 break;
             case R.id.kotlin_demo:
-                startActivity(KotlinDemoActivity.class);
+//                startActivity(KotlinDemoActivity.class);
+//                KotlinDemoActivityBuilder.start(getContext(),20,"10000","张三");
                 break;
             case R.id.apt_demo:
                 startActivity(AptDemoActivity.class);
+                break;
+            case R.id.launch_mode_demo:
+                // 通过非Activity的context启动Activity的时候。需要加flag: FLAG_ACTIVITY_NEW_TASK 和singleTask效果一样
+                // 当我们通过Activity的context启动时，会取当前的Activity所在的栈进行判断，所以不需要加flag
+                // 无论任何情况下都得加，因为无法判断当前的acitivity的栈信息。而加上那个flag就不判读了
+//                getApplicationContext().startActivity(new Intent(getApplicationContext(),ActivityC.class));
+                startActivity(new Intent(getApplicationContext(),ActivityC.class));
+                break;
+            case R.id.ipc_demo:
+                startActivity(IpcDemoActivity.class);
                 break;
         }
     }

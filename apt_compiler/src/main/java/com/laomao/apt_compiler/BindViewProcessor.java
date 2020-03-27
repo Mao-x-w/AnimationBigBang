@@ -1,5 +1,6 @@
 package com.laomao.apt_compiler;
 
+import com.google.auto.service.AutoService;
 import com.laomao.apt_annotation.BindddView;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
@@ -27,6 +29,7 @@ import javax.tools.JavaFileObject;
  * Date: 2019-12-02
  * Time: 16-09
  */
+//@AutoService(Processor.class)
 public class BindViewProcessor extends AbstractProcessor {
 
     private Filer mFilerUtil;
@@ -38,26 +41,38 @@ public class BindViewProcessor extends AbstractProcessor {
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
+        // 文件管理工具类，在后面生成java文件时会用到
         mFilerUtil = processingEnv.getFiler();
+        // Element处理类，获取包名用到
         mElementUtils = processingEnv.getElementUtils();
+        // 类型处理工具类，这里没用到
         mTypeUtils = processingEnv.getTypeUtils();
     }
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         HashSet<String> supportTypes=new HashSet<>();
+        // 提供我们自定义的apt能够处理的注解
         supportTypes.add(BindddView.class.getCanonicalName());
         return supportTypes;
     }
 
     @Override
     public SourceVersion getSupportedSourceVersion() {
+        // apt支持的版本号
         return SourceVersion.latestSupported();
     }
 
+    /**
+     * 最重要的方法，用来处理注解
+     * @param set 要处理的注解的类型集合
+     * @param roundEnv 表示运行环境，可以通过这个参数获得被注解标注的代码块
+     * @return
+     */
     @Override
     public boolean process(Set<? extends TypeElement> set, RoundEnvironment roundEnv) {
         if (set != null && set.size() != 0) {
+            // 获取所有被@BindView标记的Element
             Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(BindddView.class);//获得被BindView注解标记的element
 
             categories(elements);//对不同的Activity进行分类
@@ -86,6 +101,12 @@ public class BindViewProcessor extends AbstractProcessor {
     }
 
 
+    /**
+     * 将elements进行分类，按照所在的Activity，放到map中，其中，
+     * key是Activity名字
+     * value是ViewInfo对应的集合，而ViewInfo中包含要绑定View的id，和外面定义的名称
+     * @param elements
+     */
     private void categories(Set<? extends Element> elements) {
         for (Element element : elements) {  //遍历每一个element
             VariableElement variableElement = (VariableElement) element;    //被@BindView标注的应当是变量，这里简单的强制类型转换
@@ -101,6 +122,13 @@ public class BindViewProcessor extends AbstractProcessor {
         }
     }
 
+    /**
+     * 生成注解类及注解方法，注解类实现了IBindHelper接口，以便外面知道它的方法
+     * 在方法中，外面传入要被注解的类对象，之后强转为对应的对象rawClassName
+     * 然后通过对象.变量进行赋值操作，以实现findViewById的操作
+     * @param typeElement
+     * @return
+     */
     private String generateCode(TypeElement typeElement) {
         String rawClassName = typeElement.getSimpleName().toString(); //获取要绑定的View所在类的名称
         String packageName = ((PackageElement) mElementUtils.getPackageOf(typeElement)).getQualifiedName().toString(); //获取要绑定的View所在类的包名
