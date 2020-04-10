@@ -1,5 +1,6 @@
 package com.weknowall.cn.wuwei.ui;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -28,10 +29,20 @@ public class SplashActivity extends BaseActivity {
 
         RxPermissions rxPermissions = new RxPermissions(SplashActivity.this);
 
-        rxPermissions.requestEachCombined(PermissionsUtils.getMustLaunchPermissionNeverAsk(SplashActivity.this))
-                .subscribe(permission -> {
-                    toLoadData();
-                });
+        String[] firstLaunchPermission = PermissionsUtils.getOtherLaunchPermission(SplashActivity.this,true);
+        String[] mustLaunchPermissionNeverAsk = PermissionsUtils.getMustLaunchPermissionNeverAsk((Activity) getContext());
+        if (firstLaunchPermission.length>0){
+            rxPermissions.requestEachCombined()
+                    .subscribe(permission -> {
+                        toLoadData();
+                    });
+        }else if (mustLaunchPermissionNeverAsk.length>0){
+            PermissionsUtils.openAppInfo(getContext(),getPackageName());
+            toLoadData();
+        }else {
+            toLoadData();
+        }
+
     }
 
     private void toLoadData() {

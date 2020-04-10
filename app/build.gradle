@@ -79,6 +79,7 @@ dependencies {
     kapt project(':apt_compiler')
 
     implementation project(':lib_server')
+    implementation project(':openCVLibrary3410')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
     def librariesDependencies = rootProject.ext.librariesDependencies

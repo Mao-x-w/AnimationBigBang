@@ -25,7 +25,7 @@ public class PermissionsUtils {
         return ContextCompat.checkSelfPermission(context,permission) == PackageManager.PERMISSION_GRANTED;
     }
 
-    private static String[] getFirstLaunchPermission(Context context, boolean isFirst) {
+    public static String[] getFirstLaunchPermission(Context context, boolean isFirst) {
         // 创建一个权限列表，把需要使用而没用授权的的权限存放在这里
         List<String> permissionList = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class PermissionsUtils {
         return permissionList.toArray(new String[permissionList.size()]);
     }
 
-    private static String[] getOtherLaunchPermission(Activity context, boolean isFirst) {
+    public static String[] getOtherLaunchPermission(Activity context, boolean isFirst) {
         // 创建一个权限列表，把需要使用而没用授权的的权限存放在这里
         List<String> permissionList = new ArrayList<>();
 

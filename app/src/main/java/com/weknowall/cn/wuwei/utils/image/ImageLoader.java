@@ -201,9 +201,7 @@ public class ImageLoader {
 		final Image.Source source = imageModel.getSource() == null ? Image.Source.Net : Image.Source.File;
 		String url = imageModel.getSource() == Image.Source.Net ? options.scale == Options.Scale.Normal ? imageModel.getUrl() : imageModel.getThumbNailUrl() : imageModel
 				.getUrl();
-		if (!url.contains("http")){
-			url="https://www.weknowall.cn"+url;
-		}
+
 		getGenericRequestBuilder(getContext(object), url, source, getRequestManager(object), options).into(imageView);
 	}
 

@@ -2,4 +2,5 @@ include ':app', ':jni', ':apt_annotation', ':apt_compiler', ':apt_api', ':lib_se
         ':app_presenter',
         ':app_data',
         ':app_domain',
-        ':app_common', ':lib_greendao', ':OpenCVLibrary320', ':lib_imageselector'
+        ':app_common', ':lib_greendao', ':lib_imageselector'
+include ':openCVLibrary3410'
