@@ -18,6 +18,16 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/open_vc"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="openvc" />
+
+            <Button
                 android:id="@+id/main_mvp_test"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_60"
@@ -65,8 +75,7 @@
                 android:layout_marginTop="@dimen/size_15"
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
                 android:padding="@dimen/size_5"
-                android:text="@string/crop_image"
-                android:visibility="gone" />
+                android:text="@string/crop_image" />
 
             <Button
                 android:id="@+id/web_view"

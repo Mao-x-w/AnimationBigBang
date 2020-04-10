@@ -9,7 +9,7 @@ import android.net.Uri;
  * Time:   17:49
  * **********************
  */
- class Image {
+public class Image {
 
 	private int id;
 	private String name;

@@ -9,4 +9,6 @@ dependencies {
     implementation supportDependencies.support_v7
     implementation supportDependencies.support_v4
 
+    api project(':lib_greendao')
+
 }

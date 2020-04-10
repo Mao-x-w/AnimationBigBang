@@ -72,10 +72,10 @@ public class ActivityBuilder {
     }
 
     private void performInject(Activity activity, Bundle savedInstanceState) {
-        try {
-            Class.forName(activity.getClass().getName()+ACTIVITY_BUILDER_POSTFIX).getDeclaredMethod("inject",Activity.class,Bundle.class).invoke(null,activity,savedInstanceState);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Class.forName(activity.getClass().getName()+ACTIVITY_BUILDER_POSTFIX).getDeclaredMethod("inject",Activity.class,Bundle.class).invoke(null,activity,savedInstanceState);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 }

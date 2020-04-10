@@ -3,7 +3,9 @@ package com.weknowall.cn.wuwei.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.weknowall.cn.wuwei.ui.activity.MainActivity;
+import com.weknowall.cn.wuwei.utils.PermissionsUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +26,15 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.weknowall.cn.wuwei.R.layout.activity_splash);
 
+        RxPermissions rxPermissions = new RxPermissions(SplashActivity.this);
+
+        rxPermissions.requestEachCombined(PermissionsUtils.getMustLaunchPermissionNeverAsk(SplashActivity.this))
+                .subscribe(permission -> {
+                    toLoadData();
+                });
+    }
+
+    private void toLoadData() {
         Observable.timer(3000, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

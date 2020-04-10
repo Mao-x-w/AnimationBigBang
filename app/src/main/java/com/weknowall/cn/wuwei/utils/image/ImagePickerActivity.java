@@ -72,7 +72,7 @@ public class ImagePickerActivity extends BaseActivity {
 			Intent intent = new Intent(this, ImageSelectorActivity.class);
 			intent.putExtra(ImageSelectorActivity.EXTRA_IMAGE_SELECTOR_COUNT, getIntent().getIntExtra(EXTRA_IMAGE_COUNT, 9));
 			intent.putExtra(ImageSelectorActivity.EXTRA_IMAGE_SELECTOR_MODE, mode);
-			intent.putExtra(ImageSelectorActivity.EXTRA_IMAGE_SELECTOR_SHOW_CAMERA, false);
+			intent.putExtra(ImageSelectorActivity.EXTRA_IMAGE_SELECTOR_SHOW_CAMERA, true);
 			intent.putExtra(ImageSelectorActivity.EXTRA_IMAGE_SELECTOR_CROP_SHAPE, shape == IMAGE_CROP_SHAPE_SQUARE ? ImageSelectorActivity.IMAGE_SELECTOR_CROP_SHAPE_SQUARE : ImageSelectorActivity.IMAGE_SELECTOR_CROP_SHAPE_CIRCLE);
 			intent.putExtra(ImageSelectorActivity.EXTRA_IMAGE_SELECTOR_CROP_WIDTH_HEIGHT_SCALE,cropWHScale);
 			startActivityForResult(intent, REQUEST_GALLERY);

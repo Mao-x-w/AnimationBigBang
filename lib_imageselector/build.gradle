@@ -7,6 +7,7 @@ dependencies {
     //  ImageCropper 图片截取
     implementation 'com.edmodo:cropper:1.0.1'
     implementation 'com.commit451:PhotoView:1.2.4'
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
 
     def trustyDependencies = rootProject.ext.librariesDependencies
     implementation trustyDependencies.glide

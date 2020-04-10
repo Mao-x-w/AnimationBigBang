@@ -28,7 +28,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/LaoMao.Theme">
+        android:theme="@style/LaoMao.Theme"
+        >
         <activity android:name=".ui.activity.KotlinDemoActivity"></activity>
         <activity
             android:name=".ui.SplashActivity"
@@ -70,7 +71,6 @@
         <activity android:name=".ui.activity.WebViewActivity" />
         <activity android:name=".ui.activity.SmartTablayoutActivity" />
         <activity android:name=".ui.activity.CropImageActivity" />
-        <activity android:name=".utils.image.ImagePickerActivity" />
         <activity android:name=".ui.activity.SonicWebViewActivity" />
         <activity android:name=".ui.activity.ThreadDemoActivity" />
         <activity android:name=".ui.activity.IntentServiceDemoActivity" />
@@ -103,8 +103,16 @@
             android:launchMode="singleInstance"
             />
         <activity android:name=".ui.activity.IpcDemoActivity" />
+        <activity android:name=".ui.activity.OpenvcDemoActivity" />
 
         <service android:name=".utils.UploadImageService" />
+
+        <activity
+            android:name=".utils.image.ImagePickerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
+
     </application>
 
 </manifest>

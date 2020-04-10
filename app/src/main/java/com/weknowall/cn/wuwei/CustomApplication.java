@@ -25,7 +25,7 @@ public class CustomApplication extends Application {
         Configuration.init(this);
         Configuration.getInstance().debug(BuildConfig.DEBUG);
 
-        ActivityBuilder.INSTANCE.init(this);
+//        ActivityBuilder.INSTANCE.init(this);
     }
 
     public static CustomApplication getAppInstance(){

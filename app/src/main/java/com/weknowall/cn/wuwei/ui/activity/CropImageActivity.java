@@ -6,10 +6,6 @@ import android.widget.TextView;
 
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
-import com.weknowall.cn.wuwei.utils.image.ImagePicker;
-import com.weknowall.cn.wuwei.utils.image.ImagePickerDialog;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,27 +31,6 @@ public class CropImageActivity extends BaseActivity {
 
     @OnClick(R.id.select_image)
     public void onViewClicked() {
-        new ImagePickerDialog(getContext())
-                .setImageCount(1)
-                .isCameraCrop(true)
-                .isSingleCrop(true)
-                .cropWHScale((float) (16.0/9.0))
-                .setImagePickerListener(new ImagePicker.ImagePickCallback() {
-                    @Override
-                    public void onPicked(List<String> images) {
 
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onError() {
-
-                    }
-                })
-                .show();
     }
 }
