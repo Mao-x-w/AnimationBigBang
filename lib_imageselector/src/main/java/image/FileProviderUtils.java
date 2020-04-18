@@ -8,6 +8,6 @@ package image;
 public class FileProviderUtils {
 
     public static String getFileProviderName(){
-        return "image.selector.fileprovider";
+        return "com.laomao.mvp.fileprovider";
     }
 }
