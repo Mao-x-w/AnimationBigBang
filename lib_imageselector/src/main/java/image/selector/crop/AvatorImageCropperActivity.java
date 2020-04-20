@@ -98,7 +98,8 @@ public class AvatorImageCropperActivity extends Activity {
 		});
 		photoView = (CropPhotoView) findViewById(R.id.image_cropper_image);
 		overlayView = (CropAvatorOverlayView) findViewById(R.id.image_cropper_overlay);
-		overlayView.setCropWHScale(1.0f);
+//		overlayView.setCropWHScale(1.0f);
+		overlayView.setCropWHScale(getIntent().getFloatExtra(EXTRA_IMAGE_CROP_WIDTH_HEIGHT_SCALE,1.0f));
 		photoView.addListener(new CropPhotoViewAttacher.IGetImageBounds() {
 			@Override
 			public Rect getImageBounds() {
