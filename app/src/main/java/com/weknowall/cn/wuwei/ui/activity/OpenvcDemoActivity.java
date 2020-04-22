@@ -29,6 +29,9 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.video.BackgroundSubtractor;
+import org.opencv.video.BackgroundSubtractorKNN;
+import org.opencv.video.BackgroundSubtractorMOG2;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -172,9 +175,13 @@ public class OpenvcDemoActivity extends BaseActivity {
     private void measureContours(Mat src, Mat dst) {
         Mat gray = new Mat();
         Mat binary = new Mat();
+        Imgproc.cvtColor(src, gray, Imgproc.COLOR_BGR2GRAY);
 
         // 二值
-        Imgproc.cvtColor(src, gray, Imgproc.COLOR_BGR2GRAY);
+//        BackgroundSubtractorMOG2 backgroundSubtractorMOG2 = BackgroundSubtractorMOG2.__fromPtr__(0);
+//        backgroundSubtractorMOG2.setDetectShadows(false);
+//        backgroundSubtractorMOG2.apply(gray,binary);
+
         Imgproc.threshold(gray, binary, 0, 255, Imgproc.THRESH_BINARY_INV | Imgproc.THRESH_OTSU);
 
         // 轮廓发现
@@ -213,6 +220,10 @@ public class OpenvcDemoActivity extends BaseActivity {
         Mat binary = new Mat();
 
         // 二值
+        BackgroundSubtractorKNN fgDetector = BackgroundSubtractorKNN.__fromPtr__(0l);//True打开阴影检测
+        fgDetector.setDetectShadows(false);
+        fgDetector.apply(gray,binary);
+
         Imgproc.cvtColor(src, gray, Imgproc.COLOR_BGR2GRAY);
         Imgproc.threshold(gray, binary, 0, 255, Imgproc.THRESH_BINARY | Imgproc.THRESH_OTSU);
 
