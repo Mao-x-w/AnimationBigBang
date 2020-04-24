@@ -3,6 +3,8 @@ package com.weknowall.cn.wuwei.ui.activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -17,6 +19,7 @@ import com.example.lib_server.TestService;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.aidl.IMyAidlInterface;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
+import com.weknowall.cn.wuwei.utils.Logs;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,7 +37,7 @@ public class IpcDemoActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
             Bundle bundle = msg.getData();
-            Log.d(TAG,"收到messenger的回复：：：："+bundle.getString("reply"));
+            Log.d(TAG, "收到messenger的回复：：：：" + bundle.getString("reply"));
         }
     };
 
@@ -51,15 +54,16 @@ public class IpcDemoActivity extends BaseActivity {
      * 使用bindService方法启动Service，Service随着调用者销毁而销毁，而且onBind方法只执行一次
      * 使用startService启动的，Service一直存在，onStartCommand多次执行
      * 无论使用哪种方法启动，onCreate都只执行一次
+     *
      * @param view
      */
-    @OnClick({R.id.bundle_test, R.id.messager_test, R.id.aidl_test})
+    @OnClick({R.id.bundle_test, R.id.messager_test, R.id.aidl_test, R.id.content_provider_test})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bundle_test:
                 Intent intent = new Intent(getContext(), TestService.class);
                 intent.putExtra("name", "bundle请求Server");
-                intent.putExtra("type","1");
+                intent.putExtra("type", "1");
                 //
                 bindService(intent, new ServiceConnection() {
                     @Override
@@ -76,7 +80,7 @@ public class IpcDemoActivity extends BaseActivity {
             case R.id.messager_test:
                 Intent messagerIntent = new Intent(getContext(), TestService.class);
                 messagerIntent.putExtra("name", "messenger请求Server");
-                messagerIntent.putExtra("type","2");
+                messagerIntent.putExtra("type", "2");
                 bindService(messagerIntent, new ServiceConnection() {
                     @Override
                     public void onServiceConnected(ComponentName name, IBinder service) {
@@ -103,13 +107,13 @@ public class IpcDemoActivity extends BaseActivity {
             case R.id.aidl_test:
                 Intent aidlIntent = new Intent(getContext(), TestService.class);
                 aidlIntent.putExtra("name", "aidl请求Server");
-                aidlIntent.putExtra("type","3");
+                aidlIntent.putExtra("type", "3");
                 bindService(aidlIntent, new ServiceConnection() {
                     @Override
                     public void onServiceConnected(ComponentName name, IBinder service) {
                         IMyAidlInterface myAidlInterface = IMyAidlInterface.Stub.asInterface(service);
                         try {
-                            Log.d(TAG,"调用aidl接口的方法："+myAidlInterface.getValue());
+                            Log.d(TAG, "调用aidl接口的方法：" + myAidlInterface.getValue());
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
@@ -120,6 +124,23 @@ public class IpcDemoActivity extends BaseActivity {
 
                     }
                 }, BIND_AUTO_CREATE);
+                break;
+            case R.id.content_provider_test:
+                Uri uri = Uri.parse("content://com.example.lib_server.CustomContentProvider/book");
+
+                Cursor cursor = getContentResolver().query(uri, new String[]{"id", "name"}, null, null, null);
+
+                if (cursor==null)
+                    return;
+
+                while (cursor.moveToNext()){
+                    int id = cursor.getInt(0);
+                    String name = cursor.getString(1);
+
+                    Logs.d("id:::"+id+"     name:::::"+name);
+                }
+
+                cursor.close();
                 break;
         }
     }

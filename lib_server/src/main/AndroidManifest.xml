@@ -12,5 +12,11 @@
             </intent-filter>
 
         </service>
+
+        <provider
+            android:authorities="com.example.lib_server.CustomContentProvider"
+            android:name=".CustomContentProvider"
+            android:process=":provider"
+            />
     </application>
 </manifest>
