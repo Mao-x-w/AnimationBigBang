@@ -42,6 +42,5 @@ public class ProxyActivity extends BaseActivity {
 
         operate.loadData();
 
-        Decode
     }
 }
