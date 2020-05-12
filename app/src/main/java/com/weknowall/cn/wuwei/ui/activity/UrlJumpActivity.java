@@ -2,7 +2,6 @@ package com.weknowall.cn.wuwei.ui.activity;
 
 import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -49,6 +48,14 @@ public class UrlJumpActivity extends BaseActivity {
         Temp temp = new Temp();
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mEditText.getText().toString().trim()));
 //        intent.putExtra("sdfsdf", temp);
+        ComponentName componentName = intent.resolveActivity(getPackageManager());
+        if (componentName != null)
+            startActivity(intent);
+    }
+
+    @OnClick(R.id.jump_pay)
+    public void onPayClick() {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("pay://com.example.laomao/path"));
         ComponentName componentName = intent.resolveActivity(getPackageManager());
         if (componentName != null)
             startActivity(intent);

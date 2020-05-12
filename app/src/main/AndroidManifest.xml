@@ -33,7 +33,7 @@
         <activity android:name=".ui.activity.KotlinDemoActivity"></activity>
         <activity
             android:name=".ui.SplashActivity"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/LaoMao.Theme.Base.FullScreen">
             <intent-filter>
@@ -45,7 +45,7 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:launchMode="singleTask"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:theme="@style/LaoMao.Theme.Main"
             android:windowSoftInputMode="adjustNothing" />
@@ -95,12 +95,12 @@
 
         <activity
             android:name=".ui.activity.launchMode.ActivityB"
-            android:launchMode="singleTop"
+            android:launchMode="singleInstance"
             />
 
         <activity
             android:name=".ui.activity.launchMode.ActivityC"
-            android:launchMode="singleInstance"
+            android:launchMode="standard"
             />
         <activity android:name=".ui.activity.IpcDemoActivity" />
         <activity android:name=".ui.activity.OpenvcDemoActivity" />
@@ -112,6 +112,11 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.activity.BigImageActivity" />
+        <activity android:name=".ui.activity.LinkedListDemoActivity" />
+        <activity android:name=".ui.activity.SortDemoActivity" />
+        <activity android:name=".ui.activity.LargeImageActivity" />
+        <activity android:name=".ui.activity.ProxyActivity" />
 
     </application>
 

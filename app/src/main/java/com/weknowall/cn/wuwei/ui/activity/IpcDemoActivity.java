@@ -15,9 +15,13 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import com.example.lib_server.BindPoolManager;
+import com.example.lib_server.BinderCodeConstant;
 import com.example.lib_server.TestService;
 import com.weknowall.cn.wuwei.R;
+import com.weknowall.cn.wuwei.aidl.ICompute;
 import com.weknowall.cn.wuwei.aidl.IMyAidlInterface;
+import com.weknowall.cn.wuwei.aidl.ISecurityCenter;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.utils.Logs;
 
@@ -57,7 +61,7 @@ public class IpcDemoActivity extends BaseActivity {
      *
      * @param view
      */
-    @OnClick({R.id.bundle_test, R.id.messager_test, R.id.aidl_test, R.id.content_provider_test})
+    @OnClick({R.id.bundle_test, R.id.messager_test, R.id.aidl_test, R.id.content_provider_test, R.id.binder_pool_test})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bundle_test:
@@ -130,18 +134,55 @@ public class IpcDemoActivity extends BaseActivity {
 
                 Cursor cursor = getContentResolver().query(uri, new String[]{"id", "name"}, null, null, null);
 
-                if (cursor==null)
+                if (cursor == null)
                     return;
 
-                while (cursor.moveToNext()){
+                while (cursor.moveToNext()) {
                     int id = cursor.getInt(0);
                     String name = cursor.getString(1);
 
-                    Logs.d("id:::"+id+"     name:::::"+name);
+                    Logs.d("id:::" + id + "     name:::::" + name);
                 }
 
                 cursor.close();
                 break;
+            case R.id.binder_pool_test:
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 这里连接线程池是耗时的，所以放到子线程了
+                        testBindPool();
+                    }
+                }).start();
+                break;
+        }
+    }
+
+    private void testBindPool() {
+        BindPoolManager bindPoolManager = BindPoolManager.getInstance(getApplicationContext());
+
+
+        IBinder securityBinder = bindPoolManager.queryBinder(BinderCodeConstant.BINDER_SECURITY_CENTER);
+        ISecurityCenter iSecurityCenter = ISecurityCenter.Stub.asInterface(securityBinder);
+
+        try {
+            String encrypt = iSecurityCenter.encrypt("hello 安卓");
+            Logs.d("编码后的数据：：：：" + encrypt);
+            String decrypt = iSecurityCenter.decrypt(encrypt);
+            Logs.d("解码后的数据：：：：" + decrypt);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+
+        IBinder computeBinder = bindPoolManager.queryBinder(BinderCodeConstant.BINDER_COMPUTE);
+        ICompute iCompute = ICompute.Stub.asInterface(computeBinder);
+
+        try {
+            int add = iCompute.add(1, 2);
+            Logs.d("1+2的值是：：：："+add);
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
     }
 }

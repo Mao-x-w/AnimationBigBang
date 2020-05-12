@@ -237,6 +237,55 @@
                 android:padding="@dimen/size_5"
                 android:text="ipc_demo" />
 
+            <Button
+                android:id="@+id/big_img"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="big_img" />
+
+            <Button
+                android:id="@+id/linked_list_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="linked_list_demo" />
+
+            <Button
+                android:id="@+id/sort_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="sort_demo" />
+            <Button
+                android:id="@+id/large_img_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="large_img_demo" />
+
+            <Button
+                android:id="@+id/proxy_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="proxy_demo" />
+
         </LinearLayout>
 
 

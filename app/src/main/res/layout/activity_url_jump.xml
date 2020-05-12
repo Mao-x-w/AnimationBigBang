@@ -20,4 +20,11 @@
         android:text="jump"
         />
 
+    <Button
+        android:id="@+id/jump_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jump_pay"
+        />
+
 </LinearLayout>
