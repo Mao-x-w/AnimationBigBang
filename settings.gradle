@@ -1,5 +1,6 @@
-include ':app',
+include ':app', ':jni', ':apt_annotation', ':apt_compiler', ':apt_api', ':lib_server',
         ':app_presenter',
         ':app_data',
         ':app_domain',
-        ':app_common', ':lib_imageselector'
+        ':app_common', ':lib_greendao', ':lib_imageselector'
+include ':openCVLibrary3410'

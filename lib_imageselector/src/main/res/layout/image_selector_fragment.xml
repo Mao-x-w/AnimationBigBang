@@ -2,54 +2,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/black"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/black"
-        android:fitsSystemWindows="true"
-        android:minHeight="?attr/actionBarSize">
+        android:layout_height="@dimen/size_85"
+        android:background="@android:color/white"
+        >
 
         <RelativeLayout
-            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/size_60"
+            android:layout_alignParentBottom="true"
             >
+
+            <ImageView
+                android:id="@+id/album_select_close"
+                android:layout_width="@dimen/size_25"
+                android:layout_height="@dimen/size_26"
+                android:src="@drawable/album_select_close"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/size_10"
+                />
 
             <RelativeLayout
                 android:id="@+id/image_selector_directory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
                 >
 
                 <TextView
                     android:id="@+id/image_selector_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:ellipsize="end"
-                    android:gravity="left|center"
-                    android:maxLines="1"
-                    android:maxWidth="@dimen/size_200"
-                    android:paddingLeft="@dimen/size_20"
-                    android:paddingRight="@dimen/size_20"
                     android:text="@string/image_selector_all"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/text_xlarge"
+                    android:textColor="#333333"
+                    android:textSize="@dimen/text_24_0"
                     />
 
                 <ImageView
-                    android:layout_width="@dimen/size_10"
-                    android:layout_height="@dimen/size_10"
-                    android:layout_alignBottom="@+id/image_selector_title"
-                    android:layout_alignRight="@+id/image_selector_title"
+                    android:id="@+id/image_selector_arrow"
+                    android:layout_width="@dimen/size_30"
+                    android:layout_height="@dimen/size_30"
+                    android:layout_toRightOf="@+id/image_selector_title"
                     android:layout_centerVertical="true"
-                    android:layout_marginBottom="@dimen/size_5"
-                    android:contentDescription="@null"
-                    android:src="@drawable/image_selector_title_indicator"
+                    android:src="@drawable/draw_vector_arrow_bottom_grey_light"
                     />
             </RelativeLayout>
 
@@ -60,27 +62,29 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/size_10"
-                android:background="@drawable/image_selector_btn_ok"
                 android:gravity="center"
                 android:paddingLeft="@dimen/size_10"
                 android:paddingRight="@dimen/size_10"
-                android:text="@string/image_selector_done"
-                android:textColor="@android:color/white"
+                android:text="下一步"
+                android:textColor="#999999"
+                android:enabled="false"
                 android:textSize="@dimen/text_large"
                 />
+
         </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
-
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/image_selector_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/title"
         android:horizontalSpacing="@dimen/size_10"
         android:numColumns="3"
         android:scrollbars="vertical"
-        android:verticalSpacing="@dimen/size_10"/>
+        android:verticalSpacing="@dimen/size_10"
+        android:background="#f5f5f5"
+        />
 
 </RelativeLayout>

@@ -1,6 +1,6 @@
 package com.weknowall.cn.wuwei.ui.helper;
 
-import com.weknowall.app_presenter.entity.general.GitUser;
+import com.weknowall.app_domain.entity.general.GitUser;
 
 /**
  * User: laomao

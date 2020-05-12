@@ -19,23 +19,21 @@ android{
         }
     }
 
-
-    buildToolsVersion '25.0.0'
 }
 
 dependencies {
-    compile project(':app_domain')
-    compile project(':app_common')
+    implementation project(':app_domain')
+    implementation project(':app_common')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
     def librariesDependencies=rootProject.ext.librariesDependencies
 
-    compile androidSupportDependencies.annotations
-    compile librariesDependencies.fastJson
-    compile librariesDependencies.retrofit
-    compile librariesDependencies.rxJava
-    compile librariesDependencies.retrofit_rxjava
-    compile librariesDependencies.retrofit_fastJson
-    compile librariesDependencies.logger
+    implementation androidSupportDependencies.annotations
+    implementation librariesDependencies.fastJson
+    implementation librariesDependencies.retrofit
+    implementation librariesDependencies.rxJava
+    implementation librariesDependencies.retrofit_rxjava
+    implementation librariesDependencies.retrofit_fastJson
+    implementation librariesDependencies.logger
 
 }

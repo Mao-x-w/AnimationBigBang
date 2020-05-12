@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff4c39"
+    >
+
+    <com.weknowall.cn.wuwei.utils.RoundRelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        app:radius="15dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#ffffff"
+            >
+
+            <com.weknowall.cn.wuwei.widget.image.WebImageView
+                android:id="@+id/image_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10"
+                android:text="实现Android ViewGroup圆角效果，即在RelativeLayout,LinearLayout等ViewGroup中实现圆角，使其child view都在圆角范围内"
+                />
+
+        </LinearLayout>
+
+    </com.weknowall.cn.wuwei.utils.RoundRelativeLayout>
+
+</LinearLayout>

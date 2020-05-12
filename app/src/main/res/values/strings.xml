@@ -18,7 +18,7 @@
         <item>正在加载•••</item>
         <item>加载完成</item>
     </string-array>
-    
+
     <string-array name="recommend_page_title">
         <item>周排行</item>
         <item>月排行</item>
@@ -74,5 +74,7 @@
     <string name="remove_success">移除成功</string>
     <string name="crop_image">图片裁剪</string>
 
+    <string name="transition_search_back" translatable="false">transition_search_back</string>
+    <string name="transition_detail" translatable="false">transition_detail</string>
 
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    >
+
+    <TextView
+        android:id="@+id/calculate_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="计算结果"
+        android:textColor="#ff4c39"
+        android:layout_marginTop="@dimen/size_100"
+        />
+
+    <Button
+        android:id="@+id/calculate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="计算"
+        />
+
+    <Button
+        android:id="@+id/repaire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="修复"
+        />
+
+</LinearLayout>

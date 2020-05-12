@@ -127,4 +127,8 @@ public class Configuration {
 	public void setChannelId(String channelId) {
 		this.channelId = channelId;
 	}
+
+	public String getTemperatureDB(){
+		return "temperature";
+	}
 }

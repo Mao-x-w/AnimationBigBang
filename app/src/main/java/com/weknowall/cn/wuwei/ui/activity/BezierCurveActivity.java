@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.weknowall.app_presenter.entity.general.GitUser;
+import com.weknowall.app_domain.entity.general.GitUser;
 import com.weknowall.app_presenter.presenter.general.GitUsersPresenter;
 import com.weknowall.app_presenter.view.IGitUsersView;
 import com.weknowall.cn.wuwei.R;

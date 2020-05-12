@@ -2,8 +2,6 @@ package com.weknowall.app_presenter.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.weknowall.app_domain.interactor.UseCase;
-import com.weknowall.app_presenter.subscriber.LoadingSubscriber;
 import com.weknowall.app_presenter.view.IResultView;
 
 import rx.Observer;
@@ -17,10 +15,8 @@ import rx.Observer;
 public abstract class ResultPresenter<RQM,RQ,RPM,RP,V extends IResultView> implements IPresenter,IResultView, Observer<RPM> {
 
     private V view;
-    private UseCase<RQM, RPM> mUseCase;
 
-    public ResultPresenter(@NonNull UseCase<RQM,RPM> useCase) {
-        mUseCase = useCase;
+    public ResultPresenter() {
     }
 
     public void setView(@NonNull V view) {
@@ -31,16 +27,9 @@ public abstract class ResultPresenter<RQM,RQ,RPM,RP,V extends IResultView> imple
         return view;
     }
 
-    public UseCase<RQM, RPM> getUseCase() {
-        return mUseCase;
-    }
-
     public abstract void initialize(RQ... rqs);
 
-    protected void execute(RQM... rqm){
-        getUseCase().execute(new LoadingSubscriber<RPM>(this),rqm);
-    }
-
+    public abstract void execute(RQM... rqm);
 
     @Override
     public void resume() {
@@ -54,7 +43,6 @@ public abstract class ResultPresenter<RQM,RQ,RPM,RP,V extends IResultView> imple
 
     @Override
     public void destroy() {
-        getUseCase().unSubscribe();
     }
 
 

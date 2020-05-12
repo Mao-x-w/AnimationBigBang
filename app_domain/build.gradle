@@ -6,11 +6,7 @@ apply from: '../build-tools/app-config-android.gradle'
 dependencies {
     def librariesDependencies=rootProject.ext.librariesDependencies
 
-    compile librariesDependencies.logger
-    compile librariesDependencies.rxJava
-    compile librariesDependencies.javaxInject
-}
-
-android {
-    buildToolsVersion '25.0.0'
+    implementation librariesDependencies.logger
+    implementation librariesDependencies.rxJava
+    implementation librariesDependencies.javaxInject
 }

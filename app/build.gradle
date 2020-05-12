@@ -1,17 +1,28 @@
 apply plugin: 'com.android.application'
 
-apply plugin: 'android-apt'
+//apply plugin: 'android-apt'
 
 apply from: '../build-tools/ds-test.gradle'
 apply from: '../build-tools/ds-lambda.gradle'
 apply from: '../build-tools/ds-dagger.gradle'
+apply from: '../build-tools/ds-butter-knife.gradle'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+    }
+}
 
 android {
     def buildConfig = rootProject.extensions.getByName("ext")
 
     compileSdkVersion buildConfig.getAt("androidCompileSdkVersion")
-    buildToolsVersion buildConfig.getAt("androidBuildToolsVersion")
 
     signingConfigs {
         config {
@@ -42,56 +53,84 @@ android {
         }
     }
 
-    configurations{
+    configurations {
         all*.exclude group: 'com.mob.commons', module: 'share_sdk'
     }
 
     publishNonDefault true
-    buildToolsVersion '25.0.0'
+    sourceSets { main { jni.srcDirs = ['src/main/jni', 'src/main/jni/'] } }
 }
 
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }
 
 dependencies {
-    compile project(':app_presenter')
-    compile project(':app_domain')
-    compile project(':lib_imageselector')
+    implementation project(':app_presenter')
+    implementation project(':app_domain')
+    implementation project(':app_common')
+    implementation project(':app_data')
+    implementation project(':lib_imageselector')
+    implementation project(':jni')
+    implementation project(':apt_annotation')
+    implementation project(':apt_api')
+    kapt project(':apt_compiler')
+
+    implementation project(':lib_server')
+    implementation project(':openCVLibrary3410')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
-    def librariesDependencies=rootProject.ext.librariesDependencies
+    def librariesDependencies = rootProject.ext.librariesDependencies
 
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile androidSupportDependencies.support_v7
-    compile androidSupportDependencies.design
-    compile androidSupportDependencies.recyclerView
+    implementation androidSupportDependencies.support_v7
+    implementation androidSupportDependencies.design
+    implementation androidSupportDependencies.recyclerView
 
-    compile librariesDependencies.recyclerViewDivider
-    compile librariesDependencies.butterKnife
-    compile librariesDependencies.logger
-    compile librariesDependencies.rxJava
-    compile librariesDependencies.rxBus
-    compile librariesDependencies.rxAndroid
-    compile librariesDependencies.retrofit
-    compile librariesDependencies.retrofit_rxjava
-    compile librariesDependencies.retrofit_fastJson
-    compile librariesDependencies.canRefresh
-    compile librariesDependencies.canRefreshRecycler
-    compile librariesDependencies.jiecaoVideoPlayer
-    compile librariesDependencies.glide
-    compile librariesDependencies.glide_transform
-    compile librariesDependencies.glide_okhttp
-    compile librariesDependencies.swipeDeleteRecycler
-    compile librariesDependencies.smartTablayout
-    compile librariesDependencies.smartTablayoutUtilV4
-    compile librariesDependencies.smartTablayoutUtilV13
+    implementation librariesDependencies.recyclerViewDivider
+    implementation librariesDependencies.logger
+    implementation librariesDependencies.rxJava
+    implementation librariesDependencies.rxBus
+    implementation librariesDependencies.rxAndroid
+    implementation librariesDependencies.retrofit
+    implementation librariesDependencies.retrofit_rxjava
+    implementation librariesDependencies.retrofit_fastJson
+    implementation librariesDependencies.canRefresh
+    implementation librariesDependencies.canRefreshRecycler
+    implementation librariesDependencies.jiecaoVideoPlayer
+    implementation librariesDependencies.glide
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    kapt librariesDependencies.glide_compiler
+    implementation librariesDependencies.glide_transform
+    implementation librariesDependencies.glide_okhttp
+    implementation librariesDependencies.swipeDeleteRecycler
+    implementation librariesDependencies.smartTablayout
+    implementation librariesDependencies.smartTablayoutUtilV4
 
-    apt librariesDependencies.butterKnife_compiler
+    implementation name: 'SMSSDK-2.1.3', ext: 'aar'
+    implementation 'com.tencent.sonic:sdk:3.0.0'
 
-    compile name:'SMSSDK-2.1.3',ext:'aar'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-18'//没有使用特殊Header，可以不加这行
 
+    // 自动测试
+    androidTestImplementation 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+}
+
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        }
+    }
 }

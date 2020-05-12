@@ -1,6 +1,7 @@
 package com.weknowall.app_presenter.view;
 
-import com.weknowall.app_presenter.entity.general.GitUser;
+
+import com.weknowall.app_domain.entity.general.GitUser;
 
 import java.util.List;
 

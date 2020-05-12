@@ -1,9 +1,9 @@
 package com.weknowall.app_data.repository;
 
-import com.weknowall.app_data.mapper.general.GitUserEntityMapper;
+import com.weknowall.app_data.mapper.general.GitUserMapper;
 import com.weknowall.app_data.store.general.GeneralDataStoreFactory;
 import com.weknowall.app_data.store.general.IGeneralDataStore;
-import com.weknowall.app_domain.entity.general.GitUserModel;
+import com.weknowall.app_domain.entity.general.GitUser;
 import com.weknowall.app_domain.repository.IGeneralRepository;
 
 import java.util.List;
@@ -21,16 +21,16 @@ import rx.Observable;
 @Singleton
 public class GeneralRepositoryImpl extends RepositoryImpl<IGeneralDataStore, GeneralDataStoreFactory> implements IGeneralRepository {
 
-    private GitUserEntityMapper mGMapper;
+    private GitUserMapper mGMapper;
 
     @Inject
-    public GeneralRepositoryImpl(GeneralDataStoreFactory dataStoreFactory, GitUserEntityMapper gMapper) {
+    public GeneralRepositoryImpl(GeneralDataStoreFactory dataStoreFactory, GitUserMapper gMapper) {
         super(dataStoreFactory);
         mGMapper = gMapper;
     }
 
     @Override
-    public Observable<List<GitUserModel>> getGitUsers() {
+    public Observable<List<GitUser>> getGitUsers() {
         return getNetDataStore().getGitUsers().map(mGMapper::transformTo);
     }
 }

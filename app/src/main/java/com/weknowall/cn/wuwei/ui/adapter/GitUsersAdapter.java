@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.weknowall.app_presenter.entity.general.GitUser;
+import com.weknowall.app_domain.entity.general.GitUser;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.widget.image.CircleImageView;
 import com.weknowall.cn.wuwei.widget.recyclerview.adapter.AdapterPlus;

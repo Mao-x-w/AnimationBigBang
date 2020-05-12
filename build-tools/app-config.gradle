@@ -1,8 +1,7 @@
 ext {
-    androidBuildToolsVersion = "23.0.3"
-    androidMinSdkVersion = 14
-    androidTargetSdkVersion = 22
-    androidCompileSdkVersion = 23
+    androidMinSdkVersion = 21
+    androidTargetSdkVersion = 26
+    androidCompileSdkVersion = 28
 
     applicationId = "com.laomao.mvp"
     versionCode = 1

@@ -24,5 +24,11 @@ public class Constants {
         String COMMENT_POSITION ="position";
         String COMMENT_TAG_POSITION ="tag_position";
         String USER_DATA ="user_data";
+        String FROM ="from";
+        String URL ="url";
+    }
+
+    public interface RxExtra{
+        String UPLOAD_SUCCESS="upload_success";
     }
 }

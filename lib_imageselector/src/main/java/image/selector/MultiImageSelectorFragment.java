@@ -1,5 +1,6 @@
 package image.selector;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -7,39 +8,49 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.MediaStore.Images.Media;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.lib_imageselector.R;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+
+import image.FileProviderUtils;
+import io.reactivex.functions.Consumer;
 
 public class MultiImageSelectorFragment extends Fragment implements OnClickListener {
 	private static final String TAG = "MultiImageSelectorF";
@@ -48,16 +59,19 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 	/**
 	 * 不同loader定义
 	 */
-	private static final int LOADER_ALL = 0;
+	private static final int LOADER_IMAGE = 0;
 	private static final int LOADER_CATEGORY = 1;
+	private static final int LOADER_IMAGE_AND_VIDEO = 2;
 	ImageSelectorCallBack callBack;
 	TextView mTitle;
+	ImageView mArrow;
 	TextView mBtnDone;
 	/**
 	 * 列间距
 	 */
 	private int columnsWidth;
 	private int imageSelectedMode;
+	private String resType;
 	private int imageSelectedCount;
 	private String imageSelectedPath;
 	private boolean isShowCamera;
@@ -67,7 +81,8 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 	private boolean isAssignPath;
 	private String cameraSavePathBase;
 	private String cameraSavePath;
-	private Toolbar mToolbar;
+	private RelativeLayout mToolbar;
+	private ImageView mClose;
 	private RecyclerView mRecycler;
 	private ImagesAdapter mAdapter;
 
@@ -79,19 +94,39 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 	private View mDirectory;
 
 	private int currentDirectory = 0;
+	private boolean isSelectedVideo=false;
 
 	private LoaderCallbacks<Cursor> mLoaderCallback = new LoaderCallbacks<Cursor>() {
 
-		private final String[] IMAGE_PROJECTION = new String[]{
-				Media.DATA, Media.DISPLAY_NAME, Media.DATE_ADDED, Media._ID
+		String[] columns = { MediaStore.Files.FileColumns._ID,
+				MediaStore.Files.FileColumns.DATA,
+				MediaStore.Files.FileColumns.DATE_ADDED,
+				MediaStore.Files.FileColumns.MEDIA_TYPE,
+				MediaStore.Files.FileColumns.MIME_TYPE,
+				MediaStore.Files.FileColumns.DISPLAY_NAME,
+				MediaStore.Files.FileColumns.WIDTH,
+				MediaStore.Files.FileColumns.HEIGHT,
+				MediaStore.Files.FileColumns.SIZE,
+				"duration"
 		};
+		String imgAndVideoSelection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+				+ MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE
+				+ " OR "
+				+ MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+				+ MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO;
+		String imgSelection = MediaStore.Files.FileColumns.MEDIA_TYPE + "="
+				+ MediaStore.Files.FileColumns.MEDIA_TYPE_IMAGE;
+		final String orderBy = MediaStore.Files.FileColumns.DATE_ADDED;
+		Uri queryUri = MediaStore.Files.getContentUri("external");
 
 		public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 			switch (id) {
-				case LOADER_ALL:
-					return new CursorLoader(getActivity(), Media.EXTERNAL_CONTENT_URI, this.IMAGE_PROJECTION, null, null, this.IMAGE_PROJECTION[2] + " DESC");
+				case LOADER_IMAGE:
+					return new CursorLoader(getActivity(), queryUri, columns, imgSelection, null,  orderBy+ " DESC");
 				case LOADER_CATEGORY:
-					return new CursorLoader(getActivity(), Media.EXTERNAL_CONTENT_URI, IMAGE_PROJECTION, IMAGE_PROJECTION[0] + " like '%" + args.getString(ImageSelectorConstants.EXTRA_IMAGE_SELECT_PATH) + "%'", null, IMAGE_PROJECTION[2] + " DESC");
+					return new CursorLoader(getActivity(), queryUri, columns, imgSelection, null,  orderBy+ " DESC");
+				case LOADER_IMAGE_AND_VIDEO:
+					return new CursorLoader(getActivity(), queryUri, columns, imgAndVideoSelection, null,  orderBy+ " DESC");
 				default:
 					return null;
 			}
@@ -110,6 +145,7 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			}
 
 			onGetData(data, mImages);
+
 			mAdapter.changeData(mImages);
 
 			Directory directory = new Directory();
@@ -125,21 +161,26 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			data.moveToFirst();
 			do {
 				//  获取图片的ID
-				int imgId = data.getInt(data.getColumnIndexOrThrow(this.IMAGE_PROJECTION[3]));
-				String path = data.getString(data.getColumnIndexOrThrow(this.IMAGE_PROJECTION[0]));
-				if (!path.toLowerCase().endsWith(".jpeg") && !path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".png")) {
-					continue;
-				}
+				int imgId = data.getInt(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID));
+				String path = data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATA));
+//				if (!path.toLowerCase().endsWith(".jpeg") && !path.toLowerCase().endsWith(".jpg") && !path.toLowerCase().endsWith(".png")) {
+//					continue;
+//				}
 				//  如果是指定目录，但是当前image的目录不在指定目录下，则不做任何操作
 				if (isAssignPath && !path.startsWith(imageSelectedPath)) {
 					continue;
 				}
 				Image image = new Image();
 				image.setPath(path);
-				image.setName(data.getString(data.getColumnIndexOrThrow(this.IMAGE_PROJECTION[1])));
-				image.setUri(Uri.parse(Media.EXTERNAL_CONTENT_URI.toString() + "/" + imgId));
+				image.setName(data.getString(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME)));
+				image.setUri(Uri.parse(queryUri.toString() + "/" + imgId));
 				image.setId(imgId);
-				image.setDate(data.getLong(data.getColumnIndexOrThrow(this.IMAGE_PROJECTION[2])));
+				image.setDate(data.getLong(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED)));
+//				image.setMediaType(data.getInt(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE)));
+//				image.setWidth(data.getInt(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.WIDTH)));
+//				image.setHeight(data.getInt(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.HEIGHT)));
+//				image.setSize(data.getLong(data.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)));
+//				image.setDuration(data.getLong(data.getColumnIndexOrThrow("duration")));
 				boolean exist = false;
 				File f = new File(image.getPath());
 				if (f.exists()) {
@@ -186,6 +227,7 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		this.imageSelectedMode = this.getArguments().getInt(ImageSelectorConstants.EXTRA_IMAGE_SELECT_MODE, ImageSelectorConstants.IMAGE_SELECT_MODE_MULTI);
+//		this.resType = this.getArguments().getString(ImageSelectorConstants.EXTRA_IMAGE_SELECTOR_RES_TYPE);
 		this.imageSelectedCount = this.getArguments()
 				.getInt(ImageSelectorConstants.EXTRA_IMAGE_SELECT_COUNT, ImageSelectorConstants.IMAGE_SELECT_COUNT_DEFAULT);
 		this.imageSelectedPath = this.getArguments().getString(ImageSelectorConstants.EXTRA_IMAGE_SELECT_PATH);
@@ -200,8 +242,9 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			}
 		}
 
-		this.mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-		mToolbar.setNavigationOnClickListener(new OnClickListener() {
+		this.mToolbar = (RelativeLayout) view.findViewById(R.id.title);
+		this.mClose = (ImageView) view.findViewById(R.id.album_select_close);
+		mClose.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (callBack == null)
@@ -211,14 +254,14 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 		});
 		this.mBtnDone = (TextView) view.findViewById(R.id.image_selector_btn_ok);
 		this.mTitle = (TextView) view.findViewById(R.id.image_selector_title);
+		this.mArrow = (ImageView) view.findViewById(R.id.image_selector_arrow);
 		this.mDirectory = view.findViewById(R.id.image_selector_directory);
 		this.mRecycler = (RecyclerView) view.findViewById(R.id.image_selector_images);
 		this.mRecycler.setLayoutManager(new GridLayoutManager(this.getActivity(), 3));
 		this.mRecycler.setHasFixedSize(true);
 		this.mRecycler.setAdapter(this.mAdapter = new ImagesAdapter(this.getActivity(), new ArrayList<Image>()));
-		this.mTitle.setOnClickListener(this);
+		this.mDirectory.setOnClickListener(this);
 		this.mBtnDone.setOnClickListener(this);
-		this.mBtnDone.setVisibility(this.isSingleMode() ? View.GONE : View.VISIBLE);
 		this.mDirectory.setVisibility(this.isAssignPath ? View.GONE : View.VISIBLE);
 	}
 
@@ -229,11 +272,7 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			public void run() {
 				columnsWidth = getActivity().getResources().getDimensionPixelOffset(R.dimen.size_5);
 				mAdapter.setItemSide((int) (((float) mRecycler.getWidth() - (float) columnsWidth * 2) / 3));
-				getActivity().getSupportLoaderManager().initLoader(LOADER_ALL, null, mLoaderCallback);
-				//				Bundle bundle = new Bundle();
-				//				bundle.putString(ImageSelectorConstants.EXTRA_IMAGE_SELECT_PATH, imageSelectedPath);
-				//				getActivity().getSupportLoaderManager()
-				//						.initLoader(isAssignPath ? LOADER_ALL : LOADER_CATEGORY, isAssignPath ? null : bundle, mLoaderCallback);
+				getActivity().getSupportLoaderManager().initLoader(LOADER_IMAGE, null, mLoaderCallback);
 			}
 		});
 	}
@@ -261,13 +300,13 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			return;
 		}
 		final ListPopupWindow popupWindow = new ListPopupWindow(this.getActivity());
-		popupWindow.setBackgroundDrawable(new ColorDrawable(-1));
+		ViewCompat.animate(mArrow).rotation(180).setDuration(0).start();
+		popupWindow.setBackgroundDrawable(new ColorDrawable());
 		popupWindow.setAdapter(new DirectoryAdapter(this.getActivity(), this.mImageDirectories));
-		popupWindow.setWidth(-1);
-		int itemHeight = this.getActivity().getResources().getDimensionPixelOffset(R.dimen.size_60);
-		popupWindow.setHeight(this.mImageDirectories.size() >= 5 ? itemHeight * 5 : itemHeight * this.mImageDirectories.size() + getActivity().getResources()
-				.getDimensionPixelOffset(R.dimen.size_10));
-		popupWindow.setAnchorView(this.mToolbar);
+		popupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
+		int height=getScreenHeight(getContext())-getResources().getDimensionPixelOffset(R.dimen.size_85);
+		popupWindow.setHeight(height);
+		popupWindow.setAnchorView(mToolbar);
 		popupWindow.setModal(true);
 		popupWindow.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -278,9 +317,25 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			}
 		});
 		popupWindow.show();
+
 		popupWindow.getListView().setDividerHeight(getActivity().getResources().getDimensionPixelOffset(R.dimen.size_10));
 		popupWindow.getListView().setDivider(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		popupWindow.getListView().setBackgroundColor(Color.WHITE);
 		popupWindow.setSelection(this.currentDirectory);
+		popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				ViewCompat.animate(mArrow).rotation(0).setDuration(0).start();
+			}
+		});
+
+		mToolbar.setBackgroundColor(Color.WHITE);
+	}
+
+	public static int getScreenHeight(Context context) {
+		DisplayMetrics dm = new DisplayMetrics();
+		((WindowManager) context.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getMetrics(dm);
+		return dm.heightPixels;
 	}
 
 	boolean isSingleMode() {
@@ -288,11 +343,12 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 	}
 
 	public void onClick(View v) {
-		if (v.getId() == R.id.image_selector_title) {
+		if (v.getId() == R.id.image_selector_directory) {
 			this.showDirectories();
 		} else if (v.getId() == R.id.image_selector_btn_ok) {
 			if (this.callBack == null)
 				return;
+
 			ArrayList<String> paths = new ArrayList<>();
 			for (Image image : mSelectedImages) {
 				paths.add(image.getPath());
@@ -320,6 +376,8 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 		void onImagesSelected(ImageSelectSource selectSource, ArrayList<String> list);
 
 		void onCancel();
+
+		void onMediaSelected(int mediaType,ArrayList<String> pathList);
 	}
 
 	class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImageHolder> {
@@ -364,17 +422,40 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			if (holder.isCamera) {
 				holder.itemView.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-						cameraSavePath = cameraSavePathBase + "/" + System.currentTimeMillis() + ".jpg";
-						intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(cameraSavePath)));
-						intent.putExtra("return-data", true);
-						startActivityForResult(intent, REQUEST_CAMERA);
+
+//						if (mSelectedImages.size() >= imageSelectedCount) {
+//							OnceToast.showToast(context,context.getString(R.string.image_selector_msg_amount_limit, imageSelectedCount));
+//							return;
+//						}
+
+						RxPermissions rxPermissions = new RxPermissions(MultiImageSelectorFragment.this);
+						rxPermissions.request(Manifest.permission.CAMERA)
+								.subscribe(new Consumer<Boolean>() {
+									@Override
+									public void accept(Boolean aBoolean) throws Exception {
+										if (aBoolean){
+											Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+											cameraSavePath = cameraSavePathBase + "/" + System.currentTimeMillis() + ".jpg";
+
+											Uri uri=null;
+											if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+												uri = FileProvider.getUriForFile(getContext(), FileProviderUtils.getFileProviderName(), new File(cameraSavePath));
+											} else {
+												uri = Uri.fromFile(new File(cameraSavePath));
+											}
+
+											intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+											intent.putExtra("return-data", true);
+											startActivityForResult(intent, REQUEST_CAMERA);
+										}
+									}
+								});
+
 					}
 				});
 			} else {
 				final Image image = images.get(position);
 				Glide.with(context)
-						.fromUri()
 						.asBitmap()
 						.load(image.getUri())
 						.placeholder(new ColorDrawable(Color.parseColor("#555555")))
@@ -382,32 +463,43 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 						.centerCrop()
 						.into(holder.img);
 
+				TextPaint tp = holder.checkText.getPaint();
+				tp.setFakeBoldText(true);
+				holder.checkText.setText("");
 				for (int i = 0; i < mSelectedImages.size(); i++) {
 					if (mSelectedImages.get(i).equals(image)){
 						image.setSelected(mSelectedImages.get(i).isSelected());
+						holder.checkText.setText(i+1+"");
 					}
 				}
 				final boolean isSelected = image.isSelected();
 
-				holder.itemView.setSelected(isSelected);
-				holder.backView.setVisibility(isSelected ? View.VISIBLE : View.GONE);
-				if (isSingleMode()) {
-					holder.backView.setVisibility(View.GONE);
-					holder.checkBox.setVisibility(View.GONE);
-				}
+				holder.checkText.setVisibility(isSingleMode()?View.GONE:View.VISIBLE);
+				holder.checkText.setSelected(isSelected);
+				holder.videoDisplayIcon.setVisibility(View.INVISIBLE);
+				holder.videoCover.setVisibility(View.GONE);
 
 				holder.img.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
+
 						if (isSingleMode() && callBack != null) {
 							callBack.onImagesSelected(ImageSelectSource.Album, new ArrayList<>(Arrays.asList(new String[]{image.getPath()})));
 							return;
 						}
+
+						// 如果只有一张图片，那么点击直接返回图片
+						if (imageSelectedCount==1&&callBack!=null){
+							callBack.onImagesSelected(ImageSelectSource.Album, new ArrayList<>(Arrays.asList(new String[]{image.getPath()})));
+							return;
+						}
+
 						if (!image.isSelected() && mSelectedImages.size() >= imageSelectedCount) {
 							Toast.makeText(context, context.getString(R.string.image_selector_msg_amount_limit, imageSelectedCount), Toast.LENGTH_SHORT).show();
 							return;
 						}
+
 						image.setSelected(!isSelected);
-						mAdapter.notifyItemChanged(position);
+						mAdapter.notifyDataSetChanged();
 						if (image.isSelected()) {
 							mSelectedImages.add(image);
 						} else {
@@ -416,10 +508,10 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 
 						if (mSelectedImages.size() > 0) {
 							mBtnDone.setEnabled(true);
-							mBtnDone.setText(context.getString(R.string.image_selector_done_format, mSelectedImages.size(), imageSelectedCount));
+							mBtnDone.setTextColor(Color.parseColor("#333333"));
 						} else {
 							mBtnDone.setEnabled(false);
-							mBtnDone.setText(R.string.image_selector_done);
+							mBtnDone.setTextColor(Color.parseColor("#999999"));
 						}
 					}
 				});
@@ -460,14 +552,16 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 		class ImageHolder extends android.support.v7.widget.RecyclerView.ViewHolder {
 			boolean isCamera = false;
 			ImageView img;
-			View checkBox;
-			View backView;
+			ImageView videoDisplayIcon;
+			TextView checkText;
+			ImageView videoCover;
 
 			public ImageHolder(View itemView) {
 				super(itemView);
 				this.img = (ImageView) itemView.findViewById(R.id.image_selector_image);
-				this.checkBox = itemView.findViewById(R.id.image_selector_checkbox);
-				this.backView = itemView.findViewById(R.id.image_selector_bg);
+				this.checkText = (TextView) itemView.findViewById(R.id.image_selector_text);
+				this.videoDisplayIcon = (ImageView)itemView.findViewById(R.id.video_display_icon);
+				this.videoCover = (ImageView)itemView.findViewById(R.id.video_cover);
 			}
 		}
 	}
@@ -504,17 +598,22 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			}
 
 			Directory directory = (Directory) getItem(position);
-			mHolder.txtDirect.setText(position == 0 ? directory.getName() : directory.getName() + String.format("(%d)", directory.getImages().size()));
+			mHolder.txtDirect.setText(directory.getName());
+			mHolder.txtDirectNum.setText(String.format("%d张图片", directory.getImages().size()));
 			if (directory.getImages().size() > 1 && isShowCamera) {
 				Glide.with(context)
-						.fromUri()
 						.asBitmap()
 						.load(directory.getImages().get(1).getUri())
 						.error(R.drawable.image_selector_load_error)
 						.into(mHolder.imgThumb);
 			} else if (directory.getImages().size() > 0 && !isShowCamera) {
 				Glide.with(context)
-						.fromUri()
+						.asBitmap()
+						.load(directory.getImages().get(0).getUri())
+						.error(R.drawable.image_selector_load_error)
+						.into(mHolder.imgThumb);
+			}else {
+				Glide.with(context)
 						.asBitmap()
 						.load(directory.getImages().get(0).getUri())
 						.error(R.drawable.image_selector_load_error)
@@ -530,10 +629,12 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 		class ViewHolder {
 			ImageView imgThumb;
 			TextView txtDirect;
+			TextView txtDirectNum;
 
 			ViewHolder(View itemView) {
 				this.imgThumb = (ImageView) itemView.findViewById(R.id.image_selector_dir_item_thumb);
 				this.txtDirect = (TextView) itemView.findViewById(R.id.image_selector_dir_item_dir);
+				this.txtDirectNum = (TextView) itemView.findViewById(R.id.image_selector_dir_item_dir_num);
 			}
 		}
 	}

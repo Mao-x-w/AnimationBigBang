@@ -1,11 +1,14 @@
-apply plugin: 'com.neenbedankt.android-apt'
+//apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     def librariesDependencies=rootProject.ext.librariesDependencies
     //
-    compile librariesDependencies.dagger
+    implementation librariesDependencies.dagger
     //
-    apt librariesDependencies.daggerCompiler
+    kapt librariesDependencies.daggerCompiler
     //
-    compile librariesDependencies.javaxAnnotation
+    implementation librariesDependencies.javaxAnnotation
 }

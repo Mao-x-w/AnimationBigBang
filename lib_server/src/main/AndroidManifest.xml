@@ -1,0 +1,32 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lib_server">
+
+    <application>
+        <service
+            android:name=".TestService"
+            android:process=":test">
+
+            <intent-filter>
+                <action android:name="com.example.lib_server.TestService" />
+            </intent-filter>
+
+        </service>
+
+        <service android:name=".TCPServerService" />
+
+        <service
+            android:name=".BinderPoolService"
+            android:process=":binderPool">
+
+            <intent-filter>
+                <action android:name="com.example.lib_server.BinderPoolService" />
+            </intent-filter>
+
+        </service>
+
+        <provider
+            android:name=".CustomContentProvider"
+            android:authorities="com.example.lib_server.CustomContentProvider"
+            android:process=":provider" />
+    </application>
+</manifest>

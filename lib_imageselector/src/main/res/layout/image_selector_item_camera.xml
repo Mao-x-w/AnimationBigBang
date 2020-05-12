@@ -2,7 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@android:color/white"
+                android:contentDescription="@null"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/size_5"
+    >
 
     <TextView
         android:id="@+id/text"
@@ -12,21 +16,19 @@
         />
 
     <ImageView
-        android:layout_width="@dimen/size_60"
-        android:layout_height="@dimen/size_60"
-        android:layout_alignBottom="@+id/text"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@null"
-        android:src="@drawable/image_selector_camera"
+        android:layout_width="@dimen/size_40"
+        android:layout_height="@dimen/size_40"
+        android:layout_centerInParent="true"
+        android:src="@drawable/draw_vector_camera_image_selector_grey"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/size_10"
-        android:text="@string/image_selector_camera"
-        android:textColor="@android:color/white"
-        />
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/text"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginTop="@dimen/size_10"-->
+    <!--android:text="@string/image_selector_camera"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--/>-->
 </RelativeLayout>

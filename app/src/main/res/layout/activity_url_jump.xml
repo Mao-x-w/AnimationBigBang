@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="msj://com.jesson.meishi/path/recipe_detail?id=1813472"
+        android:layout_marginTop="@dimen/size_40"
+        />
+
+    <Button
+        android:id="@+id/jump"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jump"
+        />
+
+    <Button
+        android:id="@+id/jump_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="jump_pay"
+        />
+
+</LinearLayout>

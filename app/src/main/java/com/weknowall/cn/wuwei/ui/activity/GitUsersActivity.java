@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.weknowall.app_presenter.entity.general.GitUser;
+import com.weknowall.app_domain.entity.general.GitUser;
 import com.weknowall.app_presenter.presenter.general.GitUsersPresenter;
 import com.weknowall.app_presenter.view.IGitUsersView;
 import com.weknowall.cn.wuwei.R;

@@ -21,11 +21,26 @@
         <item name="android:textColorPrimary">@color/color_grey_333333</item>
         <!--hint时字体的颜色-->
         <item name="android:textColorHint">@color/color_grey_999999</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+
     </style>
 
     <!-- application默认主题 -->
     <style name="LaoMao.Theme.Base" parent="@style/LaoMao.Theme">
 
+    </style>
+
+    <style name="LaoMao.Theme.SceneAnimation">
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowReturnTransition">@android:transition/fade</item>
+        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementReturnTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+    </style>
+
+    <style name="LaoMao.Theme.Main">
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
 

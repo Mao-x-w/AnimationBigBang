@@ -10,30 +10,27 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
-import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.UnitTransformation;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.target.ViewTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.weknowall.app_common.encode.MD5;
 import com.weknowall.app_common.utils.DeviceHelper;
-import com.weknowall.app_presenter.entity.general.Image;
+import com.weknowall.app_domain.entity.general.Image;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -204,9 +201,7 @@ public class ImageLoader {
 		final Image.Source source = imageModel.getSource() == null ? Image.Source.Net : Image.Source.File;
 		String url = imageModel.getSource() == Image.Source.Net ? options.scale == Options.Scale.Normal ? imageModel.getUrl() : imageModel.getThumbNailUrl() : imageModel
 				.getUrl();
-		if (!url.contains("http")){
-			url="https://www.weknowall.cn"+url;
-		}
+
 		getGenericRequestBuilder(getContext(object), url, source, getRequestManager(object), options).into(imageView);
 	}
 
@@ -238,7 +233,7 @@ public class ImageLoader {
 	 * @param options   options
 	 */
 	public static void displayCircle(Object object, String url, ImageView imageView, Options options) {
-		display(object, url, imageView, options.transform(new CropCircleTransformation(getBitmapPool(object))).centerCrop());
+		display(object, url, imageView, options.transform(new CircleCrop()));
 	}
 
 	/**
@@ -251,7 +246,7 @@ public class ImageLoader {
 
 	public static void displayRound(Object object, String url, ImageView imageView, int radius, Options options) {
 		BitmapPool pool = getBitmapPool(object);
-		display(object, url, imageView, options.transform(new CenterCrop(pool), new RoundedCornersTransformation(pool, radius, 0)));
+		display(object, url, imageView, options.transform(new CenterCrop(), new RoundedCornersTransformation(radius, 0)));
 	}
 
 	/**
@@ -313,17 +308,17 @@ public class ImageLoader {
 					Image.Source source = image == null ? Image.Source.Net : image.getSource();
 					String url = image == null ? "" : image.getUrl();
 					Target target = new SimpleTarget<Bitmap>() {
-						@Override
-						public void onLoadFailed(Exception e, Drawable errorDrawable) {
-							sb.onError(e);
-						}
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            sb.onNext(resource);
+                            sb.onCompleted();
+                        }
 
-						@Override
-						public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-							sb.onNext(resource);
-							sb.onCompleted();
-						}
-					};
+                        @Override
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                            sb.onError(new Throwable("图片加载失败"));
+                        }
+                    };
 					getGenericRequestBuilder(getContext(_content), url, source, getRequestManager(_content), options).into(target);
 				}
 			}
@@ -343,7 +338,7 @@ public class ImageLoader {
 	public static Observable<String> download(Context context, String url, String saveDir) {
 		return Observable.<String>create(sb -> {
 			try {
-				Bitmap b = Glide.with(context).load(url).asBitmap().into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
+				Bitmap b = GlideApp.with(context).asBitmap().load(url).into(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).get();
 				File dir = new File(saveDir);
 				if (!dir.exists()) {
 					dir.mkdirs();
@@ -372,34 +367,25 @@ public class ImageLoader {
 	}
 
 
-	static GenericRequestBuilder getGenericRequestBuilder(Context context, String url, Image.Source source, RequestManager manager, Options options) {
+	static GlideRequest<Drawable> getGenericRequestBuilder(Context context, String url, Image.Source source, GlideRequests manager, Options options) {
 		/** 非空判断 */
 		if (TextUtils.isEmpty(url)) {
 			url = "";
 		}
-		DrawableTypeRequest request = (source == null || source == Image.Source.Net) ? manager.load(url) : manager.load(new File(url));
-		if (options.centerCrop) {
-			request.bitmapTransform(new CenterCrop(context));
-			//			request.centerCrop();
-		}
-		if (options.fitCenter) {
-			//			request.fitCenter();
-			request.bitmapTransform(new FitCenter(context));
-		}
+        GlideRequest<Drawable> request = (source == null || source == Image.Source.Net) ? manager.load(url) : manager.load(new File(url));
+
 		if (options.loadingRes != 0) {
 			request.placeholder(options.loadingRes);
 		}
 		if (options.errorRes != 0) {
 			request.error(options.errorRes);
 		}
-		if (options.animRes != 0) {
-			request.animate(options.animRes);
-		}
+
+		BitmapTransformation transformation = options.fitCenter ? new FitCenter() : new CenterCrop();
 		if (options.transformation == null) {
-			BitmapTransformation transformation = options.fitCenter ? new FitCenter(context) : new CenterCrop(context);
-			request.bitmapTransform(options.TRANSFORM_DEFAULT, transformation);
+			request.transform(options.TRANSFORM_DEFAULT, transformation);
 		} else {
-			request.bitmapTransform(options.transformation);
+			request.transform(options.transformation);
 		}
 		return request.diskCacheStrategy(source == Image.Source.Net ? DiskCacheStrategy.ALL : DiskCacheStrategy.NONE).override(options.width, options.height);
 	}
@@ -409,25 +395,25 @@ public class ImageLoader {
 	 * @param context Content Object
 	 * @return RequestManager
 	 */
-	static RequestManager getRequestManager(Object context) {
+	static GlideRequests getRequestManager(Object context) {
 		if (context == null)
 			return null;
 		try {
-			RequestManager manager = null;
+            GlideRequests manager = null;
 			if (context instanceof Context) {
 				if (context instanceof Activity) {
 					if (context instanceof FragmentActivity) {
-						manager = Glide.with((FragmentActivity) context);
+						manager = GlideApp.with((FragmentActivity) context);
 					} else {
-						manager = Glide.with((Activity) context);
+						manager = GlideApp.with((Activity) context);
 					}
 				} else {
-					manager = Glide.with((Context) context);
+					manager = GlideApp.with((Context) context);
 				}
 			} else if (context instanceof android.support.v4.app.Fragment) {
-				manager = Glide.with((android.support.v4.app.Fragment) context);
+				manager = GlideApp.with((android.support.v4.app.Fragment) context);
 			} else if (context instanceof Fragment) {
-				manager = Glide.with((Fragment) context);
+				manager = GlideApp.with((Fragment) context);
 			}
 			return manager;
 		} catch (Exception e) {
@@ -469,77 +455,6 @@ public class ImageLoader {
 			pool = Glide.get(((Fragment) context).getActivity()).getBitmapPool();
 		}
 		return pool;
-	}
-
-	/**
-	 * 用来获取图片Bitmap的target
-	 * @param options 图片
-	 * @return 一个可以加载Bitmap的Target
-	 */
-	static Target<Bitmap> getImageBitmapTarget(final Options options) {
-		return new SimpleTarget<Bitmap>(options.width > 0 ? options.width : SimpleTarget.SIZE_ORIGINAL, options.height > 0 ? options.height : SimpleTarget.SIZE_ORIGINAL) {
-			@Override
-			public void onStart() {
-				if (options.listener != null)
-					options.listener.onStart();
-			}
-
-			@Override
-			public void onLoadFailed(Exception e, Drawable errorDrawable) {
-				if (options.listener != null) {
-					options.listener.onError();
-					options.listener.onFinish();
-				}
-			}
-
-			@Override
-			public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-				if (options.listener != null) {
-					options.listener.onSuccess(resource);
-					options.listener.onFinish();
-				}
-			}
-		};
-	}
-
-	/**
-	 * 用来为ImageView加载图片的target
-	 * @param imgView ImageView
-	 * @param options options
-	 */
-	static ViewTarget<ImageView, Bitmap> getImageLoadingTarget(final ImageView imgView, final Options options) {
-		return new BitmapImageViewTarget(imgView) {
-			@Override
-			public void onStart() {
-				if (options.listener != null)
-					options.listener.onStart();
-			}
-
-			@Override
-			public void onLoadStarted(Drawable placeholder) {
-				if (options.loadingRes != 0)
-					super.onLoadStarted(placeholder);
-			}
-
-			@Override
-			public void onLoadFailed(Exception e, Drawable errorDrawable) {
-				if (options.errorRes != 0)
-					super.onLoadFailed(e, errorDrawable);
-				if (options.listener != null) {
-					options.listener.onError();
-					options.listener.onFinish();
-				}
-			}
-
-			@Override
-			public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-				super.onResourceReady(resource, glideAnimation);
-				if (options.listener != null) {
-					options.listener.onSuccess(resource);
-					options.listener.onFinish();
-				}
-			}
-		};
 	}
 
 	/**

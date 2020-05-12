@@ -1,7 +1,7 @@
 ext {
 
-    androidSupportLibraryVersion = '24.2.0'
-    butterKnifeVersion = "8.4.0"
+    androidSupportLibraryVersion = '27.1.1'
+    butterKnifeVersion = "8.8.1"
     recyclerViewDivider = "1.4.0"
     loggers = '1.15'
     rxAndroidVersion = '1.2.1'
@@ -18,9 +18,9 @@ ext {
     canRefreshVersion = '1.0.5'
     canRefreshRecyclerVersion = '1.0.4'
     jiecaoVideoPlayerVersion = '4.8.1'
-    glideVersion = '3.6.1'
-    glideTransformVersion = '1.0.8'
-    glideOkHttpVersion = '1.4.0@aar'
+    glideVersion = '4.9.0'
+    glideTransformVersion = '4.0.0'
+    glideOkHttpVersion = '4.9.0'
     swipeDeleteRecyclerVersion = '1.0.3'
 
     androidSupportDependencies = [
@@ -52,6 +52,7 @@ ext {
             canRefreshRecycler       : "com.canyinghao:canrecyclerview:${canRefreshRecyclerVersion}",
             jiecaoVideoPlayer        : "fm.jiecao:jiecaovideoplayer:${jiecaoVideoPlayerVersion}",
             glide                    : "com.github.bumptech.glide:glide:${glideVersion}",
+            glide_compiler           : "com.github.bumptech.glide:compiler:${glideVersion}",
             glide_transform          : "jp.wasabeef:glide-transformations:${glideTransformVersion}",
             glide_okhttp             : "com.github.bumptech.glide:okhttp3-integration:${glideOkHttpVersion}",
             swipeDeleteRecycler      : "com.yanzhenjie:recyclerview-swipe:${swipeDeleteRecyclerVersion}",
@@ -60,7 +61,6 @@ ext {
 
             smartTablayout           : "com.ogaclejapan.smarttablayout:library:1.6.1@aar",
             smartTablayoutUtilV4     : "com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar",
-            smartTablayoutUtilV13    : 'com.ogaclejapan.smarttablayout:utils-v13:1.6.1@aar'
     ]
 
 }

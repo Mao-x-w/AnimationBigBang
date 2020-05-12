@@ -1,0 +1,3 @@
+#com.laomao.apt_compiler.BuilderProcessor
+#com.laomao.apt_compiler.BindViewProcessor
+com.laomao.apt_compiler.CustomBindViewProcessor

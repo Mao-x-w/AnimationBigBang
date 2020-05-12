@@ -1,0 +1,12 @@
+//apply plugin: 'android-apt'   for gradle version < 2.2.0
+//apply plugin: 'android-apt'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    def librariesDependencies=rootProject.ext.librariesDependencies
+    implementation librariesDependencies.butterKnife
+    kapt librariesDependencies.butterKnife_compiler
+//    annotationProcessor trustyDependencies.butterKnifeApt
+}

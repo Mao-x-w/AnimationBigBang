@@ -1,6 +1,6 @@
 package com.weknowall.app_domain.repository;
 
-import com.weknowall.app_domain.entity.general.GitUserModel;
+import com.weknowall.app_domain.entity.general.GitUser;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ import rx.Observable;
 
 public interface IGeneralRepository extends IRepository {
 
-    Observable<List<GitUserModel>> getGitUsers();
+    Observable<List<GitUser>> getGitUsers();
 
 }
