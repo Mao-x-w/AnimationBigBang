@@ -286,6 +286,45 @@
                 android:padding="@dimen/size_5"
                 android:text="proxy_demo" />
 
+            <Button
+                android:id="@+id/leak_canary_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="leak_canary_demo" />
+
+            <Button
+                android:id="@+id/custom_view_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="custom_view_demo" />
+
+            <Button
+                android:id="@+id/builder_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="builder_demo" />
+
+            <Button
+                android:id="@+id/serial_demo"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="serial_demo" />
         </LinearLayout>
 
 

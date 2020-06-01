@@ -14,7 +14,7 @@ public class GreenDaoManager {
     private DaoSession mDaoSession;
     private static GreenDaoManager mInstance; //单例
 
-    private GreenDaoManager(){
+    private GreenDaoManager() {
         if (mInstance == null) {
             DaoMaster.DevOpenHelper devOpenHelper = new
                     DaoMaster.DevOpenHelper(Configuration.getInstance().getContext(), Configuration.getInstance().getTemperatureDB(), null);//此处为自己需要处理的表
@@ -38,9 +38,11 @@ public class GreenDaoManager {
     public DaoMaster getMaster() {
         return mDaoMaster;
     }
+
     public DaoSession getSession() {
         return mDaoSession;
     }
+
     public DaoSession getNewSession() {
         mDaoSession = mDaoMaster.newSession();
         return mDaoSession;

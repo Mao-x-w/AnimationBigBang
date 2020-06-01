@@ -1,12 +1,15 @@
 package com.weknowall.cn.wuwei;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.laomao.apt_api.ActivityBuilder;
 import com.weknowall.app_common.Configuration;
 import com.weknowall.app_presenter.dagger.modules.ApplicationModule;
 import com.weknowall.cn.wuwei.dagger.components.ApplicationComponent;
 import com.weknowall.cn.wuwei.dagger.components.DaggerApplicationComponent;
+
+import leakcanary.LeakCanary;
 
 /**
  * User: mao
@@ -26,6 +29,7 @@ public class CustomApplication extends Application {
         Configuration.getInstance().debug(BuildConfig.DEBUG);
 
 //        ActivityBuilder.INSTANCE.init(this);
+
     }
 
     public static CustomApplication getAppInstance(){

@@ -1,5 +1,7 @@
 package com.weknowall.cn.wuwei.utils.rxjava;
 
+import com.weknowall.cn.wuwei.R;
+
 /**
  * User: laomao
  * Date: 2018-11-26
@@ -62,6 +64,46 @@ public class Observable<T> {
                     @Override
                     public void onNext(T t) {
                         subscriber.onNext(transformer.call(t));
+                    }
+                });
+            }
+        });
+    }
+
+    public <R> Observable<R> flatMap(Transformer<T,Observable<R>> transformer){
+        return create(new OnSubscribe<R>() {
+            @Override
+            public void call(Subscriber<? super R> subscriber) {
+                Observable.this.subscribe(new Subscriber<T>() {
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onNext(T t) {
+                        Observable<R> call = transformer.call(t);
+                        call.subscribe(new Subscriber<R>() {
+                            @Override
+                            public void onComplete() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable t) {
+
+                            }
+
+                            @Override
+                            public void onNext(R r) {
+                                subscriber.onNext(r);
+                            }
+                        });
                     }
                 });
             }

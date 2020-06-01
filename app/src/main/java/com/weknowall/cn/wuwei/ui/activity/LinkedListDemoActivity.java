@@ -1,6 +1,7 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 
 import com.weknowall.cn.wuwei.R;
@@ -25,14 +26,22 @@ public class LinkedListDemoActivity extends BaseActivity {
 
 //        systemLinkedList();
 
-        ListNode node = createLinkNode(0, 3);
+//        ListNode node = createLinkNode(0, 3);
 //        ListNode node = createNodeList1(0, 3);
 
-        printNodes(node);
+//        printNodes(node);
+//
+//        ListNode reverseNode = reverseNode(node);
+//        Logs.e("反转后：：：：：：：：：：");
+//        printNodes(reverseNode);
 
-        ListNode reverseNode = reverseNode(node);
-        Logs.e("反转后：：：：：：：：：：");
-        printNodes(reverseNode);
+        ListNode node1 = creatOrderList1();
+        ListNode node2 = creatOrderList2();
+
+        ListNode concatList = concatList(node1, node2);
+
+        printNodes(concatList);
+
     }
 
     private void printNodes(ListNode node) {
@@ -41,6 +50,24 @@ public class LinkedListDemoActivity extends BaseActivity {
             Logs.e("node值：" + temNode.val);
             temNode = temNode.next;
         }
+    }
+
+    private ListNode creatOrderList1() {
+        ListNode node1 = new ListNode(1, null);
+        ListNode node2 = new ListNode(2, null);
+        ListNode node3 = new ListNode(5, null);
+        node1.next = node2;
+        node2.next = node3;
+        return node1;
+    }
+
+    private ListNode creatOrderList2() {
+        ListNode node1 = new ListNode(1, null);
+        ListNode node2 = new ListNode(3, null);
+        ListNode node3 = new ListNode(4, null);
+        node1.next = node2;
+        node2.next = node3;
+        return node1;
     }
 
     private void deleteNode(ListNode node) {
@@ -111,5 +138,28 @@ public class LinkedListDemoActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 合并2个有序列表
+     *
+     * @param node1
+     * @param node2
+     * @return
+     */
+    private ListNode concatList(ListNode node1, ListNode node2) {
+        if (node1 == null)
+            return node2;
+
+        if (node2 == null)
+            return node1;
+
+        if (node1.val < node2.val) {
+            node1.next = concatList(node1.next, node2);
+
+            return node1;
+        } else {
+            node2.next = concatList(node1, node2.next);
+            return node2;
+        }
+    }
 
 }

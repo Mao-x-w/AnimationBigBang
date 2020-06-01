@@ -10,6 +10,7 @@ import com.weknowall.cn.wuwei.utils.PermissionsUtils;
 
 import java.util.concurrent.TimeUnit;
 
+import leakcanary.AppWatcher;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -27,22 +28,23 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(com.weknowall.cn.wuwei.R.layout.activity_splash);
 
-        RxPermissions rxPermissions = new RxPermissions(SplashActivity.this);
+//        RxPermissions rxPermissions = new RxPermissions(SplashActivity.this);
+//
+//        String[] firstLaunchPermission = PermissionsUtils.getOtherLaunchPermission(SplashActivity.this,true);
+//        String[] mustLaunchPermissionNeverAsk = PermissionsUtils.getMustLaunchPermissionNeverAsk((Activity) getContext());
+//        if (firstLaunchPermission.length>0){
+//            rxPermissions.requestEachCombined()
+//                    .subscribe(permission -> {
+//                        toLoadData();
+//                    });
+//        }else if (mustLaunchPermissionNeverAsk.length>0){
+//            PermissionsUtils.openAppInfo(getContext(),getPackageName());
+//            toLoadData();
+//        }else {
+//            toLoadData();
+//        }
 
-        String[] firstLaunchPermission = PermissionsUtils.getOtherLaunchPermission(SplashActivity.this,true);
-        String[] mustLaunchPermissionNeverAsk = PermissionsUtils.getMustLaunchPermissionNeverAsk((Activity) getContext());
-        if (firstLaunchPermission.length>0){
-            rxPermissions.requestEachCombined()
-                    .subscribe(permission -> {
-                        toLoadData();
-                    });
-        }else if (mustLaunchPermissionNeverAsk.length>0){
-            PermissionsUtils.openAppInfo(getContext(),getPackageName());
-            toLoadData();
-        }else {
-            toLoadData();
-        }
-
+        toLoadData();
     }
 
     private void toLoadData() {

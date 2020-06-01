@@ -1,18 +1,17 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
 import com.weknowall.cn.wuwei.R;
+import com.weknowall.cn.wuwei.model.User;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
-import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityA;
 import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityB;
-import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityC;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +34,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
     }
 
     @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete, R.id.main_bezier_curve
@@ -43,7 +41,8 @@ public class MainActivity extends BaseActivity {
             , R.id.thread_communicate, R.id.intent_service_demo, R.id.rxjava_demo, R.id.synchronized_demo
             , R.id.round_viewGroup, R.id.douyin, R.id.transition_animation, R.id.hot_fix, R.id.url_jump
             , R.id.apt_demo, R.id.recycler_view_pager, R.id.kotlin_demo, R.id.launch_mode_demo, R.id.ipc_demo
-            , R.id.open_vc, R.id.big_img, R.id.linked_list_demo, R.id.sort_demo, R.id.large_img_demo, R.id.proxy_demo})
+            , R.id.open_vc, R.id.big_img, R.id.linked_list_demo, R.id.sort_demo, R.id.large_img_demo
+            , R.id.proxy_demo, R.id.leak_canary_demo, R.id.custom_view_demo, R.id.builder_demo,R.id.serial_demo})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -131,6 +130,23 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.proxy_demo:
                 startActivity(ProxyActivity.class);
+                break;
+            case R.id.leak_canary_demo:
+                startActivity(LeakCanaryActivity.class);
+                break;
+            case R.id.custom_view_demo:
+                startActivity(CustomViewDemoActivity.class);
+                break;
+            case R.id.builder_demo:
+                startActivity(BuilderDemoActivity.class);
+                break;
+            case R.id.serial_demo:
+                HashMap<Integer,User> hashMap=new HashMap<>();
+                User user = new User();
+                user.setUserName("李四");
+                hashMap.put(1,user);
+                byte[] bytes=new byte[800*1024];
+                startActivity(new Intent(getContext(),SerializeDemoActivity.class).putExtra("map",hashMap).putExtra("byte",bytes));
                 break;
         }
     }

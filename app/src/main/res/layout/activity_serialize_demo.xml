@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/size_27">
+
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_60"
+        android:layout_marginLeft="@dimen/size_15"
+        android:layout_marginTop="@dimen/size_15"
+        android:background="@drawable/draw_shape_round_rectangle_white_solid"
+        android:padding="@dimen/size_5"
+        android:text="存数据"
+        />
+
+    <Button
+        android:id="@+id/read"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_60"
+        android:layout_marginLeft="@dimen/size_15"
+        android:layout_marginTop="@dimen/size_15"
+        android:background="@drawable/draw_shape_round_rectangle_white_solid"
+        android:padding="@dimen/size_5"
+        android:text="读数据"
+        app:layout_constraintTop_toBottomOf="@+id/save"
+        />
+
+</android.support.constraint.ConstraintLayout>

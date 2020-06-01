@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <com.weknowall.cn.wuwei.widget.custom.PieView
+        android:id="@+id/pie_view"
+        android:layout_width="300dp"
+        android:layout_height="300dp" />
+
+    <com.weknowall.cn.wuwei.widget.custom.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="哈哈哈"
+            android:textColor="#ff4c39"
+            android:background="#000000"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="哈哈哈"
+            android:textColor="#ff4c39"
+            android:background="#000000"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="哈哈哈11"
+            android:textColor="#ff4c39"
+            android:background="#000000"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="哈哈哈2222"
+            android:textColor="#ff4c39"
+            android:background="#000000"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="哈哈哈33333"
+            android:textColor="#ff4c39"
+            android:background="#000000"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="哈哈哈44444444"
+            android:textColor="#ff4c39"
+            android:background="#000000"
+            android:maxLines="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            />
+
+    </com.weknowall.cn.wuwei.widget.custom.FlowLayout>
+
+</LinearLayout>
