@@ -14,6 +14,7 @@ import com.weknowall.app_presenter.view.ILoadingView;
 import com.weknowall.cn.wuwei.CustomApplication;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.dagger.components.ApplicationComponent;
+import com.weknowall.cn.wuwei.utils.Logs;
 import com.weknowall.cn.wuwei.utils.StatusBarUtils;
 import com.weknowall.cn.wuwei.utils.UiHelper;
 
@@ -37,6 +38,29 @@ public class BaseActivity extends AppCompatActivity implements ILoadingView{
         startActivity(new Intent(getContext(),clazz));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Logs.d("BaseActivity:::::onStart()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Logs.d("BaseActivity:::::onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Logs.d("BaseActivity:::::onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logs.d("BaseActivity:::::onStop()");
+    }
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {

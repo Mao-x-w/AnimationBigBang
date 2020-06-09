@@ -86,14 +86,14 @@ public class SortDemoActivity extends BaseActivity {
         int start = 0;
         int end = arr.length - 1;
 
-        while (start < end) {
+        while (start <= end) {
             int mid = (start + end) / 2;
             if (arr[mid] == num) {
                 return mid;
             } else if (arr[mid] < num) {
-                start = mid;
+                start = mid + 1;
             } else if (arr[mid] > num) {
-                end = mid;
+                end = mid - 1;
             }
         }
         return -1;

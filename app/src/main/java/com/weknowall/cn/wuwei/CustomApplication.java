@@ -2,12 +2,14 @@ package com.weknowall.cn.wuwei;
 
 import android.app.Application;
 import android.content.Context;
+import android.widget.Toast;
 
 import com.laomao.apt_api.ActivityBuilder;
 import com.weknowall.app_common.Configuration;
 import com.weknowall.app_presenter.dagger.modules.ApplicationModule;
 import com.weknowall.cn.wuwei.dagger.components.ApplicationComponent;
 import com.weknowall.cn.wuwei.dagger.components.DaggerApplicationComponent;
+import com.weknowall.cn.wuwei.utils.AppFrontBack.AppFrontBackHelper;
 
 import leakcanary.LeakCanary;
 
@@ -29,6 +31,19 @@ public class CustomApplication extends Application {
         Configuration.getInstance().debug(BuildConfig.DEBUG);
 
 //        ActivityBuilder.INSTANCE.init(this);
+
+        AppFrontBackHelper helper=new AppFrontBackHelper();
+        helper.register(this, new AppFrontBackHelper.OnAppStatusListener() {
+            @Override
+            public void onFront() {
+                Toast.makeText(CustomApplication.this, "前台", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onBack() {
+                Toast.makeText(CustomApplication.this, "后台", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
