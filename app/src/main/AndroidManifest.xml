@@ -28,14 +28,13 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/LaoMao.Theme"
-        >
+        android:theme="@style/LaoMao.Theme">
         <activity android:name=".ui.activity.KotlinDemoActivity"></activity>
         <activity
             android:name=".ui.SplashActivity"
             android:launchMode="standard"
             android:screenOrientation="portrait"
-            android:theme="@style/LaoMao.Theme.Base.FullScreen">
+            android:theme="@style/LaoMao.Theme.Base.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -90,18 +89,15 @@
 
         <activity
             android:name=".ui.activity.launchMode.ActivityA"
-            android:launchMode="standard"
-            />
+            android:launchMode="standard" />
 
         <activity
             android:name=".ui.activity.launchMode.ActivityB"
-            android:launchMode="singleInstance"
-            />
+            android:launchMode="singleInstance" />
 
         <activity
             android:name=".ui.activity.launchMode.ActivityC"
-            android:launchMode="standard"
-            />
+            android:launchMode="standard" />
         <activity android:name=".ui.activity.IpcDemoActivity" />
         <activity android:name=".ui.activity.OpenvcDemoActivity" />
 
@@ -110,8 +106,7 @@
         <activity
             android:name=".utils.image.ImagePickerActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.activity.BigImageActivity" />
         <activity android:name=".ui.activity.LinkedListDemoActivity" />
         <activity android:name=".ui.activity.SortDemoActivity" />
@@ -121,6 +116,16 @@
         <activity android:name=".ui.activity.CustomViewDemoActivity" />
         <activity android:name=".ui.activity.BuilderDemoActivity" />
         <activity android:name=".ui.activity.SerializeDemoActivity" />
+        <activity android:name=".ui.activity.AndroidQDemoActivity" />
+
+        <activity
+            android:name=".ui.activity.TransparentActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Transparent" />
+
+        <activity android:name=".ui.activity.SAFDemoActivity" />
+        <activity android:name=".ui.activity.AnimateDemoActivity" />
+        <activity android:name=".ui.activity.ARouterActivityA" />
 
     </application>
 

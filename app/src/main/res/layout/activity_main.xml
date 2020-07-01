@@ -266,6 +266,7 @@
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
                 android:padding="@dimen/size_5"
                 android:text="sort_demo" />
+
             <Button
                 android:id="@+id/large_img_demo"
                 android:layout_width="wrap_content"
@@ -325,6 +326,66 @@
                 android:background="@drawable/draw_shape_round_rectangle_white_solid"
                 android:padding="@dimen/size_5"
                 android:text="serial_demo" />
+
+            <Button
+                android:id="@+id/android_q"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="android10" />
+
+            <Button
+                android:id="@+id/transparent_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="透明Activity" />
+
+            <Button
+                android:id="@+id/saf"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="SAF" />
+
+            <Button
+                android:id="@+id/test_animate"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="test_animate" />
+
+            <Button
+                android:id="@+id/arouter_jump"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="arouter_jump" />
+
+            <Button
+                android:id="@+id/arouter_jump_inner_app"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_60"
+                android:layout_marginLeft="@dimen/size_15"
+                android:layout_marginTop="@dimen/size_15"
+                android:background="@drawable/draw_shape_round_rectangle_white_solid"
+                android:padding="@dimen/size_5"
+                android:text="arouter应用内跳转" />
         </LinearLayout>
 
 
@@ -335,11 +396,10 @@
         android:id="@+id/main_uri_scheme"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/size_60"
-        android:padding="@dimen/size_5"
         android:layout_marginLeft="@dimen/size_15"
         android:layout_marginTop="@dimen/size_15"
-        android:text="app跳转测试"
         android:background="@drawable/draw_shape_round_rectangle_white_solid"
-        />
+        android:padding="@dimen/size_5"
+        android:text="app跳转测试" />
 
 </LinearLayout>

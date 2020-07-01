@@ -4,6 +4,8 @@ import com.weknowall.cn.wuwei.algorithm.model.Son;
 import com.weknowall.cn.wuwei.utils.rxjava.Observable;
 import com.weknowall.cn.wuwei.utils.rxjava.Subscriber;
 
+import java.util.Stack;
+
 import rx.Observer;
 import rx.functions.Func1;
 
@@ -18,7 +20,19 @@ public class Test {
 //        Son son=new Son("儿子");
 
 //        observableTest();
-        rxObservableTest();
+//        rxObservableTest();
+
+    }
+
+    public static String reverString1(String value){
+        char[] datas=value.toCharArray();
+
+        Stack s=new Stack();
+        for(char c:datas){
+            s.push(c);
+        }
+
+        return (String)s.pop();
     }
 
     private static void rxObservableTest() {

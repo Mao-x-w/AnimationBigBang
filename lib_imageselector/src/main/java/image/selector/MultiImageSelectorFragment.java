@@ -267,6 +267,19 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 
 	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		RxPermissions rxPermissions = new RxPermissions(this);
+		rxPermissions.request(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE)
+				.subscribe(new Consumer<Boolean>() {
+					@Override
+					public void accept(Boolean aBoolean) throws Exception {
+						if (aBoolean){
+							loadData();
+						}
+					}
+				});
+	}
+
+	private void loadData() {
 		mRecycler.post(new Runnable() {
 			@Override
 			public void run() {

@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 
+import com.alibaba.android.arouter.launcher.ARouter;
+import com.example.lib_arouter_test.ARouterTestJumpActivity;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.model.User;
+import com.weknowall.cn.wuwei.model.User2;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityB;
 
@@ -16,6 +20,9 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.FormBody;
+import okhttp3.Headers;
+
 
 /**
  * User: laomao
@@ -42,7 +49,9 @@ public class MainActivity extends BaseActivity {
             , R.id.round_viewGroup, R.id.douyin, R.id.transition_animation, R.id.hot_fix, R.id.url_jump
             , R.id.apt_demo, R.id.recycler_view_pager, R.id.kotlin_demo, R.id.launch_mode_demo, R.id.ipc_demo
             , R.id.open_vc, R.id.big_img, R.id.linked_list_demo, R.id.sort_demo, R.id.large_img_demo
-            , R.id.proxy_demo, R.id.leak_canary_demo, R.id.custom_view_demo, R.id.builder_demo,R.id.serial_demo})
+            , R.id.proxy_demo, R.id.leak_canary_demo, R.id.custom_view_demo, R.id.builder_demo
+            , R.id.serial_demo, R.id.android_q, R.id.saf, R.id.transparent_activity, R.id.test_animate
+            , R.id.arouter_jump, R.id.arouter_jump_inner_app})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.main_mvp_test:
@@ -141,12 +150,30 @@ public class MainActivity extends BaseActivity {
                 startActivity(BuilderDemoActivity.class);
                 break;
             case R.id.serial_demo:
-                HashMap<Integer,User> hashMap=new HashMap<>();
+                HashMap<Integer, User> hashMap = new HashMap<>();
                 User user = new User();
                 user.setUserName("李四");
-                hashMap.put(1,user);
-                byte[] bytes=new byte[800*1024];
-                startActivity(new Intent(getContext(),SerializeDemoActivity.class).putExtra("map",hashMap).putExtra("byte",bytes));
+                hashMap.put(1, user);
+                User2 user2 = new User2();
+                startActivity(new Intent(getContext(), SerializeDemoActivity.class).putExtra("map", hashMap).putExtra("byte", user2));
+                break;
+            case R.id.android_q:
+                startActivity(AndroidQDemoActivity.class);
+                break;
+            case R.id.transparent_activity:
+                startActivity(TransparentActivity.class);
+                break;
+            case R.id.saf:
+                startActivity(SAFDemoActivity.class);
+                break;
+            case R.id.test_animate:
+                startActivity(AnimateDemoActivity.class);
+                break;
+            case R.id.arouter_jump:
+                ARouter.getInstance().build("/test/testjump").navigation();
+                break;
+            case R.id.arouter_jump_inner_app:
+                ARouter.getInstance().build("/app/activitya").navigation();
                 break;
         }
     }

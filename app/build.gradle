@@ -9,6 +9,7 @@ apply from: '../build-tools/ds-butter-knife.gradle'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.alibaba.arouter'
 
 buildscript {
     repositories {
@@ -43,6 +44,13 @@ android {
         signingConfig signingConfigs.config
 
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+
     }
 
     buildTypes {
@@ -80,6 +88,8 @@ dependencies {
 
     implementation project(':lib_server')
     implementation project(':openCVLibrary3410')
+    implementation project(':lib_arouter')
+    implementation project(':lib_arouter_test')
 
     def androidSupportDependencies = rootProject.ext.androidSupportDependencies
     def librariesDependencies = rootProject.ext.librariesDependencies
@@ -124,6 +134,8 @@ dependencies {
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.3'
+
+    kapt 'com.alibaba:arouter-compiler:1.2.0'
 }
 
 

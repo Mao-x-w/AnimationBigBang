@@ -1,0 +1,10 @@
+apply plugin: 'com.android.library'
+
+apply from: '../build-tools/app-config-android.gradle'
+apply from: '../build-tools/ds-test.gradle'
+
+dependencies {
+    api project(path: ':app_common')
+    implementation 'com.google.code.gson:gson:2.7'
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+}

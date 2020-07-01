@@ -26,6 +26,15 @@
 
     </style>
 
+    <style name="Theme.Transparent" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
     <!-- application默认主题 -->
     <style name="LaoMao.Theme.Base" parent="@style/LaoMao.Theme">
 
@@ -104,7 +113,16 @@
 
     <!-- 全屏 -->
     <style name="LaoMao.Theme.Base.FullScreen">
+        <item name="android:windowIsTranslucent">false</item>
+
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="LaoMao.Theme.Base.SplashTheme">
+        <!-- 欢迎页背景引用刚才写好的 -->
+        <item name="android:windowBackground">@drawable/draw_layer_list_splash</item>
+        <item name="android:windowFullscreen">true</item>
+         <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="login">
