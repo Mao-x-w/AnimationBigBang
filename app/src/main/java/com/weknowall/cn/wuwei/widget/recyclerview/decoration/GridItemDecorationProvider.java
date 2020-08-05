@@ -2,7 +2,7 @@ package com.weknowall.cn.wuwei.widget.recyclerview.decoration;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.yqritc.recyclerviewflexibledivider.FlexibleDividerDecoration;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;

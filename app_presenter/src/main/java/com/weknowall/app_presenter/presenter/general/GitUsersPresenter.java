@@ -11,7 +11,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
+import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
+
 
 /**
  * User: laomao

@@ -1,10 +1,8 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.weknowall.cn.wuwei.R;

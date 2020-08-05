@@ -2,12 +2,11 @@ package com.weknowall.cn.wuwei.ui.activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.widget.dialog.MessageDialog;
-import com.weknowall.cn.wuwei.widget.dialog.MessageDialog1;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;

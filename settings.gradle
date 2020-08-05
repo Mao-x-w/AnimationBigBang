@@ -1,4 +1,6 @@
-include ':app', ':jni', ':apt_annotation', ':apt_compiler', ':apt_api', ':lib_server', ':lib_httpclient', ':lib_arouter', ':lib_arouter_test',
+include ':app',
+//        ':jni',
+        ':apt_annotation', ':apt_compiler', ':apt_api', ':lib_server', ':lib_httpclient', ':lib_arouter', ':lib_arouter_test',
         ':app_presenter',
         ':app_data',
         ':app_domain',

@@ -9,10 +9,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -35,7 +35,6 @@ import com.weknowall.app_domain.entity.general.Image;
 import java.io.File;
 import java.io.FileOutputStream;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import rx.Observable;
 import rx.Subscriber;
@@ -410,8 +409,8 @@ public class ImageLoader {
 				} else {
 					manager = GlideApp.with((Context) context);
 				}
-			} else if (context instanceof android.support.v4.app.Fragment) {
-				manager = GlideApp.with((android.support.v4.app.Fragment) context);
+			} else if (context instanceof Fragment) {
+				manager = GlideApp.with((Fragment) context);
 			} else if (context instanceof Fragment) {
 				manager = GlideApp.with((Fragment) context);
 			}
@@ -427,8 +426,8 @@ public class ImageLoader {
 			return null;
 		if (context instanceof Context) {
 			return (Context) context;
-		} else if (context instanceof android.support.v4.app.Fragment) {
-			return ((android.support.v4.app.Fragment) context).getContext();
+		} else if (context instanceof Fragment) {
+			return ((Fragment) context).getContext();
 		} else if (context instanceof Fragment) {
 			return ((Fragment) context).getActivity();
 		}
@@ -449,8 +448,8 @@ public class ImageLoader {
 			} else {
 				pool = Glide.get((Context) context).getBitmapPool();
 			}
-		} else if (context instanceof android.support.v4.app.Fragment) {
-			pool = Glide.get(((android.support.v4.app.Fragment) context).getContext()).getBitmapPool();
+		} else if (context instanceof Fragment) {
+			pool = Glide.get(((Fragment) context).getContext()).getBitmapPool();
 		} else if (context instanceof Fragment) {
 			pool = Glide.get(((Fragment) context).getActivity()).getBitmapPool();
 		}

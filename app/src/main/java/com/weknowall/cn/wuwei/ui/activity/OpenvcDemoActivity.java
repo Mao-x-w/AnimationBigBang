@@ -1,9 +1,8 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -29,9 +28,7 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
-import org.opencv.video.BackgroundSubtractor;
 import org.opencv.video.BackgroundSubtractorKNN;
-import org.opencv.video.BackgroundSubtractorMOG2;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,17 +1,12 @@
 package com.weknowall.cn.wuwei.ui;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.weknowall.cn.wuwei.ui.activity.MainActivity;
-import com.weknowall.cn.wuwei.utils.PermissionsUtils;
 
 import java.util.concurrent.TimeUnit;
 
-import leakcanary.AppWatcher;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;

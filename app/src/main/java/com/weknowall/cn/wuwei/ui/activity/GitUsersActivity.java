@@ -1,9 +1,9 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.weknowall.app_domain.entity.general.GitUser;
 import com.weknowall.app_presenter.presenter.general.GitUsersPresenter;

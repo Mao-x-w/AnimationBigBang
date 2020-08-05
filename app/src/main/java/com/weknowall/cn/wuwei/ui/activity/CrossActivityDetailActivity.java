@@ -1,12 +1,10 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.weknowall.app_common.utils.DeviceHelper;
@@ -14,7 +12,6 @@ import com.weknowall.cn.wuwei.Constants;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.utils.image.GlideApp;
-import com.weknowall.cn.wuwei.widget.image.WebImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

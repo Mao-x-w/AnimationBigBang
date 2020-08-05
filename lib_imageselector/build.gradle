@@ -11,6 +11,8 @@ dependencies {
 
     def trustyDependencies = rootProject.ext.librariesDependencies
     implementation trustyDependencies.glide
+    implementation librariesDependencies.rxAndroid
+    implementation librariesDependencies.rxJava
 
     def supportDependencies = rootProject.ext.androidSupportDependencies
     implementation supportDependencies.recyclerView

@@ -1,13 +1,12 @@
 package com.weknowall.cn.wuwei.ui.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.weknowall.cn.wuwei.R;
-import com.weknowall.cn.wuwei.ui.activity.SwipeDeleteRecyclerViewActivtiy;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuAdapter;
 
 import java.util.List;

@@ -12,16 +12,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.FileProvider;
-import android.support.v4.content.Loader;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.ListPopupWindow;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.loader.app.LoaderManager.LoaderCallbacks;
+import androidx.loader.content.CursorLoader;
+import androidx.core.content.FileProvider;
+import androidx.loader.content.Loader;
+import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.appcompat.widget.ListPopupWindow;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -562,7 +562,7 @@ public class MultiImageSelectorFragment extends Fragment implements OnClickListe
 			}
 		}
 
-		class ImageHolder extends android.support.v7.widget.RecyclerView.ViewHolder {
+		class ImageHolder extends RecyclerView.ViewHolder {
 			boolean isCamera = false;
 			ImageView img;
 			ImageView videoDisplayIcon;

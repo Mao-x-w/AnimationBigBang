@@ -3,10 +3,10 @@ package com.weknowall.cn.wuwei.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.weknowall.app_common.utils.DeviceHelper;
 import com.weknowall.app_presenter.dagger.modules.ActivityModule;

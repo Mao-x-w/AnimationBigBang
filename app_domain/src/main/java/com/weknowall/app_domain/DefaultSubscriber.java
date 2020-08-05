@@ -1,6 +1,7 @@
 package com.weknowall.app_domain;
 
-import rx.Subscriber;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * User: laomao
@@ -8,14 +9,20 @@ import rx.Subscriber;
  * Time: 18-10
  */
 
-public class DefaultSubscriber<T> extends Subscriber<T> {
+public class DefaultSubscriber<T> implements Observer<T> {
+
     @Override
-    public void onCompleted() {
+    public void onError(Throwable e) {
 
     }
 
     @Override
-    public void onError(Throwable e) {
+    public void onComplete() {
+
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
 
     }
 

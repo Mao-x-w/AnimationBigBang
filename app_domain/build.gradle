@@ -7,6 +7,7 @@ dependencies {
     def librariesDependencies=rootProject.ext.librariesDependencies
 
     implementation librariesDependencies.logger
+    implementation librariesDependencies.rxAndroid
     implementation librariesDependencies.rxJava
     implementation librariesDependencies.javaxInject
 }

@@ -3,7 +3,7 @@ package com.weknowall.cn.wuwei.ui.activity;
 import android.Manifest;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.weknowall.app_common.utils.DeviceHelper;

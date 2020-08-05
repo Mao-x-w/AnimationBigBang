@@ -2,7 +2,7 @@ package com.weknowall.cn.wuwei.ui.activity;
 
 import android.annotation.TargetApi;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;

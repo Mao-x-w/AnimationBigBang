@@ -4,12 +4,14 @@ import com.weknowall.app_data.store.DataStoreFactoryImpl;
 import com.weknowall.app_data.store.IDataStore;
 import com.weknowall.app_domain.executor.ThreadExecutor;
 
+import org.reactivestreams.Subscriber;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * User: laomao
@@ -53,12 +55,12 @@ public class RepositoryImpl<D extends IDataStore,F extends DataStoreFactoryImpl<
      * @return
      */
     <T> Observable<T> getCacheThenApi(Observable<T> cache, Observable<T> api){
-        return Observable.create(sb -> {
+        return Observable.create(emitter -> {
             cache.subscribe(t -> {
-                sb.onNext(t);
-                executeApi(sb, api);
+                emitter.onNext(t);
+                executeApi(emitter, api);
             },e -> {
-                executeApi(sb, api);
+                executeApi(emitter, api);
             });
         });
     }
@@ -69,8 +71,9 @@ public class RepositoryImpl<D extends IDataStore,F extends DataStoreFactoryImpl<
      * @param api
      * @param <T>
      */
-    private <T> void executeApi(Subscriber<? super T> sb, Observable<T> api) {
+    private <T> void executeApi(ObservableEmitter<T> emitter, Observable<T> api) {
         api.subscribeOn(Schedulers.from(threadExecutor))
-                .subscribe(sb::onNext,sb::onError,sb::onCompleted);
+                .subscribe(emitter::onNext,emitter::onError,emitter::onComplete);
     }
+
 }

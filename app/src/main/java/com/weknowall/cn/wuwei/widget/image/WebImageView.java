@@ -2,8 +2,8 @@ package com.weknowall.cn.wuwei.widget.image;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.DrawableRes;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 

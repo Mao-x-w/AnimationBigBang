@@ -1,6 +1,6 @@
 package com.weknowall.app_presenter.view;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
 
 /**
  * User: laomao
@@ -27,7 +27,7 @@ public interface ILoadingView extends IResultView{
 
     /**
      * 显示当前内容
-     * @param resId 内容的ResourceId{@link android.support.annotation.StringRes}
+     * @param resId 内容的ResourceId{@link androidx.annotation.StringRes}
      */
     void showMessage(@StringRes int resId);
 }

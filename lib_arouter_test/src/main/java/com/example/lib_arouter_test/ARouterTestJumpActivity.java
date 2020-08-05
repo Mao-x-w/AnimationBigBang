@@ -1,10 +1,12 @@
 package com.example.lib_arouter_test;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 
@@ -16,10 +18,15 @@ import com.alibaba.android.arouter.launcher.ARouter;
 @Route(path = "/test/testjump")
 public class ARouterTestJumpActivity extends AppCompatActivity {
 
+    @Autowired(name = "key1")
+    int key1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_arouter_jump);
+
+        ARouter.getInstance().inject(this);
 
         findViewById(R.id.jump).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,5 +34,7 @@ public class ARouterTestJumpActivity extends AppCompatActivity {
                 ARouter.getInstance().build("/app/activitya").navigation();
             }
         });
+
+        Toast.makeText(this, key1+"啊啊啊", Toast.LENGTH_SHORT).show();
     }
 }

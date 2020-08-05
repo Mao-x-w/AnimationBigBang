@@ -4,7 +4,8 @@ import com.weknowall.app_domain.entity.general.GitUser;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * User: laomao

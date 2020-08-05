@@ -4,7 +4,7 @@
                 android:layout_height="fill_parent"
                 android:orientation="horizontal">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -64,7 +64,7 @@
                 android:visibility="gone"/>
         </RelativeLayout>
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
 
     <image.selector.crop.CropPhotoView

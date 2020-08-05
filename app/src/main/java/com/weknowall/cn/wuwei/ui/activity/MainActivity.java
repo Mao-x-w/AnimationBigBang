@@ -2,13 +2,11 @@ package com.weknowall.cn.wuwei.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
-import android.widget.SeekBar;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.example.lib_arouter_test.ARouterTestJumpActivity;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.model.User;
 import com.weknowall.cn.wuwei.model.User2;
@@ -20,8 +18,6 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.FormBody;
-import okhttp3.Headers;
 
 
 /**
@@ -106,7 +102,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(RecyclerViewPagerDemo.class);
                 break;
             case R.id.kotlin_demo:
-//                startActivity(KotlinDemoActivity.class);
+                startActivity(KotlinDemoActivity.class);
 //                KotlinDemoActivityBuilder.start(getContext(),20,"10000","张三");
                 break;
             case R.id.apt_demo:
@@ -170,7 +166,9 @@ public class MainActivity extends BaseActivity {
                 startActivity(AnimateDemoActivity.class);
                 break;
             case R.id.arouter_jump:
-                ARouter.getInstance().build("/test/testjump").navigation();
+                ARouter.getInstance().build("/test/testjump")
+                        .withInt("key1",33)
+                        .navigation();
                 break;
             case R.id.arouter_jump_inner_app:
                 ARouter.getInstance().build("/app/activitya").navigation();

@@ -2,6 +2,8 @@ android {
     def buildConfig = rootProject.extensions.getByName("ext")
 
     compileSdkVersion buildConfig.getAt("androidCompileSdkVersion")
+    buildToolsVersion buildConfig["androidBuildToolsVersion"]
+
     defaultConfig {
         minSdkVersion buildConfig.getAt("androidMinSdkVersion")
         targetSdkVersion buildConfig.getAt("androidTargetSdkVersion")

@@ -1,10 +1,10 @@
 package com.weknowall.app_presenter.presenter;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
+import io.reactivex.Observer;
 
 import com.weknowall.app_presenter.view.IResultView;
 
-import rx.Observer;
 
 /**
  * User: laomao
@@ -46,11 +46,8 @@ public abstract class ResultPresenter<RQM,RQ,RPM,RP,V extends IResultView> imple
     }
 
 
-    /**
-     * Observable中调用onCompleted{@link Observer#onCompleted()}
-     */
     @Override
-    public void onCompleted() {
+    public void onComplete() {
         onSuccess();
         onFinish();
     }

@@ -1,16 +1,19 @@
 package com.weknowall.cn.wuwei.widget;
 
 import android.content.Context;
-import android.support.annotation.ColorInt;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.TintTypedArray;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.ColorInt;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.TintTypedArray;
+import androidx.appcompat.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.weknowall.cn.wuwei.R;
 
 /**
  * User: laomao
@@ -36,8 +39,8 @@ public class ToolBar extends Toolbar {
 
     public ToolBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TintTypedArray tintTypedArray=TintTypedArray.obtainStyledAttributes(context,attrs, android.support.v7.appcompat.R.styleable.Toolbar,defStyleAttr,0);
-        mTitleTextAppearance = tintTypedArray.getResourceId(android.support.v7.appcompat.R.styleable.Toolbar_titleTextAppearance, 0);
+        TintTypedArray tintTypedArray=TintTypedArray.obtainStyledAttributes(context,attrs, R.styleable.Toolbar,defStyleAttr,0);
+        mTitleTextAppearance = tintTypedArray.getResourceId(R.styleable.Toolbar_titleTextAppearance, 0);
         tintTypedArray.recycle();
     }
 

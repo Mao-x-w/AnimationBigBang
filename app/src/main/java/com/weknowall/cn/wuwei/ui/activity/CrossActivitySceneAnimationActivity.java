@@ -1,30 +1,19 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.weknowall.app_common.utils.DeviceHelper;
 import com.weknowall.cn.wuwei.Constants;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.utils.image.GlideApp;
 import com.weknowall.cn.wuwei.widget.ToolBar;
-import com.weknowall.cn.wuwei.widget.image.RoundImageView;
-import com.weknowall.cn.wuwei.widget.image.WebImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

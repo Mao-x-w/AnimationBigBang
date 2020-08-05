@@ -1,6 +1,6 @@
 package com.weknowall.app_data.net.api.builder;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.weknowall.app_common.sharedPrefrence.SharePreferencePlus;
 import com.weknowall.app_common.utils.Logs;

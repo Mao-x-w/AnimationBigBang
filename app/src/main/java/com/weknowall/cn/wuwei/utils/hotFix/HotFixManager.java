@@ -2,7 +2,6 @@ package com.weknowall.cn.wuwei.utils.hotFix;
 
 import android.content.Context;
 
-import com.example.jni.JniUtils;
 import com.weknowall.cn.wuwei.utils.Logs;
 
 import java.io.File;
@@ -53,7 +52,7 @@ public class HotFixManager {
                 Class wrongClass = Class.forName(wrongClassName);
                 Method wrongMethod = wrongClass.getMethod(wrongMethodName,method.getParameterTypes());
 
-                JniUtils.replace(wrongMethod,method);
+//                JniUtils.replace(wrongMethod,method);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {

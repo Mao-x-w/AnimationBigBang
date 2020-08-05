@@ -2,18 +2,16 @@ package com.weknowall.cn.wuwei.ui.activity;
 
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.jni.JniUtils;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
-import com.weknowall.cn.wuwei.utils.calculate.Calculater;
 import com.weknowall.cn.wuwei.utils.hotFix.HotFixManager;
 
 import java.io.File;
 
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -29,7 +27,7 @@ public class HotFixDemoActivity extends BaseActivity {
         setContentView(R.layout.activity_hot_fix_demo);
         ButterKnife.bind(this);
 
-        mCalculateResult.setText(JniUtils.getString());
+//        mCalculateResult.setText(JniUtils.getString());
     }
 
     @OnClick({R.id.calculate, R.id.repaire})

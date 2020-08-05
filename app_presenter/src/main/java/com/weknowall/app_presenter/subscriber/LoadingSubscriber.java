@@ -2,7 +2,8 @@ package com.weknowall.app_presenter.subscriber;
 
 import com.weknowall.app_domain.DefaultSubscriber;
 
-import rx.Observer;
+import io.reactivex.Observer;
+
 
 /**
  * User: laomao
@@ -30,7 +31,7 @@ public class LoadingSubscriber<T> extends DefaultSubscriber<T> {
     }
 
     @Override
-    public void onCompleted() {
-        mObserver.onCompleted();
+    public void onComplete() {
+        mObserver.onComplete();
     }
 }

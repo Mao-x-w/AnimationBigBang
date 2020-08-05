@@ -1,10 +1,8 @@
 package com.weknowall.cn.wuwei.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.Engine;
 import com.weknowall.cn.wuwei.R;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 

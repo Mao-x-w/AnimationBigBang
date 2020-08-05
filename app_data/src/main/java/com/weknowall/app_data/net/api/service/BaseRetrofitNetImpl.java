@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 /**
@@ -87,7 +87,7 @@ public class BaseRetrofitNetImpl<T> {
 
     private Retrofit.Builder createDefaultBuilder() {
         return new Retrofit.Builder()
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(FastJsonConverterFactory.create().setParserFeatures(parseFeature))
                 .baseUrl(BuildConfig.HTTP_HOST);
     }

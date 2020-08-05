@@ -1,6 +1,13 @@
 package com.weknowall.app_presenter.presenter;
 
-import android.support.annotation.StringRes;
+import androidx.annotation.StringRes;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.internal.disposables.EmptyDisposable;
+import io.reactivex.schedulers.Schedulers;
+import rx.Subscription;
+import rx.subscriptions.Subscriptions;
 
 import com.weknowall.app_data.exception.HttpResponseException;
 import com.weknowall.app_domain.executor.PostExecutionThread;
@@ -8,11 +15,8 @@ import com.weknowall.app_domain.executor.ThreadExecutor;
 import com.weknowall.app_presenter.subscriber.LoadingSubscriber;
 import com.weknowall.app_presenter.view.ILoadingView;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.Subscriptions;
+import org.reactivestreams.Subscriber;
+
 
 /**
  * User: laomao
@@ -27,7 +31,8 @@ public abstract class LoadingPresenter<R,RQM, RQ, RPM, RP, V extends ILoadingVie
 
     private ThreadExecutor mWorkThread;
     private PostExecutionThread mResultThread;
-    private Subscription mSubscription= Subscriptions.empty();
+    private Disposable mDisposable = EmptyDisposable.INSTANCE;
+//    private Subscription mSubscription= Subscriptions.empty();
 
     public LoadingPresenter(R repository,ThreadExecutor workThread, PostExecutionThread resultThread) {
         super();
@@ -38,16 +43,12 @@ public abstract class LoadingPresenter<R,RQM, RQ, RPM, RP, V extends ILoadingVie
 
     protected abstract Observable<RPM> buildUseCaseObservable(RQM... rqms);
 
-    public void execute(Subscriber<RPM> rpmSubscriber, RQM... rqms){
-        mSubscription = buildUseCaseObservable(rqms)
+    public void execute(Observer<RPM> rpmSubscriber, RQM... rqms){
+        buildUseCaseObservable(rqms)
                 .subscribeOn(Schedulers.from(mWorkThread))
                 .observeOn(mResultThread.getScheduler())
                 .unsubscribeOn(Schedulers.from(mWorkThread))
                 .subscribe(rpmSubscriber);
-    }
-
-    public void unSubscribe(){
-        mSubscription.unsubscribe();
     }
 
     public R getRepository(){
@@ -74,8 +75,8 @@ public abstract class LoadingPresenter<R,RQM, RQ, RPM, RP, V extends ILoadingVie
     }
 
     @Override
-    public void onCompleted() {
-        super.onCompleted();
+    public void onComplete() {
+        super.onComplete();
         hideLoading();
     }
 
@@ -123,4 +124,12 @@ public abstract class LoadingPresenter<R,RQM, RQ, RPM, RP, V extends ILoadingVie
         this.canShowLoading = canShowLoading;
     }
 
+    public void unSubscribe(){
+        mDisposable.dispose();
+    }
+
+    @Override
+    public void onSubscribe(Disposable d) {
+        mDisposable = d;
+    }
 }

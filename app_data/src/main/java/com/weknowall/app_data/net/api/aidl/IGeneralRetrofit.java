@@ -5,8 +5,8 @@ import com.weknowall.app_data.entity.general.GitUserEntity;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
-import rx.Observable;
 
 /**
  * User: laomao

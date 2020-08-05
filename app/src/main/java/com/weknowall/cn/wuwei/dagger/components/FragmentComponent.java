@@ -1,7 +1,7 @@
 package com.weknowall.cn.wuwei.dagger.components;
 
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.weknowall.app_presenter.dagger.modules.FragmentModule;
 import com.weknowall.app_presenter.dagger.scope.PerFragment;
