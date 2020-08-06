@@ -17,6 +17,7 @@ buildscript {
     }
 }
 1
+2
 
 android {
     def buildConfig = rootProject.extensions.getByName("ext")
