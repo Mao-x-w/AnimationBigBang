@@ -16,9 +16,6 @@ buildscript {
         mavenCentral()
     }
 }
-1
-2
-4
 
 android {
     def buildConfig = rootProject.extensions.getByName("ext")
