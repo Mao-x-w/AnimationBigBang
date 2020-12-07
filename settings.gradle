@@ -1,3 +1,4 @@
+include ':lib_javassist_plugin'
 include ':app',
 //        ':jni',
         ':apt_annotation', ':apt_compiler', ':apt_api', ':lib_server', ':lib_httpclient', ':lib_arouter', ':lib_arouter_test',

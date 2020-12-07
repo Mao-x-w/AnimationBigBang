@@ -12,6 +12,7 @@ import com.weknowall.cn.wuwei.model.User;
 import com.weknowall.cn.wuwei.model.User2;
 import com.weknowall.cn.wuwei.ui.BaseActivity;
 import com.weknowall.cn.wuwei.ui.activity.launchMode.ActivityB;
+import com.weknowall.cn.wuwei.utils.Logs;
 
 import java.util.HashMap;
 
@@ -37,6 +38,13 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        findViewById(R.id.open_vc).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logs.d("点击了");
+            }
+        });
     }
 
     @OnClick({R.id.main_mvp_test, R.id.main_swipe_delete, R.id.main_bezier_curve
@@ -119,7 +127,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(IpcDemoActivity.class);
                 break;
             case R.id.open_vc:
-                startActivity(OpenvcDemoActivity.class);
+//                startActivity(OpenvcDemoActivity.class);
                 break;
             case R.id.big_img:
                 startActivity(BigImageActivity.class);

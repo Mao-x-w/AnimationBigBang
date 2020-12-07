@@ -9,6 +9,10 @@ buildscript {
 
     repositories {
         jcenter()
+        // 配置maven的本地仓库地址，这里的repo是在lib_javassist_plugin的build.gradle的uploadArchives中配置的
+        maven {
+            url uri('repo')
+        }
         mavenCentral()
         maven { url "https://jitpack.io" }
         google()
@@ -24,6 +28,8 @@ buildscript {
 
         classpath "com.alibaba:arouter-register:1.0.2"
 
+        // 依赖插件，形式是groupId:artifactId:version
+        classpath 'com.test.plugin:testPlugin:1.0.1'
     }
 
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
@@ -32,6 +38,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        // 配置maven的本地仓库地址，这里的repo是在lib_javassist_plugin的build.gradle的uploadArchives中配置的
+        maven {
+            url uri('repo')
+        }
         mavenCentral()
         maven { url "https://jitpack.io" }
         google()

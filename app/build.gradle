@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.test.plugin'
 //apply plugin: 'android-apt'
 
 apply from: '../build-tools/ds-test.gradle'
@@ -10,12 +10,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.alibaba.arouter'
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
 
 android {
     def buildConfig = rootProject.extensions.getByName("ext")
@@ -85,7 +79,7 @@ dependencies {
     kapt project(':apt_compiler')
 
     implementation project(':lib_server')
-    implementation project(':openCVLibrary3410')
+//    implementation project(':openCVLibrary3410')
     implementation project(':lib_arouter')
     implementation project(':lib_arouter_test')
 
